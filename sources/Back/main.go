@@ -1,20 +1,26 @@
 package main
 
 import (
-	"net/http"
-	"fmt"
+	router "Back-End.clothway/sources"
+	"github.com/gin-gonic/gin"
+	"log"
 )
 
-const port = ":8080"
+func apply_routes(r *gin.Engine) {
 
-func Home(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hello, world")
+	r.GET("/home", router.Handle_home_request)
+	r.GET("/", router.Handle_home_request)
+	r.POST("/login", router.Handle_login_request)
+	r.POST("/register", router.Handle_register_request)
+
 }
 
-
-
 func main() {
-	http.HandleFunc("/", Home)
-
-	http.ListenAndServe(port, nil)
+	gin.SetMode(gin.ReleaseMode)
+	r := gin.Default()
+	apply_routes(r)
+	err := r.Run(":8080")
+	if err != nil {
+		log.Fatal(err)
+	}
 }
