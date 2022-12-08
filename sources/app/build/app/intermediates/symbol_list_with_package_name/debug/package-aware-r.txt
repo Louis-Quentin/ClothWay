@@ -1,4 +1,4 @@
-com.example.app
+com.example.bis
 attr activityAction
 attr activityName
 attr alpha

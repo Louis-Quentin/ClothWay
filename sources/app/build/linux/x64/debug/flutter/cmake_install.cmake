@@ -1,8 +1,8 @@
-# Install script for directory: /home/canardsteak/delivery/tek3/EIP/ClothWay/app/linux/flutter
+# Install script for directory: /home/canardsteak/delivery/tek3/EIP/ClothWay/sources/app/linux/flutter
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/canardsteak/delivery/tek3/EIP/ClothWay/app/build/linux/x64/debug/bundle")
+  set(CMAKE_INSTALL_PREFIX "/home/canardsteak/delivery/tek3/EIP/ClothWay/sources/app/build/linux/x64/debug/bundle")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 

@@ -1,7 +1,7 @@
-app
+bis
 2.18
-file:///home/canardsteak/delivery/tek3/EIP/ClothWay/app/
-file:///home/canardsteak/delivery/tek3/EIP/ClothWay/app/lib/
+file:///home/canardsteak/delivery/tek3/EIP/ClothWay/sources/bis/
+file:///home/canardsteak/delivery/tek3/EIP/ClothWay/sources/bis/lib/
 async
 2.14
 file:///home/canardsteak/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/async-2.9.0/
