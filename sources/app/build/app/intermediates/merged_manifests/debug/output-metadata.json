@@ -4,7 +4,7 @@
     "type": "MERGED_MANIFESTS",
     "kind": "Directory"
   },
-  "applicationId": "com.example.app",
+  "applicationId": "com.example.bis",
   "variantName": "debug",
   "elements": [
     {

@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/home/canardsteak/delivery/tek3/EIP/ClothWay/app/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml",
+            "outputFile": "/home/canardsteak/delivery/tek3/EIP/ClothWay/sources/app/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml",
             "map": [
                 {
                     "source": "/home/canardsteak/.gradle/caches/transforms-3/49bc944d29f70d45aa5add8e43e3247e/transformed/jetified-window-1.0.0-beta04/res/values/values.xml",
@@ -23,7 +23,7 @@
                     }
                 },
                 {
-                    "source": "/home/canardsteak/delivery/tek3/EIP/ClothWay/app/android/app/src/main/res/values/styles.xml",
+                    "source": "/home/canardsteak/delivery/tek3/EIP/ClothWay/sources/app/android/app/src/main/res/values/styles.xml",
                     "from": {
                         "startLines": "3,14",
                         "startColumns": "4,4",
