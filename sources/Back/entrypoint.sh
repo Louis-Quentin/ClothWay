@@ -1,5 +1,7 @@
 #!/bin/bash
-psql -U postgres <<-EOSQL
+echo "test"
+whoami
+psql -U dev_user <<-EOSQL
     CREATE USER docker WITH PASSWORD 'docker';
     CREATE DATABASE pythontest_db;
     GRANT ALL PRIVILEGES ON DATABASE pythontest_db TO docker;
