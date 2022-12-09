@@ -2,14 +2,15 @@ package main
 
 import (
 	"Back-End.clothway/database"
-	"Back-End.clothway/models"
+	"Back-End.clothway/middleware"
 	router "Back-End.clothway/sources"
 	"github.com/gin-gonic/gin"
 	"log"
 )
 
-func apply_routes(r *gin.Engine) {
+func apply_routes(r *gin.Engine, db *database.Database) {
 
+	r.Use(middleware.Link_api_to_db(db))
 	r.GET("/home", router.Handle_home_request)
 	r.GET("/", router.Handle_home_request)
 	r.POST("/login", router.Handle_login_request)
@@ -18,16 +19,15 @@ func apply_routes(r *gin.Engine) {
 }
 
 func main() {
-	gin.SetMode(gin.ReleaseMode)
-	r := gin.Default()
 	var db database.Database
+	gin.SetMode(gin.ReleaseMode)
+	r := gin.New()
+
 	err := db.Init_database()
 	if err != nil {
 		log.Fatal(err)
 	}
-	user_model := models.User{Name: "user"}
-	_ = user_model.Create(db.DB)
-	apply_routes(r)
+	apply_routes(r, &db)
 	err = r.Run(":8080")
 	if err != nil {
 		log.Fatal(err)
