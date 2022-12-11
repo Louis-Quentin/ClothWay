@@ -10,8 +10,8 @@ import (
 )
 
 type User struct {
-	Login    string
-	Password string
+	Login    string `json:"login"`
+	Password string `json:"password"`
 }
 
 type NewUser struct {
@@ -53,6 +53,15 @@ func Handle_register_request(context *gin.Context) {
 		fmt.Println(tmp_user)
 		context.JSON(200, gin.H{"Register": "OK"})
 	}
+}
+
+func Handle_get_user_request(context *gin.Context) {
+	//récuperer proproment l'user
+	var user []User
+	db := context.MustGet("gorm").(gorm.DB)
+	user_find := db.Find(&user)
+	result, _ := json.Marshal(user_find)
+	context.JSON(100, result)
 }
 
 func Handle_login_request(context *gin.Context) {
