@@ -3,6 +3,7 @@ package router
 import (
 	"Back-End.clothway/models"
 	"encoding/json"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 	"io"
@@ -47,6 +48,9 @@ func Handle_register_request(context *gin.Context) {
 		if err != nil {
 			context.JSON(300, gin.H{"Error": "failed to create a new user"})
 		}
+		var tmp_user []User
+		db.Find(&tmp_user)
+		fmt.Println(tmp_user)
 		context.JSON(200, gin.H{"Register": "OK"})
 	}
 }
@@ -62,6 +66,8 @@ func Handle_login_request(context *gin.Context) {
 	} else if user.Password == "" {
 		context.JSON(300, gin.H{"Error": "error no password given"})
 	} else {
+		//db := context.MustGet("gorm").(gorm.DB)
+		//db.Get("")
 		context.JSON(200, gin.H{"Login": "OK"})
 	}
 }
