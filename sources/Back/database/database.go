@@ -2,6 +2,7 @@ package database
 
 import (
 	"Back-End.clothway/models"
+	"fmt"
 	"gorm.io/driver/postgres"
 
 	//"gorm.io/driver/postgres"
@@ -16,8 +17,10 @@ func (database *Database) Init_database() (err error) {
 	dsn := "host=localhost user=dev_user password=Clothway dbname=gorm port=5432 sslmode=disable TimeZone=Europe/Paris"
 	database.DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
-		return
+		fmt.Println("ON A PAS OPEN LA DB")
+		return err
 	}
+	fmt.Println("ON A RÉUSSI A OPEN LA DB")
 	err = database.DB.AutoMigrate(&models.User{})
-	return
+	return err
 }

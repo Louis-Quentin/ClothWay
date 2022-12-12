@@ -1,4 +1,4 @@
-FROM postgres:9.6.21
+FROM postgres:latest
 
 ENV POSTGRES_PASSWORD=Clothway
 

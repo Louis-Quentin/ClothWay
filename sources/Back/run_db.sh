@@ -1,8 +1,10 @@
+set -e
+
+Container="clothway_postgres"
+
+[ "$(docker ps -a | grep $Container)" ] && docker stop $Container
+[ "$(docker ps -a | grep $Container)" ] && docker rm $Container
 docker build -t clothway_db .
-containerName="clothway_postgres"
-if docker ps -a --format '{{.Names}}' | grep -Eq "^${containerName}\$"; then
-    docker restart ${containerName}
-else
-    docker run -d -p 5432:5432 --name clothway_postgres clothway_db
-fi
-docker exec -it clothway_postgres bash -c "sh /tmp/entrypoint.sh"
+docker run -d -p 5432:5432 --name $Container clothway_db
+sleep 1
+docker exec -it $Container bash -c "sh /tmp/entrypoint.sh"
