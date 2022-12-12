@@ -1,9 +1,5 @@
-import { Box, Button, selectClasses, TextField, Typography } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 export default function FormRegistration() {
 
@@ -28,8 +24,8 @@ export default function FormRegistration() {
     return (
         <div>
             <form onSubmit={handleSubmit}>
-                <Box display="flex" 
-                flexDirection={"column"} 
+                <Box display="flex"
+                flexDirection={"column"}
                 maxWidth={600}
                 margin="auto"
                 alignItems={"center"}

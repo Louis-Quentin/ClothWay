@@ -11,15 +11,14 @@ import {
     alpha,
     InputBase,
     Stack
-  }
-  from '@mui/material';
+  } from '@mui/material';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  backgroundColor: alpha(theme.palette.common.white, 0.20),
   '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
+    backgroundColor: alpha(theme.palette.common.white, 0.30),
   },
   marginLeft: 0,
   width: '100%',
@@ -56,9 +55,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function Main() {
+export default function ToolBar() {
   return (
-    <AppBar position='static' style={{ background: 'green' }}>
+    <AppBar
+      position='static'
+      style={{ background: '#27D18A' }}
+      elevation={0}>
       <Toolbar sx={{ justifyContent: "space-between" }}>
         <Stack direction="row" alignItems="center">
           <IconButton
@@ -70,7 +72,10 @@ export default function Main() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ mr: 10 }}>
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{ mr: 10 }}>
             ClothWay
           </Typography>
         </Stack>
@@ -83,7 +88,11 @@ export default function Main() {
             inputProps={{ 'aria-label': 'search' }}
           />
         </Search>
-        <Button href="/register" sx={{ color: "inherit" }}> Se connecter </Button>
+        <Button
+          href="/register"
+          sx={{ color: "inherit" }}>
+          Se connecter
+        </Button>
       </Toolbar>
     </AppBar>
   );
