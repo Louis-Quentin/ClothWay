@@ -9,37 +9,31 @@ class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Welcome to Clotheway'),
-      ),
-      body: Container(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Center(
-              heightFactor: 40,
-              child: ElevatedButton(
+        appBar: AppBar(
+          title: const Text('Welcome to Clotheway'),
+          backgroundColor: Colors.green,
+        ),
+        body: Container(
+            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Center(
+            heightFactor: 40,
+            child: ElevatedButton(
                 child: const Text('Login'),
                 onPressed: () {
                   Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginPage()),
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginPage()),
                   );
-                }
-              ),
-            ),
-            ElevatedButton(
+                }),
+          ),
+          ElevatedButton(
               child: const Text('Register'),
               onPressed: () {
                 Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => RegisterPage()),
+                  context,
+                  MaterialPageRoute(builder: (context) => RegisterPage()),
                 );
-              }
-          )
-          ]
-        )
-        )
-    );
+              })
+        ])));
   }
 }
