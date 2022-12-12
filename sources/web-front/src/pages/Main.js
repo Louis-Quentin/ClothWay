@@ -83,7 +83,7 @@ export default function Main() {
             inputProps={{ 'aria-label': 'search' }}
           />
         </Search>
-        <Button href="/test" sx={{ color: "inherit" }}> S'inscrire </Button>
+        <Button href="/register" sx={{ color: "inherit" }}> Se connecter </Button>
       </Toolbar>
     </AppBar>
   );

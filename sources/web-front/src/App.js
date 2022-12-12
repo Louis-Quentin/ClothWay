@@ -1,7 +1,7 @@
 import './App.css';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Main from "./pages/Main";
-import Test from "./pages/Test";
+import FormRegistration from "./pages/Register";
 
 function App() {
   return (
@@ -9,7 +9,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Main />} />
-          <Route path="/test" element={<Test />} />
+          <Route path="/register" element={<FormRegistration />} />
         </Routes>
       </Router>
     </div>
