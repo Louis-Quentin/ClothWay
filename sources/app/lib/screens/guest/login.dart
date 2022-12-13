@@ -16,56 +16,55 @@ class LoginPage extends StatelessWidget {
 
   Widget phrase() {
     return Center(
-        child: Container(
-      alignment: Alignment.topLeft,
-      child: const Text(
-        'Entrez votre adresse e-mail pour vous inscrire',
-        style: TextStyle(
-            color: Colors.white, fontSize: 35, fontWeight: FontWeight.w900),
-        //decoration: TextDecoration.underline),
-      ),
-    ));
-  }
-
-  Widget emailbar() {
-    return TextFormField(
-      decoration: InputDecoration(
-        contentPadding: const EdgeInsets.symmetric(vertical: 10),
-        filled: true,
-        fillColor: Colors.white,
-        labelText: 'Email',
-        enabledBorder: OutlineInputBorder(
-          borderSide: const BorderSide(width: 2, color: Colors.white),
-          borderRadius: BorderRadius.circular(50.0),
-        ),
+      child: Column(
+        children: [
+          Container(
+            alignment: Alignment.topLeft,
+            child: const Text(
+              'Entrez votre adresse',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 35,
+                  fontWeight: FontWeight.w900),
+            ),
+          ),
+          Container(
+            alignment: Alignment.topLeft,
+            child: const Text(
+              'e-mail pour vous',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 35,
+                  fontWeight: FontWeight.w900),
+            ),
+          ),
+          Container(
+            alignment: Alignment.topLeft,
+            child: const Text(
+              'inscrire',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 35,
+                  fontWeight: FontWeight.w900),
+            ),
+          ),
+        ],
       ),
     );
   }
 
-  Widget buttons(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        child: Column(
-          children: [
-            ElevatedButton(
-              child: const Text('Login'),
-              onPressed: () {
-                // Navigator.push(
-                  // context,
-                  // MaterialPageRoute(builder: (context) => const HomePage()),
-              // );
-              }
-            ),
-            // ElevatedButton(
-              // child: const Text('Go Back'),
-              // onPressed: () {
-                // Navigator.push(
-                  // context,
-                  // MaterialPageRoute(builder: (context) => const HomePage()),
-                // );
-              // }
-            // ),
-          ],
+  Widget emailbar() {
+    return SingleChildScrollView(
+      child: TextFormField(
+        decoration: InputDecoration(
+          contentPadding: const EdgeInsets.symmetric(vertical: 10),
+          filled: true,
+          fillColor: Colors.white,
+          labelText: 'Email',
+          enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(width: 2, color: Colors.white),
+            borderRadius: BorderRadius.circular(50.0),
+          ),
         ),
       ),
     );
@@ -74,36 +73,72 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(39, 209, 138, 5),
-      body: Container(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            Container(
-              child: Column(
-                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const SizedBox(height: 10),
-                  titlePage(),
-                  const SizedBox(height: 70),
-                  phrase(),
-                  const SizedBox(height: 80),
-                  const Text(
-                    textAlign: TextAlign.left,
-                    'E-mail*',
-                    // color: Colors.white,
-                    style: TextStyle(fontSize: 20, color: Colors.white),
+        backgroundColor: const Color.fromRGBO(39, 209, 138, 5),
+        body: Container(
+          padding: const EdgeInsets.all(16.0),
+//        child: Column(
+//          children: [
+          child: SingleChildScrollView(
+            child: Column(
+              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const SizedBox(height: 10),
+                titlePage(),
+                const SizedBox(height: 70),
+                phrase(),
+                const SizedBox(height: 50),
+                const Text(
+                  textAlign: TextAlign.left,
+                  'E-mail*',
+                  // color: Colors.white,
+                  style: TextStyle(fontSize: 20, color: Colors.white),
+                ),
+                const SizedBox(height: 15),
+                emailbar(),
+                const SizedBox(height: 200),
+                ListTile(
+                  title: Row(
+                    children: <Widget>[
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: const Size(150, 40),
+                          backgroundColor: Colors.black,
+                          shape: RoundedRectangleBorder(
+                            side: const BorderSide(
+                                width: 1.5, color: Colors.white),
+                            borderRadius: BorderRadius.circular(30.0),
+                          ),
+                        ),
+                        onPressed: () {},
+                        child: const Text(
+                          'Retour',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                      const SizedBox(width: 40),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: const Size(150, 40),
+                          backgroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            side: const BorderSide(
+                                width: 1.5, color: Colors.white),
+                            borderRadius: BorderRadius.circular(30.0),
+                          ),
+                        ),
+                        onPressed: () {},
+                        child: const Text(
+                          'Continuer',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 15),
-                  emailbar(),
-                  // const SizedBox(height: 20),
-                  // buttons(context),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+                ),
+              ],
+            ), // child: const Text('Back'),
+          ),
+        ));
+    // const SizedBox(height: 20),
   }
 }
