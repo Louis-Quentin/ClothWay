@@ -11,7 +11,6 @@ export default function FormRegistration() {
         [e.target.name] : e.target.value
     }))
     }
-    //console.log("IS SUBIT EST ", isSubmit)
     const handleSubmit = (e) => {
         e.preventDefault();
         setIsSubmit(true)
@@ -29,15 +28,16 @@ export default function FormRegistration() {
                 "Content-Type": "application/json"
             }
         };
-        fetch("localhost://8080/register", options)
+        fetch("http://localhost:8080/register", options)
         .then(response => response.json())
         .then(inputs => {
             // handle response data
-            console.log("OK");
+            console.log("OK LE BACK A RENVOYER LA RÉPONSE");
         })
         .catch(error => {
             //handle errors
         });
+        setIsSubmit(false)
     }
     return (
         <div>
