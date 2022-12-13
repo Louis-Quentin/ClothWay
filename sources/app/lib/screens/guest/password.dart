@@ -1,9 +1,16 @@
-import 'package:bis/screens/guest/password.dart';
-import 'package:bis/screens/guest/welcome.dart';
+import 'package:bis/screens/guest/homepage.dart';
+import 'package:bis/screens/guest/login.dart';
 import 'package:flutter/material.dart';
-import 'homepage.dart';
 
-class LoginPage extends StatelessWidget {
+class PasswordPage extends StatefulWidget {
+  const PasswordPage({super.key});
+
+  @override
+  _PasswordPageState createState() => _PasswordPageState();
+}
+
+class _PasswordPageState extends State<PasswordPage> {
+  @override
   Widget titlePage() {
     return Center(
         child: Container(
@@ -23,7 +30,7 @@ class LoginPage extends StatelessWidget {
           Container(
             alignment: Alignment.topLeft,
             child: const Text(
-              'Entrez votre adresse',
+              'Entrez un mot de',
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 35,
@@ -33,7 +40,7 @@ class LoginPage extends StatelessWidget {
           Container(
             alignment: Alignment.topLeft,
             child: const Text(
-              'e-mail pour vous',
+              'passe pour vous',
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 35,
@@ -55,14 +62,14 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  Widget emailbar() {
+  Widget passwordbar() {
     return SingleChildScrollView(
       child: TextFormField(
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.symmetric(vertical: 10),
           filled: true,
           fillColor: Colors.white,
-          labelText: 'Email',
+          labelText: 'password',
           enabledBorder: OutlineInputBorder(
             borderSide: const BorderSide(width: 2, color: Colors.white),
             borderRadius: BorderRadius.circular(50.0),
@@ -88,11 +95,11 @@ class LoginPage extends StatelessWidget {
                 const SizedBox(height: 50),
                 const Text(
                   textAlign: TextAlign.left,
-                  'E-mail*',
+                  'Password*',
                   style: TextStyle(fontSize: 20, color: Colors.white),
                 ),
                 const SizedBox(height: 15),
-                emailbar(),
+                passwordbar(),
                 const SizedBox(height: 10),
                 const Text(
                   textAlign: TextAlign.left,
@@ -117,7 +124,7 @@ class LoginPage extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const WelcomePage()),
+                                builder: (context) => LoginPage()),
                           );
                         },
                         child: const Text(
@@ -140,7 +147,7 @@ class LoginPage extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const PasswordPage()),
+                                builder: (context) => const HomePage()),
                           );
                         },
                         child: const Text(

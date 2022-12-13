@@ -104,6 +104,38 @@ class HomePageState extends State<HomePage> {
     );
   }
 
+  Widget featuresWidget() {
+    return Container(
+      height: 80,
+      child:
+          Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+        Container(
+          padding: const EdgeInsets.only(right: 40),
+          child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: const [
+                Text(
+                  'featured',
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  'See all',
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ]),
+        ),
+      ]),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -123,69 +155,38 @@ class HomePageState extends State<HomePage> {
         padding: const EdgeInsets.only(
           left: 20,
         ),
-        child: ListView(
-          children: [
-            Container(
-              child: Column(children: [
-                searchBar(),
-                seeAllWidget(),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      categories(
-                        image: 'assets/image/woman.png',
-                        name: 'woman',
-                      ),
-                      categories(
-                        image: 'assets/image/man.jpg',
-                        name: 'men',
-                      ),
-                      categories(
-                        image: 'assets/image/kids.png',
-                        name: 'kids',
-                      ),
-                      categories(
-                        image: 'assets/image/sports.png',
-                        name: 'sports',
-                      ),
-                    ],
-                  ),
+        child: ListView(children: [
+          Container(
+            child: Column(children: [
+              searchBar(),
+              seeAllWidget(),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    categories(
+                      image: 'assets/image/woman.png',
+                      name: 'woman',
+                    ),
+                    categories(
+                      image: 'assets/image/man.jpg',
+                      name: 'men',
+                    ),
+                    categories(
+                      image: 'assets/image/kids.png',
+                      name: 'kids',
+                    ),
+                    categories(
+                      image: 'assets/image/sports.png',
+                      name: 'sports',
+                    ),
+                  ],
                 ),
-                Container(
-                  height: 80,
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.only(right: 40),
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: const [
-                                Text(
-                                  'featured',
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Text(
-                                  'See all',
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ]),
-                        ),
-                      ]),
-                ),
-              ]),
-            ),
-          ],
-        ),
+              ),
+              featuresWidget(),
+            ]),
+          ),
+        ]),
       ),
     );
   }
