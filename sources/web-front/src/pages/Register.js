@@ -68,8 +68,8 @@ export default function FormRegistration() {
                     </FormControl>} */}
                     {isSignup && <TextField margin='normal' type={'text'} name="FirstName" value={inputs.FirstName} onChange={handleChange} placeholder="Prénom"></TextField>}
                     {isSignup && <TextField margin='normal' type={'text'} name="Name" value={inputs.Name} onChange={handleChange} placeholder="Nom"></TextField>}
-                    <TextField name="email" value={inputs.Email} onChange={handleChange} margin='normal' type={'email'} placeholder="Adresse e-mail"></TextField>
-                    <TextField margin='normal' type={'password'} value={inputs.Password} name="password" onChange={handleChange} placeholder="Mot de passe"></TextField>
+                    <TextField name="Email" value={inputs.Email} onChange={handleChange} margin='normal' type={'email'} placeholder="Adresse e-mail"></TextField>
+                    <TextField margin='normal' type={'password'} value={inputs.Password} name="Password" onChange={handleChange} placeholder="Mot de passe"></TextField>
                     <Button type="submit" sx={{ marginTop: 3, borderRadius: 3}} variant="contained" color="success" > {isSignup ? "Je m'inscris" : "Je me connecte"} </Button>
                     <Button onClick={resetState} sx={{ marginTop: 3, borderRadius: 3}} > {isSignup ? "Connexion" : "Inscription"} </Button>
                 </Box>
