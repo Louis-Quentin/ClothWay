@@ -5,7 +5,7 @@ export default function FormRegistration() {
 
     const [isSignup, setIsSignup] = useState(false);
     const [isSubmit, setIsSubmit] = useState(false);
-    const [inputs, setInputs] = useState({Genre: "", FirstName: "", Name: "", Email: "", Password: "",});
+    const [inputs, setInputs] = useState({Genre: "", FirstName: "", Login: "", Email: "", Password: "",});
     const handleChange  = (e) => {
         setInputs((prevState) => ({...prevState,
         [e.target.name] : e.target.value
@@ -16,11 +16,10 @@ export default function FormRegistration() {
         e.preventDefault();
         setIsSubmit(true)
         console.log("INPUTS RENTRÉS : ", inputs)
-       // console.log("IS SUBIT EST ", isSubmit)
     }
     const resetState = () => {
         setIsSignup(!isSignup);
-        setInputs({Genre:"", FirstName:"", Name:"", Email:"", Password:""})
+        setInputs({Genre:"", FirstName:"", Login:"", Email:"", Password:""})
     }
     if (isSubmit) {
         const options = {
@@ -30,7 +29,7 @@ export default function FormRegistration() {
                 "Content-Type": "application/json"
             }
         };
-        fetch("http://8080/register", options)
+        fetch("localhost://8080/register", options)
         .then(response => response.json())
         .then(inputs => {
             // handle response data
@@ -67,7 +66,7 @@ export default function FormRegistration() {
                     </Select>
                     </FormControl>} */}
                     {isSignup && <TextField margin='normal' type={'text'} name="FirstName" value={inputs.FirstName} onChange={handleChange} placeholder="Prénom"></TextField>}
-                    {isSignup && <TextField margin='normal' type={'text'} name="Name" value={inputs.Name} onChange={handleChange} placeholder="Nom"></TextField>}
+                    {isSignup && <TextField margin='normal' type={'text'} name="Login" value={inputs.Login} onChange={handleChange} placeholder="Nom"></TextField>}
                     <TextField name="Email" value={inputs.Email} onChange={handleChange} margin='normal' type={'email'} placeholder="Adresse e-mail"></TextField>
                     <TextField margin='normal' type={'password'} value={inputs.Password} name="Password" onChange={handleChange} placeholder="Mot de passe"></TextField>
                     <Button type="submit" sx={{ marginTop: 3, borderRadius: 3}} variant="contained" color="success" > {isSignup ? "Je m'inscris" : "Je me connecte"} </Button>
