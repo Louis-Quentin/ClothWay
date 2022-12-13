@@ -19,7 +19,22 @@ export default function FormRegistration() {
         setIsSignup(!isSignup);
         setInputs({Genre:"", FirstName:"", name:"", email:"", password:""})
     }
-    // fetch('')
+    const options = {
+        method: "POST",
+        body: JSON.stringify(inputs),
+        Headers: {
+            "Content-Type": "application/json"
+        }
+    };
+    fetch("http://8080/register", options)
+    .then(response => response.json())
+    .then(inputs => {
+        // handle response data
+        console.log("OK");
+    })
+    .catch(error => {
+        //handle errors
+    });
 
     return (
         <div>
