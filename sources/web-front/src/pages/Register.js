@@ -30,7 +30,7 @@ export default function FormRegistration() {
                 "Content-Type": "application/json"
             }
         };
-        fetch("http://8080/register", options)
+        fetch("http://localhost:8080/register", options)
         .then(response => response.json())
         .then(inputs => {
             // handle response data
