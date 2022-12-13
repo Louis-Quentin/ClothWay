@@ -20,6 +20,6 @@ func (database *Database) Init_database() (err error) {
 		return err
 	}
 	fmt.Println("ON A RÉUSSI A OPEN LA DB")
-	err = database.DB.AutoMigrate(&models.User{})
+	err = database.DB.AutoMigrate(&models.User{}, &models.Cloth{})
 	return err
 }
