@@ -28,8 +28,8 @@ export default function FormRegistration() {
     return (
         <div>
             <form onSubmit={handleSubmit}>
-                <Box display="flex" 
-                flexDirection={"column"} 
+                <Box display="flex"
+                flexDirection={"column"}
                 maxWidth={600}
                 margin="auto"
                 alignItems={"center"}

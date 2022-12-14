@@ -10,9 +10,12 @@ import {
     styled,
     alpha,
     InputBase,
-    Stack
+    Stack,
+    Drawer,
+    Box
 }
     from '@mui/material';
+import { useState } from 'react'
 
 const Search = styled('div')(({theme}) => ({
     position: 'relative',
@@ -57,9 +60,10 @@ const StyledInputBase = styled(InputBase)(({theme}) => ({
 }));
 
 export default function Main() {
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false)
     return (
         <div>
-            <AppBar position='static' style={{background: 'green'}}>
+            <AppBar elevation={0} position='static' style={{background: '#303030'}}>
                 <Toolbar sx={{justifyContent: "space-between"}}>
                     <Stack direction="row" alignItems="center">
                         <IconButton
@@ -68,9 +72,20 @@ export default function Main() {
                             color="inherit"
                             arial-label="menu"
                             sx={{mr: 2}}
+                            onClick={() => setIsDrawerOpen(true)}
                         >
                             <MenuIcon/>
                         </IconButton>
+                        <Drawer
+                            anchor="left"
+                            open={ isDrawerOpen }
+                            onClose={() => setIsDrawerOpen(false)}>
+                            <Box>
+                                <Typography>
+                                    Side Panel
+                                </Typography>
+                            </Box>
+                        </Drawer>
                         <Typography variant="h6" component="div" sx={{mr: 10}}>
                             ClothWay
                         </Typography>
