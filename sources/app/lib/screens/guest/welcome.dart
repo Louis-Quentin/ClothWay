@@ -1,7 +1,6 @@
-import 'package:bis/screens/guest/login.dart';
+import 'package:bis/screens/guest/inscription.dart';
 import 'package:flutter/material.dart';
-import 'login.dart';
-import 'register.dart';
+import 'connexion.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
@@ -22,7 +21,8 @@ class WelcomePage extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => LoginPage()),
+                    MaterialPageRoute(
+                        builder: (context) => connexionPage()),
                   );
                 }),
           ),
@@ -31,7 +31,7 @@ class WelcomePage extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => RegisterPage()),
+                  MaterialPageRoute(builder: (context) => inscriptionPage()),
                 );
               })
         ])));

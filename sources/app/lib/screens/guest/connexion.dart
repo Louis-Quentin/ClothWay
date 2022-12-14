@@ -1,17 +1,11 @@
-import 'package:bis/screens/guest/homepage.dart';
-import 'package:bis/screens/guest/inscription.dart';
+import 'package:bis/screens/guest/password.dart';
+import 'package:bis/screens/guest/welcome.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'homepage.dart';
 
-class PasswordPage extends StatefulWidget {
-  const PasswordPage({super.key});
+class connexionPage extends StatelessWidget {
+  const connexionPage({super.key});
 
-  @override
-  _PasswordPageState createState() => _PasswordPageState();
-}
-
-class _PasswordPageState extends State<PasswordPage> {
-  @override
   Widget titlePage() {
     return Center(
         child: Container(
@@ -31,27 +25,7 @@ class _PasswordPageState extends State<PasswordPage> {
           Container(
             alignment: Alignment.topLeft,
             child: const Text(
-              'Entrez un mot de',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 35,
-                  fontWeight: FontWeight.w900),
-            ),
-          ),
-          Container(
-            alignment: Alignment.topLeft,
-            child: const Text(
-              'passe pour vous',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 35,
-                  fontWeight: FontWeight.w900),
-            ),
-          ),
-          Container(
-            alignment: Alignment.topLeft,
-            child: const Text(
-              'inscrire',
+              'Connectez vous !',
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 35,
@@ -63,14 +37,31 @@ class _PasswordPageState extends State<PasswordPage> {
     );
   }
 
-  Widget passwordbar() {
+  Widget createBar({required String name}) {
     return SingleChildScrollView(
       child: TextFormField(
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.symmetric(vertical: 10),
           filled: true,
           fillColor: Colors.white,
-          labelText: 'password',
+          labelText: name,
+          enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(width: 2, color: Colors.white),
+            borderRadius: BorderRadius.circular(50.0),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget passwordBar() {
+    return SingleChildScrollView(
+      child: TextFormField(
+        decoration: InputDecoration(
+          contentPadding: const EdgeInsets.symmetric(vertical: 10),
+          filled: true,
+          fillColor: Colors.white,
+          labelText: 'Password',
           enabledBorder: OutlineInputBorder(
             borderSide: const BorderSide(width: 2, color: Colors.white),
             borderRadius: BorderRadius.circular(50.0),
@@ -96,15 +87,16 @@ class _PasswordPageState extends State<PasswordPage> {
                 const SizedBox(height: 50),
                 const Text(
                   textAlign: TextAlign.left,
-                  'Password*',
+                  'E-mail*',
                   style: TextStyle(fontSize: 20, color: Colors.white),
                 ),
                 const SizedBox(height: 15),
-                passwordbar(),
+                createBar(name: 'e-mail'),
                 const SizedBox(height: 10),
+                createBar(name: 'password'),
                 const Text(
                   textAlign: TextAlign.left,
-                  '*Champs obligatoire',
+                  '*Champs obligatoires',
                   style: TextStyle(fontSize: 20, color: Colors.white),
                 ),
                 const SizedBox(height: 200),
@@ -125,7 +117,7 @@ class _PasswordPageState extends State<PasswordPage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => inscriptionPage()),
+                                builder: (context) => const WelcomePage()),
                           );
                         },
                         child: const Text(

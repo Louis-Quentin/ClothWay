@@ -3,7 +3,7 @@ import 'package:bis/screens/guest/welcome.dart';
 import 'package:flutter/material.dart';
 import 'homepage.dart';
 
-class LoginPage extends StatelessWidget {
+class inscriptionPage extends StatelessWidget {
   Widget titlePage() {
     return Center(
         child: Container(
