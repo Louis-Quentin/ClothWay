@@ -1,11 +1,13 @@
 .style-item-card {
-    border-radius: 10px;
+    display: inline-block;
+    border-radius: 15px;
     width: 500px;
-    height: 700px;
+    height: 650px;
+    flex-basis: 30%;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    display: block;
-    align-items: center;
     box-sizing: border-box;
     margin-left: 20px;
     margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: #a9e374;
 }

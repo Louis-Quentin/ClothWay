@@ -1,8 +1,13 @@
 .style-products_list {
     border-radius: 10px;
+    position: relative;
     float: right;
     width: 1600px;
-    height: 4000px;
-    background-color: #f0f8ff;
-    align-items: flex-start;
+    height: max-content;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-right: 20px;
+    margin-top: 30px;
 }
