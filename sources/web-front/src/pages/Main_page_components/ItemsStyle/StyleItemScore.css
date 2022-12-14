@@ -1,13 +1,9 @@
 .style-item-score-box {
     margin: 10px 10px 10px 10px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    background-color: white;
     width: 70px;
     height: 24px;
 }
 
 .style-item-score {
     text-align: center;
-    font-family: "Noto Sans Medium";
 }

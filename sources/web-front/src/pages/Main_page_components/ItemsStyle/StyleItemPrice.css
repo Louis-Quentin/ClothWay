@@ -2,9 +2,9 @@
     margin: 10px 10px 10px 10px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
-    background-color: white;
     width: 100px;
     height: 27px;
+    background-color: #2E8B57;
 }
 
 .style-item-price {

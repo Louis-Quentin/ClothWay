@@ -4,6 +4,7 @@ import {StyleItemImg} from "./ItemsStyle/StyleItemPrice.css"
 import {styleProducts_list} from "./ItemsStyle/ProductStyle.css"
 import {styleItemCategory} from "./ItemsStyle/StyleItemCategory.css"
 import {styleItemScore} from "./ItemsStyle/StyleItemScore.css"
+import CustomizedRating from "./ScoreComponent";
 
 export default function SetShopList() {
     let parsed_data = [new ItemToSell(23, 5), new ItemToSell(15, 3), new ItemToSell(6, 1), new ItemToSell(6, 1), new ItemToSell(6, 1), new ItemToSell(6, 1), new ItemToSell(6, 1)]
@@ -82,7 +83,7 @@ export const DisplayItem = (item) => {
             <DisplayItemImg img={item.Img}/>
             <DisplayItemCategory category={item.Price}/>
             <DisplayItemPrice price={item.Price}/>
-            <DisplayItemScore score={item.Score}/>
+            <CustomizedRating/>
         </div>
     )
 }
