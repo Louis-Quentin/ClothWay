@@ -2,6 +2,7 @@ import 'package:bis/screens/guest/homepage.dart';
 import 'package:bis/screens/guest/inscription.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:animate_do/animate_do.dart';
 
 class PasswordPage extends StatefulWidget {
   const PasswordPage({super.key});
@@ -19,7 +20,7 @@ class _PasswordPageState extends State<PasswordPage> {
       child: const Text(
         'ClothWay',
         style: TextStyle(
-            color: Colors.white, fontSize: 25, fontWeight: FontWeight.w900),
+            color: Colors.white, fontSize: 25, fontWeight: FontWeight.w900, fontFamily: 'NorFont'),
       ),
     ));
   }
@@ -35,7 +36,8 @@ class _PasswordPageState extends State<PasswordPage> {
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 35,
-                  fontWeight: FontWeight.w900),
+                  fontWeight: FontWeight.w900,
+                  fontFamily: 'InterFont'),
             ),
           ),
           Container(
@@ -45,7 +47,8 @@ class _PasswordPageState extends State<PasswordPage> {
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 35,
-                  fontWeight: FontWeight.w900),
+                  fontWeight: FontWeight.w900,
+                  fontFamily: 'InterFont'),
             ),
           ),
           Container(
@@ -55,7 +58,8 @@ class _PasswordPageState extends State<PasswordPage> {
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 35,
-                  fontWeight: FontWeight.w900),
+                  fontWeight: FontWeight.w900,
+                  fontFamily: 'InterFont'),
             ),
           ),
         ],
@@ -70,7 +74,7 @@ class _PasswordPageState extends State<PasswordPage> {
           contentPadding: const EdgeInsets.symmetric(vertical: 10),
           filled: true,
           fillColor: Colors.white,
-          labelText: 'password',
+          labelText: ' mot-de-passe',
           enabledBorder: OutlineInputBorder(
             borderSide: const BorderSide(width: 2, color: Colors.white),
             borderRadius: BorderRadius.circular(50.0),
@@ -83,7 +87,7 @@ class _PasswordPageState extends State<PasswordPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color.fromRGBO(39, 209, 138, 5),
+        backgroundColor: const Color.fromRGBO(30, 30, 30, 30),
         body: Container(
           padding: const EdgeInsets.all(16.0),
           child: SingleChildScrollView(
@@ -91,12 +95,13 @@ class _PasswordPageState extends State<PasswordPage> {
               children: [
                 const SizedBox(height: 10),
                 titlePage(),
-                const SizedBox(height: 50),
-                phrase(),
+                const SizedBox(height: 80),
+                BounceInDown(
+                child: phrase()),
                 const SizedBox(height: 50),
                 const Text(
                   textAlign: TextAlign.left,
-                  'Password*',
+                  'Mot-de-passe*',
                   style: TextStyle(fontSize: 20, color: Colors.white),
                 ),
                 const SizedBox(height: 15),
@@ -112,15 +117,6 @@ class _PasswordPageState extends State<PasswordPage> {
                   title: Row(
                     children: <Widget>[
                       ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          minimumSize: const Size(150, 40),
-                          backgroundColor: Colors.black,
-                          shape: RoundedRectangleBorder(
-                            side: const BorderSide(
-                                width: 1.5, color: Colors.white),
-                            borderRadius: BorderRadius.circular(30.0),
-                          ),
-                        ),
                         onPressed: () {
                           Navigator.push(
                             context,
@@ -128,22 +124,20 @@ class _PasswordPageState extends State<PasswordPage> {
                                 builder: (context) => inscriptionPage()),
                           );
                         },
-                        child: const Text(
-                          'Retour',
-                          style: TextStyle(color: Colors.white),
+                        child: Text(
+                          "retour",
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                            fontFamily: 'NorFont'),
+                            ),
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.black,
+                          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                         ),
                       ),
-                      const SizedBox(width: 40),
+                      const SizedBox(width: 80),
                       ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          minimumSize: const Size(150, 40),
-                          backgroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            side: const BorderSide(
-                                width: 1.5, color: Colors.white),
-                            borderRadius: BorderRadius.circular(30.0),
-                          ),
-                        ),
                         onPressed: () {
                           Navigator.push(
                             context,
@@ -151,9 +145,16 @@ class _PasswordPageState extends State<PasswordPage> {
                                 builder: (context) => const HomePage()),
                           );
                         },
-                        child: const Text(
-                          'Continuer',
-                          style: TextStyle(color: Colors.black),
+                        child: Text(
+                          "continuer",
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.black,
+                            fontFamily: 'NorFont'),
+                            ),
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.white,
+                          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                         ),
                       ),
                     ],

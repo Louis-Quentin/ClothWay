@@ -2,6 +2,7 @@ import 'package:bis/screens/guest/password.dart';
 import 'package:bis/screens/guest/welcome.dart';
 import 'package:flutter/material.dart';
 import 'homepage.dart';
+import 'package:animate_do/animate_do.dart';
 
 class inscriptionPage extends StatelessWidget {
   Widget titlePage() {
@@ -11,7 +12,7 @@ class inscriptionPage extends StatelessWidget {
       child: const Text(
         'ClothWay',
         style: TextStyle(
-            color: Colors.white, fontSize: 25, fontWeight: FontWeight.w900),
+            color: Colors.white, fontSize: 25, fontWeight: FontWeight.w900, fontFamily: 'NorFont'),
       ),
     ));
   }
@@ -27,7 +28,8 @@ class inscriptionPage extends StatelessWidget {
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 35,
-                  fontWeight: FontWeight.w900),
+                  fontWeight: FontWeight.w900,
+                  fontFamily: 'InterFont'),
             ),
           ),
           Container(
@@ -37,7 +39,8 @@ class inscriptionPage extends StatelessWidget {
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 35,
-                  fontWeight: FontWeight.w900),
+                  fontWeight: FontWeight.w900,
+                  fontFamily: 'InterFont'),
             ),
           ),
           Container(
@@ -47,7 +50,8 @@ class inscriptionPage extends StatelessWidget {
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 35,
-                  fontWeight: FontWeight.w900),
+                  fontWeight: FontWeight.w900,
+                  fontFamily: 'InterFont'),
             ),
           ),
         ],
@@ -62,7 +66,7 @@ class inscriptionPage extends StatelessWidget {
           contentPadding: const EdgeInsets.symmetric(vertical: 10),
           filled: true,
           fillColor: Colors.white,
-          labelText: 'Email',
+          labelText: ' email',
           enabledBorder: OutlineInputBorder(
             borderSide: const BorderSide(width: 2, color: Colors.white),
             borderRadius: BorderRadius.circular(50.0),
@@ -75,7 +79,7 @@ class inscriptionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color.fromRGBO(39, 209, 138, 5),
+        backgroundColor: const Color.fromRGBO(30, 30, 30, 30),
         body: Container(
           padding: const EdgeInsets.all(16.0),
           child: SingleChildScrollView(
@@ -83,8 +87,9 @@ class inscriptionPage extends StatelessWidget {
               children: [
                 const SizedBox(height: 10),
                 titlePage(),
-                const SizedBox(height: 50),
-                phrase(),
+                const SizedBox(height: 80),
+                BounceInDown(
+                child: phrase()),
                 const SizedBox(height: 50),
                 const Text(
                   textAlign: TextAlign.left,
@@ -104,15 +109,6 @@ class inscriptionPage extends StatelessWidget {
                   title: Row(
                     children: <Widget>[
                       ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          minimumSize: const Size(150, 40),
-                          backgroundColor: Colors.black,
-                          shape: RoundedRectangleBorder(
-                            side: const BorderSide(
-                                width: 1.5, color: Colors.white),
-                            borderRadius: BorderRadius.circular(30.0),
-                          ),
-                        ),
                         onPressed: () {
                           Navigator.push(
                             context,
@@ -120,22 +116,20 @@ class inscriptionPage extends StatelessWidget {
                                 builder: (context) => const WelcomePage()),
                           );
                         },
-                        child: const Text(
-                          'Retour',
-                          style: TextStyle(color: Colors.white),
+                        child: Text(
+                          "retour",
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                            fontFamily: 'NorFont'),
+                            ),
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.black,
+                          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                         ),
                       ),
-                      const SizedBox(width: 40),
+                      const SizedBox(width: 80),
                       ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          minimumSize: const Size(150, 40),
-                          backgroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            side: const BorderSide(
-                                width: 1.5, color: Colors.white),
-                            borderRadius: BorderRadius.circular(30.0),
-                          ),
-                        ),
                         onPressed: () {
                           Navigator.push(
                             context,
@@ -143,9 +137,16 @@ class inscriptionPage extends StatelessWidget {
                                 builder: (context) => const PasswordPage()),
                           );
                         },
-                        child: const Text(
-                          'Continuer',
-                          style: TextStyle(color: Colors.black),
+                        child: Text(
+                          "continuer",
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.black,
+                            fontFamily: 'NorFont'),
+                            ),
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.white,
+                          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                         ),
                       ),
                     ],
