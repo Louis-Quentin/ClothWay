@@ -1,11 +1,16 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom'
+import ProPage from "../pages/main_page/ProPage.js";
+import propage from "../pages/main_page/ProPage.js"
 
 export default function FormRegistration() {
 
     const [isSignup, setIsSignup] = useState(false);
     const [isSubmit, setIsSubmit] = useState(false);
+    const [isPro, setIsPro] = useState(false);
     const [inputs, setInputs] = useState({Genre: "", FirstName: "", Login: "", Email: "", Password: "",});
+    const navigate = useNavigate();
     const handleChange  = (e) => {
         setInputs((prevState) => ({...prevState,
         [e.target.name] : e.target.value
@@ -18,9 +23,14 @@ export default function FormRegistration() {
     }
     const resetState = () => {
         setIsSignup(!isSignup);
-        setInputs({Genre:"", FirstName:"", Login:"", Email:"", Password:""})
+        setInputs({Genr:"", FirstName:"", Login:"", Email:"", Password:""})
     }
     if (isSubmit) {
+        if ((inputs.Email === "pro@gmail.com" && inputs.Password === "pro1234")) {
+            console.log("OK C EST EGAL À CA")
+            setIsPro(true)
+            navigate("/pro")
+        }
         const options = {
             method: "POST",
             body: JSON.stringify(inputs),
@@ -39,6 +49,7 @@ export default function FormRegistration() {
         });
         setIsSubmit(false)
     }
+
     return (
         <div>
             <form onSubmit={handleSubmit}>
@@ -70,7 +81,7 @@ export default function FormRegistration() {
                     <TextField name="Email" value={inputs.Email} onChange={handleChange} margin='normal' type={'email'} placeholder="Adresse e-mail"></TextField>
                     <TextField margin='normal' type={'password'} value={inputs.Password} name="Password" onChange={handleChange} placeholder="Mot de passe"></TextField>
                     <Button type="submit" sx={{ marginTop: 3, borderRadius: 3}} variant="contained" color="success" > {isSignup ? "Je m'inscris" : "Je me connecte"} </Button>
-                    <Button onClick={resetState} sx={{ marginTop: 3, borderRadius: 3}} > {isSignup ? "Connexion" : "Inscription"} </Button>
+                    <Button onClick={resetState} sx={{ marginTop: 3, borderRadius: 3}}> {isSignup ? "Connexion" : "Inscription"} </Button>
                 </Box>
             </form>
         </div>
