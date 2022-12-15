@@ -1,4 +1,4 @@
-#Thu Dec 08 09:35:17 EST 2022
-base.0=/home/canardsteak/delivery/tek3/EIP/ClothWay/sources/app/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
+#Thu Dec 15 16:59:56 CET 2022
+base.0=/home/eredouane/delivery/tech3/ClothWay/sources/app/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
 renamed.0=classes.dex
 path.0=classes.dex
