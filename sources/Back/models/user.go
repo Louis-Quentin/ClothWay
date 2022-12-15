@@ -27,6 +27,7 @@ type Cloth struct {
 	Means_of_transports 	string
 	ID 						int
 	Brand 					string
+	Type					string
 }
 
 func (user *User) Create(database *gorm.DB) error {

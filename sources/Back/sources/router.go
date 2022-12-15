@@ -101,7 +101,7 @@ func Handle_upload_cloth_request(context *gin.Context) {
 		context.JSON(400, gin.H{"Error": "error no greenhouse_gas_conso given"})
 	} else if cloth.Water_conso <= 0 {
 		context.JSON(400, gin.H{"Error": "error no water_conso given"})
-	} else if cloth.Quality_product <= 0 {
+	} else if cloth.Quality_product <= 0 || cloth.Quality_product > 5 {
 		context.JSON(400, gin.H{"Error": "error no quality_product given"})
 	} else if cloth.Conditions_working == "" {
 		context.JSON(400, gin.H{"Error": "error no conditions_working given"})
@@ -119,15 +119,24 @@ func Handle_upload_cloth_request(context *gin.Context) {
 		context.JSON(400, gin.H{"Error": "error no original_country given"})
 	} else if cloth.Means_of_transports == "" {
 		context.JSON(400, gin.H{"Error": "error no means_of_transports given"})
+	} else if cloth.Type == "" {
+		context.JSON(400, gin.H{"Error": "error no type given"})
 	} else {
 		db := context.MustGet("gorm").(gorm.DB)
-		cloth_model := models.Cloth{Greenhouse_gaz_conso: cloth.Greenhouse_gaz_conso, Water_conso: cloth.Water_conso, Quality_product: cloth.Quality_product, Conditions_working: cloth.Conditions_working, Materials: cloth.Materials, Factory: cloth.Factory, Pre_wash: cloth.Pre_wash, Packaging: cloth.Packaging, Original_country: cloth.Original_country, Means_of_transports: cloth.Means_of_transports, ID: cloth.ID, Brand: cloth.Brand}
+		cloth_model := models.Cloth{Greenhouse_gaz_conso: cloth.Greenhouse_gaz_conso, Water_conso: cloth.Water_conso, Quality_product: cloth.Quality_product, Conditions_working: cloth.Conditions_working, Materials: cloth.Materials, Factory: cloth.Factory, Pre_wash: cloth.Pre_wash, Packaging: cloth.Packaging, Original_country: cloth.Original_country, Means_of_transports: cloth.Means_of_transports, ID: cloth.ID, Brand: cloth.Brand, Type: cloth.Type}
 		db.Create(&cloth_model)
 		var tmp_cloth []models.Cloth
 		db.Find(&tmp_cloth)
 		fmt.Println(tmp_cloth)
 		context.JSON(200, gin.H{"Cloth Upload": "OK"})
 	}
+}
+
+func Handle_get_all_cloths_request(context *gin.Context) {
+	var result []models.Cloth
+	db := context.MustGet("gorm").(gorm.DB)
+	db.Raw("SELECT * FROM cloths").Scan(&result)
+	context.JSON(200, gin.H{"All cloths": result})
 }
 
 func Handle_get_cloth_request(context *gin.Context) {
@@ -148,3 +157,5 @@ func Handle_get_cloth_request(context *gin.Context) {
 		context.JSON(200, gin.H{"Get cloth": result})
 	}
 }
+
+
