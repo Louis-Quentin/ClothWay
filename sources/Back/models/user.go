@@ -28,6 +28,10 @@ type Cloth struct {
 	ID 						int
 	Brand 					string
 	Type					string
+	Score					int
+	Water_score				int
+	Materials_score			int
+	Gaz_score				int
 }
 
 func (user *User) Create(database *gorm.DB) error {
