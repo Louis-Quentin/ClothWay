@@ -101,11 +101,20 @@ func calc_score(materials string, type_ string, water int, gaz int, origin strin
 	if (strings.Contains(materials, "viscose") == true && score > 1) {
 		score -= 1
 	}
-
+	if (strings.Contains(materials, "bio") == true && score < 5) {
+		score += 1
+	}
 	if gaz > 20 {
 		score -= 1
 	}
 
+	if ((origin == "Chine" || origin == "Bangladesh" || origin == "Vietnam" || origin == "Thaïlande") && score > 1) {
+		score -= 1
+	}
+
+	if ((origin == "France" || origin == "Allemagne" || origin == "Suisse" || origin == "Suède" || origin == "Canada" || origin == "Finlande" || origin == "Norvège") && score < 5) {
+		score += 1
+	}
 	if water > 8000 {
         score -= 1
     }
@@ -140,13 +149,13 @@ func calc_gaz_consommation(type_ string) (result int) {
 
 func calc_water_score(type_ string) (result int) {
 	if (type_ == "haut") {
-        return 3
+        return 4
     }
 	if (type_ == "bas") {
-        return 2
+        return 3
     }
 	if (type_ == "chaussures") {
-        return 2
+        return 3
     }
 	return -1
 }
@@ -159,14 +168,17 @@ func calc_gaz_score(type_ string) (result int) {
         return 3
 	}
 	if (type_ == "chaussures") {
-        return 2
+        return 3
 	}
 	return -1
 }
 
 func calc_materials_score(materials string) (result int) {
+	if ((strings.Contains(materials, "chanvre") == true || strings.Contains(materials, "lin") == true || strings.Contains(materials, "coton biologique") == true || strings.Contains(materials, "laine") == true) && strings.Contains(materials, "polyester") == false && strings.Contains(materials, "viscose") == false){
+        return 5
+    }
 	if (strings.Contains(materials, "coton") == false && strings.Contains(materials, "polyester") == false && strings.Contains(materials, "viscose") == false) {
-		return 5
+		return 4
     }
 	if (strings.Contains(materials, "coton") == true && strings.Contains(materials, "polyester") == true && strings.Contains(materials, "viscose") == true) {
 		return 1
@@ -242,6 +254,3 @@ func Handle_get_cloth_request(context *gin.Context) {
 		context.JSON(200, gin.H{"Get cloth": result})
 	}
 }
-
-
- 
