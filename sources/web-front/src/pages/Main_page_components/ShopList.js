@@ -1,10 +1,12 @@
 import {ItemToSell} from "./ItemToSell"
+import {useState} from "react"
 import {StyleItemCard} from "./ItemsStyle/StyleItemCard.css"
 import {StyleItemImg} from "./ItemsStyle/StyleItemPrice.css"
 import {styleProducts_list} from "./ItemsStyle/ProductStyle.css"
 import {styleItemCategory} from "./ItemsStyle/StyleItemCategory.css"
 import {styleItemScore} from "./ItemsStyle/StyleItemScore.css"
 import CustomizedRating from "./ScoreComponent";
+import {Button} from "@mui/material";
 
 export default function SetShopList() {
     let parsed_data = [new ItemToSell(23, 5), new ItemToSell(15, 3), new ItemToSell(6, 1), new ItemToSell(6, 1), new ItemToSell(6, 1), new ItemToSell(6, 1), new ItemToSell(6, 1)]
@@ -63,12 +65,6 @@ function DisplayItemScore() {
     )
 }
 
-function DisplayDetailedScore() {
-    return (
-        <div>Détail du score</div>
-    )
-}
-
 function DisplayItemCategory() {
     return (
         <div className="style-item-category-box">
@@ -78,12 +74,35 @@ function DisplayItemCategory() {
 }
 
 export const DisplayItem = (item) => {
+    const [is_up, set_is_up] = useState(false)
+    const [{items}, setItems] = useState({items: []})
+    const DisplayDetailedScore = () => {
+        if (is_up === true) {
+            console.log("IS UP = TRUE")
+            setItems({items: []})
+            set_is_up(false)
+        }
+        else {
+            console.log("IS UP = FALSE")
+            items.push(<div key={items.length} className="style-item-detailed-score">Détail du score</div>);
+            setItems({items: [...items]});
+            set_is_up(true)
+
+        }
+    };
     return (
         <div className="style-item-card">
             <DisplayItemImg img={item.Img}/>
             <DisplayItemCategory category={item.Price}/>
             <DisplayItemPrice price={item.Price}/>
-            <CustomizedRating/>
+            <Button className="style-item-score-button" style={{
+                display: "inline-block",
+                width: "150px",
+                marginLeft: "1Opx"
+            }} onClick={DisplayDetailedScore}>
+                {items}
+                <CustomizedRating/>
+            </Button>
         </div>
     )
 }

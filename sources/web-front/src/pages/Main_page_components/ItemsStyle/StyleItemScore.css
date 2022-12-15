@@ -1,9 +1,24 @@
 .style-item-score-box {
-    margin: 10px 10px 10px 10px;
     width: 70px;
     height: 24px;
 }
 
 .style-item-score {
     text-align: center;
+}
+
+.style-item-score-button {
+    width: auto;
+    height: 50px;
+}
+
+.style-item-detailed-score {
+    background-color: white;
+    border-radius: 10px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #303030;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    width: 480px;
+    height: 150px;
 }
