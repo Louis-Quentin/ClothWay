@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/home/canardsteak/delivery/tek3/EIP/ClothWay/sources/app/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-sr/values-sr.xml",
+            "outputFile": "/home/eredouane/delivery/tech3/ClothWay/sources/app/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-sr/values-sr.xml",
             "map": [
                 {
-                    "source": "/home/canardsteak/.gradle/caches/transforms-3/acbce933e4b464a5224ed377a62db1f5/transformed/core-1.6.0/res/values-sr/values-sr.xml",
+                    "source": "/home/eredouane/.gradle/caches/transforms-3/acbce933e4b464a5224ed377a62db1f5/transformed/core-1.6.0/res/values-sr/values-sr.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

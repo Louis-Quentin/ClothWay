@@ -2,6 +2,7 @@ import 'package:bis/screens/guest/password.dart';
 import 'package:bis/screens/guest/welcome.dart';
 import 'package:flutter/material.dart';
 import 'homepage.dart';
+import 'package:animate_do/animate_do.dart';
 
 class connexionPage extends StatelessWidget {
   const connexionPage({super.key});
@@ -13,7 +14,7 @@ class connexionPage extends StatelessWidget {
       child: const Text(
         'ClothWay',
         style: TextStyle(
-            color: Colors.white, fontSize: 25, fontWeight: FontWeight.w900),
+            color: Colors.white, fontSize: 25, fontWeight: FontWeight.w900, fontFamily: 'NorFont'),
       ),
     ));
   }
@@ -24,12 +25,15 @@ class connexionPage extends StatelessWidget {
         children: [
           Container(
             alignment: Alignment.topLeft,
-            child: const Text(
-              'Connectez vous !',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 35,
-                  fontWeight: FontWeight.w900),
+            child: BounceInDown(
+              child :const Text(
+                'Connectez vous !',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 35,
+                    fontWeight: FontWeight.w900,
+                    fontFamily: 'InterFont'),
+              ),
             ),
           ),
         ],
@@ -74,7 +78,7 @@ class connexionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color.fromRGBO(39, 209, 138, 5),
+        backgroundColor: const Color.fromRGBO(30, 30, 30, 30),
         body: Container(
           padding: const EdgeInsets.all(16.0),
           child: SingleChildScrollView(
@@ -82,7 +86,7 @@ class connexionPage extends StatelessWidget {
               children: [
                 const SizedBox(height: 10),
                 titlePage(),
-                const SizedBox(height: 50),
+                const SizedBox(height: 100),
                 phrase(),
                 const SizedBox(height: 50),
                 const Text(
@@ -91,9 +95,10 @@ class connexionPage extends StatelessWidget {
                   style: TextStyle(fontSize: 20, color: Colors.white),
                 ),
                 const SizedBox(height: 15),
-                createBar(name: 'e-mail'),
-                const SizedBox(height: 10),
-                createBar(name: 'password'),
+                createBar(name: ' e-mail'),
+                const SizedBox(height: 30),
+                createBar(name: ' password'),
+                const SizedBox(height: 5),
                 const Text(
                   textAlign: TextAlign.left,
                   '*Champs obligatoires',
@@ -104,15 +109,6 @@ class connexionPage extends StatelessWidget {
                   title: Row(
                     children: <Widget>[
                       ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          minimumSize: const Size(150, 40),
-                          backgroundColor: Colors.black,
-                          shape: RoundedRectangleBorder(
-                            side: const BorderSide(
-                                width: 1.5, color: Colors.white),
-                            borderRadius: BorderRadius.circular(30.0),
-                          ),
-                        ),
                         onPressed: () {
                           Navigator.push(
                             context,
@@ -120,22 +116,20 @@ class connexionPage extends StatelessWidget {
                                 builder: (context) => const WelcomePage()),
                           );
                         },
-                        child: const Text(
-                          'Retour',
-                          style: TextStyle(color: Colors.white),
+                        child: Text(
+                          "retour",
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                            fontFamily: 'NorFont'),
+                            ),
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.black,
+                          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                         ),
                       ),
-                      const SizedBox(width: 40),
+                      const SizedBox(width: 80),
                       ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          minimumSize: const Size(150, 40),
-                          backgroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            side: const BorderSide(
-                                width: 1.5, color: Colors.white),
-                            borderRadius: BorderRadius.circular(30.0),
-                          ),
-                        ),
                         onPressed: () {
                           Navigator.push(
                             context,
@@ -143,9 +137,16 @@ class connexionPage extends StatelessWidget {
                                 builder: (context) => const HomePage()),
                           );
                         },
-                        child: const Text(
-                          'Continuer',
-                          style: TextStyle(color: Colors.black),
+                        child: Text(
+                          "continuer",
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.black,
+                            fontFamily: 'NorFont'),
+                            ),
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.white,
+                          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                         ),
                       ),
                     ],
