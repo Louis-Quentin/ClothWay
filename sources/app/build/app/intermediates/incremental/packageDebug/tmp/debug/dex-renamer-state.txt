@@ -1,4 +1,4 @@
-#Thu Dec 15 16:59:56 CET 2022
+#Thu Dec 15 21:13:34 CET 2022
 base.0=/home/eredouane/delivery/tech3/ClothWay/sources/app/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
 renamed.0=classes.dex
 path.0=classes.dex

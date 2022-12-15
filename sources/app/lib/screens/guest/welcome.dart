@@ -70,7 +70,7 @@ class ButtonHome1 extends StatelessWidget {
                   );
                 },
                 child: Text(
-                  "S'inscrire",
+                  "s'inscrire",
                   style: TextStyle(
                     fontSize: 20,
                     color: Colors.white,
@@ -96,7 +96,7 @@ class ButtonHome2 extends StatelessWidget {
                   );
                 },
                 child: Text(
-                  "S'identifier",
+                  "s'identifier",
                   style: TextStyle(
                     fontSize: 20,
                     color: Colors.white,
