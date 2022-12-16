@@ -249,6 +249,48 @@ class HomePageState extends State<HomePage> {
                       description: 't-shirt noir Uniqlo 27e',
                     ),
                   ])),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    suggestion(
+                      image: 'assets/image/jordan.jpeg',
+                      description: 'Nike Jordan4 180e',
+                    ),
+                    suggestion(
+                      image: 'assets/image/puma.jpg',
+                      description: 'Puma Cell viper 140e',
+                    ),
+                    suggestion(
+                      image: 'assets/image/adidas.jpg',
+                      description: 'Adidas Origins 160e',
+                    ),
+                    suggestion(
+                      image: 'assets/image/fila.jpg',
+                      description: 'Fila 120e',
+                    ),
+                  ])),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    suggestion(
+                      image: 'assets/image/doudoune_nike.jpg',
+                      description: 'Doudoune Nike rouge 225e',
+                    ),
+                    suggestion(
+                      image: 'assets/image/tommy.jpg',
+                      description: 'Doudoune Tommy rouge 250e',
+                    ),
+                    suggestion(
+                      image: 'assets/image/north_face.jpg',
+                      description: 'The North face rouge 275e',
+                    ),
+                    suggestion(
+                      image: 'assets/image/schott.jpg',
+                      description: 'Doudoune Schott rouge 200e',
+                    ),
+                  ])),
             ]),
           ),
         ]),
