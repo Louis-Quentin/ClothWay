@@ -7,7 +7,7 @@ export default function ProPage() {
 
     const [isSignup, setIsSignup] = useState(false);
     const [isSubmit, setIsSubmit] = useState(false);
-    const [inputs, setInputs] = useState({Prix: "", Marque: "", Materiau: "", Type: "", Img: "../../images/"});
+    const [inputs, setInputs] = useState({Price: "", Brand: "", Materials: "", Type: "", Description: "", Picture: ""});
     const navigate = useNavigate();
     const handleChange  = (e) => {
         setInputs((prevState) => ({...prevState,
@@ -21,17 +21,18 @@ export default function ProPage() {
     }
     const resetState = () => {
         setIsSignup(!isSignup);
-        setInputs({Prix:"", Marque:"", Matériau:""})
+        setInputs({Price:"", Brand:"", Matérials:""})
     }
     const [image, setImage] = useState('')
     function handleImage(e) {
-        const uploadImage = "../../images/" + e.target.files[0].name;
+        const uploadImage = "../../images/products/" + e.target.files[0].name;
         //console.log("IMG TEST", uploadImage)
-        inputs.Img = uploadImage
+        inputs.Picture = uploadImage
         //console.log("img", inputs.Img)
         setImage(e.target.files[0])
     }
     if (isSubmit) {
+        inputs.Type = "Bas"
         //console.log(inputs)
         const options = {
             method: "POST",
@@ -50,7 +51,6 @@ export default function ProPage() {
             //handle errors
         });
     }
-
   return (
     <div>
         <form onSubmit={handleSubmit}>
@@ -65,14 +65,15 @@ export default function ProPage() {
                 boxShadow={"5px 5px 10px #ccc"}>
             <Typography paddingBottom={10}>Veuillez entrer les informations requises</Typography>
             <input type="file" name='file' onChange={handleImage} ></input>
-            <TextField name="Prix" margin='normal' value={inputs.Prix} type={'number'} placeholder="Prix" onChange={handleChange}></TextField>
-            <TextField name="Marque" margin='normal' value={inputs.Marque} type="text" placeholder="Marque" onChange={handleChange}></TextField>
-            <TextField name="Materiau" margin='normal' value={inputs.Materiau} type={'text'} placeholder="Matériaux utilisés" onChange={handleChange}></TextField>
+            <TextField name="Price" margin='normal' value={inputs.Price} type={'number'} placeholder="Prix" onChange={handleChange}></TextField>
+            <TextField name="Brand" margin='normal' value={inputs.Brand} type="text" placeholder="Marque" onChange={handleChange}></TextField>
+            <TextField name="Materials" margin='normal' value={inputs.Materials} type={'text'} placeholder="Matériaux utilisés" onChange={handleChange}></TextField>
+            <TextField name="Description" margin='normal' value={inputs.Description} type={'text'} placeholder="Description du produit " onChange={handleChange}></TextField>
             {/* <TextField name="Materiau" margin='normal' value={inputs.Materiau} type={'text'} placeholder="Matériaux utilisés" onChange={handleChange}></TextField> */}
             <select>
-                <option>Haut</option>
-                <option>Bas</option>
-                <option>Chaussure</option>
+                <option value={inputs.Type} onChange={handleChange}>Haut</option>
+                <option value={inputs.Type} onChange={handleChange}>Bas</option>
+                <option value={inputs.Type} onChange={handleChange}>Chaussure</option>
             </select>
             <Button type="submit" sx={{ marginTop: 3, borderRadius: 3}} variant="contained" color="success"> Soumettre l'article </Button>
             </Box>
