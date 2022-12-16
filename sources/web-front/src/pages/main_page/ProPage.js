@@ -9,7 +9,7 @@ export default function ProPage() {
     const [isSubmit, setIsSubmit] = useState(false);
     const [inputs, setInputs] = useState({Price: "", Brand: "", Materials: "", Type: "", Description: "", Picture: "",
     Greenhouse_gaz_conso: "", Water_conso:"", Quality_product:"", Conditions_working:"", Workers_salary:"", Factory:"",
-    Pre_wash:"", Packaging:"", Original_country:"", Means_of_transports:"", ID:"", Score:"", Water_score:"", Materials_score:"", Gaz_score:""});
+    Pre_wash:"", Packaging:"", Original_country:"", Means_of_transports:"", Score:"", Water_score:"", Materials_score:"", Gaz_score:""});
     const navigate = useNavigate();
     const handleChange  = (e) => {
         setInputs((prevState) => ({...prevState,
