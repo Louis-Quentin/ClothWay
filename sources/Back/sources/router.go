@@ -122,52 +122,52 @@ func calc_score(materials string, type_ string, water int, gaz int, origin strin
 }
 
 func calc_water_consommation(type_ string) (result string) {
-	if type_ == "haut" {
+	if type_ == "Haut" {
 		return "1300"
 	}
-	if type_ == "bas" {
+	if type_ == "Bas" {
 		return "8500"
 	}
-	if type_ == "chaussures" {
+	if type_ == "Chaussures" {
 		return "8000"
 	}
 	return "-1"
 }
 
 func calc_gaz_consommation(type_ string) (result string) {
-	if type_ == "haut" {
+	if type_ == "Haut" {
 		return "10"
 	}
-	if type_ == "bas" {
+	if type_ == "Bas" {
 		return "25"
 	}
-	if type_ == "chaussures" {
+	if type_ == "Chaussures" {
 		return "13"
 	}
 	return "-1"
 }
 
 func calc_water_score(type_ string) (result string) {
-	if type_ == "haut" {
+	if type_ == "Haut" {
 		return "4"
 	}
-	if type_ == "bas" {
+	if type_ == "Bas" {
 		return "3"
 	}
-	if type_ == "chaussures" {
+	if type_ == "Chaussures" {
 		return "3"
 	}
 	return "-1"
 }
 
 func calc_gaz_score(type_ string) (result string) {
-	if type_ == "haut" {
+	if type_ == "Haut" {
 		return "4"
 	}
-	if type_ == "bas" {
+	if type_ == "Bas" {
 		return "3"
 	}
-	if type_ == "chaussures" {
+	if type_ == "Chaussures" {
 		return "3"
 	}
 	return "-1"
