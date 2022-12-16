@@ -3,13 +3,15 @@ import React from 'react';
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
+let isPassed = false
+
 export default function ProPage() {
 
     const [isSignup, setIsSignup] = useState(false);
     const [isSubmit, setIsSubmit] = useState(false);
     const [inputs, setInputs] = useState({Price: "", Brand: "", Materials: "", Type: "", Description: "", Picture: "",
     Greenhouse_gaz_conso: "", Water_conso:"", Quality_product:"", Conditions_working:"", Workers_salary:"", Factory:"",
-    Pre_wash:"", Packaging:"", Original_country:"", Means_of_transports:"", ID:"", Score:"", Water_score:"", Materials_score:"", Gaz_score:""});
+    Pre_wash:"", Packaging:"", Original_country:"", Means_of_transports:"", Score:"", Water_score:"", Materials_score:"", Gaz_score:""});
     const navigate = useNavigate();
     const handleChange  = (e) => {
         setInputs((prevState) => ({...prevState,
@@ -19,11 +21,10 @@ export default function ProPage() {
     const handleSubmit = (e) => {
         e.preventDefault();
         setIsSubmit(true)
-        //console.log("INPUTS RENTRÉS : ", inputs)
     }
     const resetState = () => {
         setIsSignup(!isSignup);
-        setInputs({Price:"", Brand:"", Matérials:""})
+        setInputs({Price:"", Brand:"", Materials:""})
     }
     const [image, setImage] = useState('')
     function handleImage(e) {
@@ -33,7 +34,9 @@ export default function ProPage() {
         //console.log("img", inputs.Img)
         setImage(e.target.files[0])
     }
-    if (isSubmit) {
+    if (isSubmit && !isPassed) {
+        isPassed = true
+        //console.log("OK")
         inputs.Type = "Bas"
         //console.log(inputs)
         const options = {
