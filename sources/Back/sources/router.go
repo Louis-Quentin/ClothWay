@@ -219,9 +219,11 @@ func Handle_upload_cloth_request(context *gin.Context) {
 		context.JSON(400, gin.H{"Error": "error no means_of_transports given"})
 	} else if cloth.Type == "" {
 		context.JSON(400, gin.H{"Error": "error no type given"})
+	} else if cloth.Description == "" {
+		context.JSON(400, gin.H{"Error": "error no description given"})
 	} else {
 		db := context.MustGet("gorm").(gorm.DB)
-		cloth_model := models.Cloth{Greenhouse_gaz_conso: calc_gaz_consommation(cloth.Type), Water_conso: calc_water_consommation(cloth.Type), Quality_product: cloth.Quality_product, Conditions_working: cloth.Conditions_working, Materials: cloth.Materials, Factory: cloth.Factory, Pre_wash: cloth.Pre_wash, Packaging: cloth.Packaging, Original_country: cloth.Original_country, Means_of_transports: cloth.Means_of_transports, ID: cloth.ID, Brand: cloth.Brand, Type: cloth.Type, Score: calc_score(cloth.Materials, cloth.Type, cloth.Water_conso, cloth.Greenhouse_gaz_conso, cloth.Original_country), Water_score: calc_water_score(cloth.Type), Materials_score: calc_materials_score(cloth.Materials), Gaz_score: calc_gaz_score(cloth.Type)}
+		cloth_model := models.Cloth{Greenhouse_gaz_conso: calc_gaz_consommation(cloth.Type), Water_conso: calc_water_consommation(cloth.Type), Quality_product: cloth.Quality_product, Conditions_working: cloth.Conditions_working, Materials: cloth.Materials, Factory: cloth.Factory, Pre_wash: cloth.Pre_wash, Packaging: cloth.Packaging, Original_country: cloth.Original_country, Means_of_transports: cloth.Means_of_transports, ID: cloth.ID, Brand: cloth.Brand, Type: cloth.Type, Score: calc_score(cloth.Materials, cloth.Type, cloth.Water_conso, cloth.Greenhouse_gaz_conso, cloth.Original_country), Water_score: calc_water_score(cloth.Type), Materials_score: calc_materials_score(cloth.Materials), Gaz_score: calc_gaz_score(cloth.Type), Description: cloth.Description}
 		db.Create(&cloth_model)
 		var tmp_cloth []models.Cloth
 		db.Find(&tmp_cloth)
