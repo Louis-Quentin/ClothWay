@@ -32,6 +32,7 @@ type Cloth struct {
 	Water_score				int
 	Materials_score			int
 	Gaz_score				int
+	Description				string
 }
 
 func (user *User) Create(database *gorm.DB) error {
