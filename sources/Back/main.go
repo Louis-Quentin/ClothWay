@@ -4,6 +4,7 @@ import (
 	"Back-End.clothway/database"
 	"Back-End.clothway/middleware"
 	router "Back-End.clothway/sources"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"log"
 )
@@ -26,12 +27,13 @@ func main() {
 	gin.SetMode(gin.ReleaseMode)
 	r := gin.New()
 
+	r.Use(cors.Default())
 	err := db.Init_database()
 	if err != nil {
 		log.Fatal(err)
 	}
 	apply_routes(r, &db)
-	err = r.Run(":8081")
+	err = r.Run(":8080")
 	if err != nil {
 		log.Fatal(err)
 	}
