@@ -8,8 +8,16 @@ import {styleItemScore} from "./ItemsStyle/StyleItemScore.css"
 import CustomizedRating from "./ScoreComponent";
 import {Button} from "@mui/material";
 
+/*function httpGet(theUrl)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+    xmlHttp.send( null );
+    return xmlHttp.responseText;
+}*/
 export default function SetShopList() {
-    let stored_shop_list;
+    //let stored_shop_list = httpGet("http://localhost:8080/get_all_cloths")
+    //console.log("STORED_LIST_PLS", stored_shop_list)
     const options = {
         method: "GET",
         body: "",
@@ -18,10 +26,15 @@ export default function SetShopList() {
         }
     };
     fetch("http://localhost:8080/get_all_cloths", options)
-        .then(response => response.json())
+        .then(response =>
+        {
+            console.log("GET ALL CLOTHS OK LE BACK A RENVOYER LA RÉPONSE");
+            //response.json()
+            console.log(response.json())
+        })
         .then(inputs => {
             console.log(inputs)
-            console.log("OK LE BACK A RENVOYER LA RÉPONSE");
+            console.log("GET ALL CLOTHS OK LE BACK A RENVOYER LA RÉPONSE");
         })
         .catch(error => {
             //handle errors
