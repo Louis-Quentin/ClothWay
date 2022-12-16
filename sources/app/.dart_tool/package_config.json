@@ -128,6 +128,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "tabler_icons",
+      "rootUri": "file:///data/eredouane/flutter/.pub-cache/hosted/pub.dartlang.org/tabler_icons-0.0.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "term_glyph",
       "rootUri": "file:///data/eredouane/flutter/.pub-cache/hosted/pub.dartlang.org/term_glyph-1.2.1",
       "packageUri": "lib/",
@@ -152,7 +158,7 @@
       "languageVersion": "2.18"
     }
   ],
-  "generated": "2022-12-15T15:50:06.166440Z",
+  "generated": "2022-12-16T01:42:09.624842Z",
   "generator": "pub",
   "generatorVersion": "2.18.5"
 }
