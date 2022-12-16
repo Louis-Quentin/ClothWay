@@ -43,7 +43,7 @@ export default function ProPage() {
                 "Content-Type": "application/json"
             }
         };
-        fetch("http://localhost:8080/uppload_cloath", options)
+        fetch("http://localhost:8080/upload_cloth", options)
         .then(response => response.json())
         .then(inputs => {
             // handle response data
