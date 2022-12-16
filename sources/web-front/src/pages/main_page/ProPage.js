@@ -7,7 +7,9 @@ export default function ProPage() {
 
     const [isSignup, setIsSignup] = useState(false);
     const [isSubmit, setIsSubmit] = useState(false);
-    const [inputs, setInputs] = useState({Price: "", Brand: "", Materials: "", Type: "", Description: "", Picture: ""});
+    const [inputs, setInputs] = useState({Price: "", Brand: "", Materials: "", Type: "", Description: "", Picture: "",
+    Greenhouse_gaz_conso: "", Water_conso:"", Quality_product:"", Conditions_working:"", Workers_salary:"", Factory:"",
+    Pre_wash:"", Packaging:"", Original_country:"", Means_of_transports:"", ID:"", Score:"", Water_score:"", Materials_score:"", Gaz_score:""});
     const navigate = useNavigate();
     const handleChange  = (e) => {
         setInputs((prevState) => ({...prevState,
@@ -41,7 +43,7 @@ export default function ProPage() {
                 "Content-Type": "application/json"
             }
         };
-        fetch("http://localhost:8080/upload_cloth", options)
+        fetch("http://localhost:8080/uppload_cloath", options)
         .then(response => response.json())
         .then(inputs => {
             // handle response data
