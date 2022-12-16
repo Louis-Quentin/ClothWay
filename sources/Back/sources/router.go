@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"io"
 	"strings"
-
+	"strconv"
 	"Back-End.clothway/models"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
@@ -89,7 +89,7 @@ func Handle_login_request(context *gin.Context) {
 	}
 }
 
-func calc_score(materials string, type_ string, water int, gaz int, origin string) (result int) {
+func calc_score(materials string, type_ string, water int, gaz int, origin string) (result string) {
 	score := 5
 
 	if strings.Contains(materials, "coton") == true && score > 1 {
@@ -118,75 +118,75 @@ func calc_score(materials string, type_ string, water int, gaz int, origin strin
 	if water > 8000 {
 		score -= 1
 	}
-	return score
+	return strconv.Itoa(score)
 }
 
-func calc_water_consommation(type_ string) (result int) {
+func calc_water_consommation(type_ string) (result string) {
 	if type_ == "haut" {
-		return 1300
+		return "1300"
 	}
 	if type_ == "bas" {
-		return 8500
+		return "8500"
 	}
 	if type_ == "chaussures" {
-		return 8000
+		return "8000"
 	}
-	return -1
+	return "-1"
 }
 
-func calc_gaz_consommation(type_ string) (result int) {
+func calc_gaz_consommation(type_ string) (result string) {
 	if type_ == "haut" {
-		return 10
+		return "10"
 	}
 	if type_ == "bas" {
-		return 25
+		return "25"
 	}
 	if type_ == "chaussures" {
-		return 13
+		return "13"
 	}
-	return -1
+	return "-1"
 }
 
-func calc_water_score(type_ string) (result int) {
+func calc_water_score(type_ string) (result string) {
 	if type_ == "haut" {
-		return 4
+		return "4"
 	}
 	if type_ == "bas" {
-		return 3
+		return "3"
 	}
 	if type_ == "chaussures" {
-		return 3
+		return "3"
 	}
-	return -1
+	return "-1"
 }
 
-func calc_gaz_score(type_ string) (result int) {
+func calc_gaz_score(type_ string) (result string) {
 	if type_ == "haut" {
-		return 4
+		return "4"
 	}
 	if type_ == "bas" {
-		return 3
+		return "3"
 	}
 	if type_ == "chaussures" {
-		return 3
+		return "3"
 	}
-	return -1
+	return "-1"
 }
 
-func calc_materials_score(materials string) (result int) {
+func calc_materials_score(materials string) (result string) {
 	if (strings.Contains(materials, "chanvre") == true || strings.Contains(materials, "lin") == true || strings.Contains(materials, "coton biologique") == true || strings.Contains(materials, "laine") == true) && strings.Contains(materials, "polyester") == false && strings.Contains(materials, "viscose") == false {
-		return 5
+		return "5"
 	}
 	if strings.Contains(materials, "coton") == false && strings.Contains(materials, "polyester") == false && strings.Contains(materials, "viscose") == false {
-		return 4
+		return "4"
 	}
 	if strings.Contains(materials, "coton") == true && strings.Contains(materials, "polyester") == true && strings.Contains(materials, "viscose") == true {
-		return 1
+		return "1"
 	}
 	if strings.Contains(materials, "coton") == true || strings.Contains(materials, "polyester") == true || strings.Contains(materials, "viscose") == true {
-		return 3
+		return "3"
 	}
-	return -1
+	return "-1"
 }
 
 func Handle_upload_cloth_request(context *gin.Context) {
@@ -221,13 +221,15 @@ func Handle_upload_cloth_request(context *gin.Context) {
 		context.JSON(400, gin.H{"Error": "error no type given"})
 	} else if cloth.Description == "" {
 		context.JSON(400, gin.H{"Error": "error no description given"})
-	} else if cloth.Price <= 0 {
+	} else if cloth.Price == "" {
 		context.JSON(400, gin.H{"Error": "error no price given"})
 	} else if cloth.Picture == "" {
 		context.JSON(400, gin.H{"Error": "error no Picture given"})
 	} else {
 		db := context.MustGet("gorm").(gorm.DB)
-		cloth_model := models.Cloth{Greenhouse_gaz_conso: calc_gaz_consommation(cloth.Type), Water_conso: calc_water_consommation(cloth.Type), Quality_product: cloth.Quality_product, Conditions_working: cloth.Conditions_working, Materials: cloth.Materials, Factory: cloth.Factory, Pre_wash: cloth.Pre_wash, Packaging: cloth.Packaging, Original_country: cloth.Original_country, Means_of_transports: cloth.Means_of_transports, ID: cloth.ID, Brand: cloth.Brand, Type: cloth.Type, Score: calc_score(cloth.Materials, cloth.Type, cloth.Water_conso, cloth.Greenhouse_gaz_conso, cloth.Original_country), Water_score: calc_water_score(cloth.Type), Materials_score: calc_materials_score(cloth.Materials), Gaz_score: calc_gaz_score(cloth.Type), Description: cloth.Description}
+		w_conso, _ := strconv.Atoi(cloth.Water_conso)
+		g_conso, _:=strconv.Atoi(cloth.Greenhouse_gaz_conso)
+		cloth_model := models.Cloth{Greenhouse_gaz_conso: calc_gaz_consommation(cloth.Type), Water_conso: calc_water_consommation(cloth.Type), Quality_product: cloth.Quality_product, Conditions_working: cloth.Conditions_working, Materials: cloth.Materials, Factory: cloth.Factory, Pre_wash: cloth.Pre_wash, Packaging: cloth.Packaging, Original_country: cloth.Original_country, Means_of_transports: cloth.Means_of_transports,Brand: cloth.Brand, Type: cloth.Type, Score: calc_score(cloth.Materials, cloth.Type, w_conso, g_conso, cloth.Original_country), Water_score: calc_water_score(cloth.Type), Materials_score: calc_materials_score(cloth.Materials), Gaz_score: calc_gaz_score(cloth.Type), Description: cloth.Description, Price: cloth.Price, Picture: cloth.Picture}
 		db.Create(&cloth_model)
 		var tmp_cloth []models.Cloth
 		db.Find(&tmp_cloth)
@@ -242,21 +244,21 @@ func Handle_get_all_cloths_request(context *gin.Context) {
 	context.JSON(200, gin.H{"All cloths": result})
 }
 
-func Handle_get_cloth_request(context *gin.Context) {
-	type Get_Id struct {
-		ID int
-	}
-	var id Get_Id
-	string_body, _ := io.ReadAll(context.Request.Body)
-	err := json.Unmarshal([]byte(string_body), &id)
-	if err != nil {
-		context.JSON(400, gin.H{"Error": "Wrong register request format"})
-	} else if id.ID <= 0 {
-		context.JSON(400, gin.H{"Error": "error no id given"})
-	} else {
-		db := context.MustGet("gorm").(gorm.DB)
-		var result models.Cloth
-		db.Raw("SELECT * FROM cloths WHERE ID= ?", id.ID).Scan(&result)
-		context.JSON(200, gin.H{"Get cloth": result})
-	}
-}
+// func Handle_get_cloth_request(context *gin.Context) {
+// 	type Get_Id struct {
+// 		ID int
+// 	}
+// 	var id Get_Id
+// 	string_body, _ := io.ReadAll(context.Request.Body)
+// 	err := json.Unmarshal([]byte(string_body), &id)
+// 	if err != nil {
+// 		context.JSON(400, gin.H{"Error": "Wrong register request format"})
+// 	} else if id.ID <= 0 {
+// 		context.JSON(400, gin.H{"Error": "error no id given"})
+// 	} else {
+// 		db := context.MustGet("gorm").(gorm.DB)
+// 		var result models.Cloth
+// 		db.Raw("SELECT * FROM cloths WHERE ID= ?", id.ID).Scan(&result)
+// 		context.JSON(200, gin.H{"Get cloth": result})
+// 	}
+//}

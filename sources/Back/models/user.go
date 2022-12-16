@@ -13,26 +13,25 @@ type User struct {
 
 type Cloth struct {
 	gorm.Model
-	Greenhouse_gaz_conso int
-	Water_conso          int
-	Quality_product      int
+	Greenhouse_gaz_conso string
+	Water_conso          string
+	Quality_product      string
 	Conditions_working   string
-	Workers_salary       int
+	Workers_salary       string
 	Materials            string
 	Factory              string
-	Pre_wash             int
-	Packaging            int
+	Pre_wash             string
+	Packaging            string
 	Original_country     string
 	Means_of_transports  string
-	ID                   int
 	Brand                string
 	Type                 string
-	Score                int
-	Water_score          int
-	Materials_score      int
-	Gaz_score            int
+	Score                string
+	Water_score          string
+	Materials_score      string
+	Gaz_score            string
 	Description          string
-	Price                int
+	Price                string
 	Picture              string
 }
 
