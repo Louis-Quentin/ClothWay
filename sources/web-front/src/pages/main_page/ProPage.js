@@ -23,8 +23,6 @@ export default function ProPage() {
         setIsSignup(!isSignup);
         setInputs({Prix:"", Marque:"", Matériau:""})
     }
-    if (isSubmit)
-        navigate("/")
     const [image, setImage] = useState('')
     function handleImage(e) {
         const uploadImage = "../../images/" + e.target.files[0].name;
@@ -42,7 +40,7 @@ export default function ProPage() {
                 "Content-Type": "application/json"
             }
         };
-        fetch("http://localhost:8080/register", options)
+        fetch("http://localhost:8080/upload_cloth", options)
         .then(response => response.json())
         .then(inputs => {
             // handle response data

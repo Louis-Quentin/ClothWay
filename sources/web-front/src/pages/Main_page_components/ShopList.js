@@ -9,7 +9,24 @@ import CustomizedRating from "./ScoreComponent";
 import {Button} from "@mui/material";
 
 export default function SetShopList() {
-    let parsed_data = [new ItemToSell(23, 5), new ItemToSell(15, 3), new ItemToSell(6, 1), new ItemToSell(9.99, 1), new ItemToSell(6, 1.7), new ItemToSell(6, 4.8), new ItemToSell(6, 4)]
+    let stored_shop_list;
+    const options = {
+        method: "GET",
+        body: "",
+        Headers: {
+            "Content-Type": "application/json"
+        }
+    };
+    fetch("http://localhost:8080/get_all_cloths", options)
+        .then(response => response.json())
+        .then(inputs => {
+            console.log(inputs)
+            console.log("OK LE BACK A RENVOYER LA RÉPONSE");
+        })
+        .catch(error => {
+            //handle errors
+        });
+    let parsed_data = [new ItemToSell(23, 5), new ItemToSell(15, 3.7), new ItemToSell(6, 1), new ItemToSell(9.99, 1), new ItemToSell(6, 1.7), new ItemToSell(6, 4.8), new ItemToSell(6, 4)]
     let items_list = [];
     parsed_data.forEach(function (elem) {
         let ItemToSell = {};
