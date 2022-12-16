@@ -13,7 +13,7 @@ export default function SetShopList() {
     let items_list = [];
     parsed_data.forEach(function (elem) {
         let ItemToSell = {};
-        ItemToSell["Score"] = elem.score
+        ItemToSell["Score"] = elem.Score
         ItemToSell["Price"] = elem.Price
         ItemToSell["Img"] = document.createElement('img');
         ItemToSell["Img"].src = "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/966d8f2a-dd27-4b55-b66f-9e80043fc67d/chaussure-de-running-sur-route-quest-5-pour-R8wtjM.png"
@@ -69,7 +69,7 @@ function DisplayItemCategory() {
 }
 
 export const DisplayItem = (props) => {
-    console.log("DISPLAY ITEM", props.item.Price)
+    console.log("DISPLAY ITEM", props.item)
     //const {key, children, ..._} = item;
     //console.log(key, children);
     const [is_up, set_is_up] = useState(false)
@@ -99,7 +99,7 @@ export const DisplayItem = (props) => {
                 marginLeft: "1Opx"
             }} onClick={DisplayDetailedScore}>
                 {items}
-                <CustomizedRating/>
+                <CustomizedRating score={props.item.Score}/>
             </Button>
         </div>
     )
