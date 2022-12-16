@@ -15,15 +15,16 @@ class HomePageState extends State<HomePage> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: const [
           Text(
-            'Categories',
+            'Catégories',
             style: TextStyle(
               fontSize: 20,
-              color: Colors.black87,
+              color: Colors.black,
               fontWeight: FontWeight.bold,
+              fontFamily: 'InterFont',
             ),
           ),
           Text(
-            'See all',
+            'Tout voir',
             style: TextStyle(
               fontSize: 20,
               color: Colors.grey,
@@ -48,7 +49,8 @@ class HomePageState extends State<HomePage> {
                 name!,
                 style: const TextStyle(
                   fontSize: 20,
-                  color: Colors.black87,
+                  color: Colors.black,
+                  fontFamily: 'InterFont',
                 ),
               ),
             ),
@@ -73,6 +75,46 @@ class HomePageState extends State<HomePage> {
     );
   }
 
+  Widget suggestion({String? description, String? image}) {
+    return Card(
+      color: Colors.white,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            height: 100,
+            width: 140,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: AssetImage(image!),
+              ),
+              color: Colors.white,
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(6),
+                topRight: Radius.circular(6),
+              ),
+            ),
+          ),
+          Container(
+            width: 140,
+            child: Center(
+              child: Text(
+                description!,
+                style: const TextStyle(
+                  fontSize: 20,
+                  color: Colors.black,
+                  fontFamily: 'InterFont',
+                ),
+              ),
+            ),
+          ),
+          Icon(Icons.eco),
+        ],
+      ),
+    );
+  }
+
   Widget searchBar() {
     return Container(
       height: 70,
@@ -89,7 +131,7 @@ class HomePageState extends State<HomePage> {
             child: TextFormField(
               autofocus: false,
               decoration: const InputDecoration(
-                hintText: 'Search your product',
+                hintText: 'Cherche ton produit',
                 prefixIcon: Icon(Icons.search),
                 fillColor: Colors.white,
                 filled: true,
@@ -115,19 +157,21 @@ class HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: const [
                 Text(
-                  'featured',
+                  'Pour vous',
                   style: TextStyle(
                     fontSize: 20,
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
+                    fontFamily: 'InterFont',
                   ),
                 ),
                 Text(
-                  'See all',
+                  'Tout voir',
                   style: TextStyle(
                     fontSize: 20,
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
+                    fontFamily: 'InterFont',
                   ),
                 ),
               ]),
@@ -142,13 +186,13 @@ class HomePageState extends State<HomePage> {
       drawer: const Drawer(),
       backgroundColor: Colors.white,
       appBar: AppBar(
-          iconTheme: const IconThemeData(color: Colors.black),
+          iconTheme: const IconThemeData(color: Colors.white),
           elevation: 0.0,
-          backgroundColor: Colors.green,
+          backgroundColor: const Color.fromRGBO(30, 30, 30, 30),
           actions: const [
             Icon(
               Icons.notifications_none,
-              color: Colors.black,
+              color: Colors.white,
             ),
           ]),
       body: Container(
@@ -165,25 +209,46 @@ class HomePageState extends State<HomePage> {
                 child: Row(
                   children: [
                     categories(
-                      image: 'assets/image/woman.png',
-                      name: 'woman',
+                      image: 'assets/image/femme.jpeg',
+                      name: 'femme',
                     ),
                     categories(
-                      image: 'assets/image/man.jpg',
-                      name: 'men',
+                      image: 'assets/image/homme.jpg',
+                      name: 'homme',
                     ),
                     categories(
-                      image: 'assets/image/kids.png',
-                      name: 'kids',
+                      image: 'assets/image/enfant.jpeg',
+                      name: 'enfant',
                     ),
                     categories(
-                      image: 'assets/image/sports.png',
-                      name: 'sports',
+                      image: 'assets/image/sport.jpg',
+                      name: 'sport',
                     ),
                   ],
                 ),
               ),
               featuresWidget(),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    suggestion(
+                      image: 'assets/image/lacoste.jpeg',
+                      description: 't-shirt noir Lacoste 42e',
+                    ),
+                    suggestion(
+                      image: 'assets/image/nike.jpeg',
+                      description: 't-shirt noir Nike 25e',
+                    ),
+                    suggestion(
+                      image: 'assets/image/ck.jpg',
+                      description: 't-shirt noir Calvin 35e',
+                    ),
+                    suggestion(
+                      image: 'assets/image/uniqlo.jpg',
+                      description: 't-shirt noir Uniqlo 27e',
+                    ),
+                  ])),
             ]),
           ),
         ]),

@@ -16,7 +16,7 @@ const StyledRating = styled(Rating)({
     },
 });
 
-export default function CustomizedRating() {
+export default function CustomizedRating(score) {
     return (
         <div className="style-item-score-box">
             <Box
@@ -25,7 +25,7 @@ export default function CustomizedRating() {
                 }}
             >
                 <StyledRating
-                    defaultValue={2}
+                    defaultValue={score.score}
                     getLabelText={(value) => `${value} Heart${value !== 1 ? 's' : ''}`}
                     precision={0.5}
                     icon={<EnergySavingsLeafIcon fontSize="inherit" />}

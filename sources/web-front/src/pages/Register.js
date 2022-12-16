@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom'
 import ProPage from "../pages/main_page/ProPage.js";
 import propage from "../pages/main_page/ProPage.js"
 
+let isPassed = false;
+
 export default function FormRegistration() {
 
     const [isSignup, setIsSignup] = useState(false);
@@ -25,12 +27,14 @@ export default function FormRegistration() {
         setIsSignup(!isSignup);
         setInputs({Genr:"", FirstName:"", Login:"", Email:"", Password:""})
     }
-    if (isSubmit) {
+    if (isSubmit && !isPassed) {
         if ((inputs.Email === "pro@gmail.com" && inputs.Password === "pro1234")) {
             console.log("OK C EST EGAL À CA")
             setIsPro(true)
             navigate("/pro")
         }
+        isPassed = true
+        console.log("OK C EST")
         const options = {
             method: "POST",
             body: JSON.stringify(inputs),

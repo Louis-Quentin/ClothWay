@@ -163,6 +163,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.1"
+  tabler_icons:
+    dependency: "direct main"
+    description:
+      name: tabler_icons
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.3"
   term_glyph:
     dependency: transitive
     description:

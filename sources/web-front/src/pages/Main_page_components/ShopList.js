@@ -9,11 +9,28 @@ import CustomizedRating from "./ScoreComponent";
 import {Button} from "@mui/material";
 
 export default function SetShopList() {
-    let parsed_data = [new ItemToSell(23, 5), new ItemToSell(15, 3), new ItemToSell(6, 1), new ItemToSell(9.99, 1), new ItemToSell(6, 1.7), new ItemToSell(6, 4.8), new ItemToSell(6, 4)]
+    let stored_shop_list;
+    const options = {
+        method: "GET",
+        body: "",
+        Headers: {
+            "Content-Type": "application/json"
+        }
+    };
+    fetch("http://localhost:8080/get_all_cloths", options)
+        .then(response => response.json())
+        .then(inputs => {
+            console.log(inputs)
+            console.log("OK LE BACK A RENVOYER LA RÉPONSE");
+        })
+        .catch(error => {
+            //handle errors
+        });
+    let parsed_data = [new ItemToSell(23, 5), new ItemToSell(15, 3.7), new ItemToSell(6, 1), new ItemToSell(9.99, 1), new ItemToSell(6, 1.7), new ItemToSell(6, 4.8), new ItemToSell(6, 4)]
     let items_list = [];
     parsed_data.forEach(function (elem) {
         let ItemToSell = {};
-        ItemToSell["Score"] = elem.score
+        ItemToSell["Score"] = elem.Score
         ItemToSell["Price"] = elem.Price
         ItemToSell["Img"] = document.createElement('img');
         ItemToSell["Img"].src = "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/966d8f2a-dd27-4b55-b66f-9e80043fc67d/chaussure-de-running-sur-route-quest-5-pour-R8wtjM.png"
@@ -69,7 +86,7 @@ function DisplayItemCategory() {
 }
 
 export const DisplayItem = (props) => {
-    console.log("DISPLAY ITEM", props.item.Price)
+    console.log("DISPLAY ITEM", props.item)
     //const {key, children, ..._} = item;
     //console.log(key, children);
     const [is_up, set_is_up] = useState(false)
@@ -99,7 +116,7 @@ export const DisplayItem = (props) => {
                 marginLeft: "1Opx"
             }} onClick={DisplayDetailedScore}>
                 {items}
-                <CustomizedRating/>
+                <CustomizedRating score={props.item.Score}/>
             </Button>
         </div>
     )
