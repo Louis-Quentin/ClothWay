@@ -92,16 +92,16 @@ func Handle_login_request(context *gin.Context) {
 func calc_score(materials string, type_ string, water int, gaz int, origin string) (result string) {
 	score := 5
 
-	if strings.Contains(materials, "coton") == true && score > 1 {
+	if strings.Contains(materials, "Coton") == true && score > 1 {
 		score -= 1
 	}
-	if strings.Contains(materials, "polyester") == true && score > 1 {
+	if strings.Contains(materials, "Polyester") == true && score > 1 {
 		score -= 1
 	}
-	if strings.Contains(materials, "viscose") == true && score > 1 {
+	if strings.Contains(materials, "Viscose") == true && score > 1 {
 		score -= 1
 	}
-	if strings.Contains(materials, "bio") == true && score < 5 {
+	if strings.Contains(materials, "Bio") == true && score < 5 {
 		score += 1
 	}
 	if gaz > 20 {
@@ -122,68 +122,68 @@ func calc_score(materials string, type_ string, water int, gaz int, origin strin
 }
 
 func calc_water_consommation(type_ string) (result string) {
-	if type_ == "Haut" {
+	if type_ == "Haut" || type_ == "haut"{
 		return "1300"
 	}
-	if type_ == "Bas" {
+	if type_ == "Bas" || type_ == "bas"{
 		return "8500"
 	}
-	if type_ == "Chaussures" {
+	if type_ == "Chaussures" || type_ == "chaussures"{
 		return "8000"
 	}
 	return "-1"
 }
 
 func calc_gaz_consommation(type_ string) (result string) {
-	if type_ == "Haut" {
+	if type_ == "Haut" || type_ == "haut"{
 		return "10"
 	}
-	if type_ == "Bas" {
+	if type_ == "Bas" || type_ == "bas"{
 		return "25"
 	}
-	if type_ == "Chaussures" {
+	if type_ == "Chaussures"  || type_ == "chaussures"{
 		return "13"
 	}
 	return "-1"
 }
 
 func calc_water_score(type_ string) (result string) {
-	if type_ == "Haut" {
+	if type_ == "Haut" || type_ == "haut"{
 		return "4"
 	}
-	if type_ == "Bas" {
+	if type_ == "Bas" || type_ == "bas"{
 		return "3"
 	}
-	if type_ == "Chaussures" {
+	if type_ == "Chaussures" || type_ == "chaussures"{
 		return "3"
 	}
 	return "-1"
 }
 
 func calc_gaz_score(type_ string) (result string) {
-	if type_ == "Haut" {
+	if type_ == "Haut" || type_ == "haut"{
 		return "4"
 	}
-	if type_ == "Bas" {
+	if type_ == "Bas" || type_ == "bas"{
 		return "3"
 	}
-	if type_ == "Chaussures" {
+	if type_ == "Chaussures" || type_ == "chaussures"{
 		return "3"
 	}
 	return "-1"
 }
 
 func calc_materials_score(materials string) (result string) {
-	if (strings.Contains(materials, "chanvre") == true || strings.Contains(materials, "lin") == true || strings.Contains(materials, "coton biologique") == true || strings.Contains(materials, "laine") == true) && strings.Contains(materials, "polyester") == false && strings.Contains(materials, "viscose") == false {
+	if (strings.Contains(materials, "Chanvre") == true || strings.Contains(materials, "lLin") == true || strings.Contains(materials, "Coton biologique") == true || strings.Contains(materials, "Laine") == true) && strings.Contains(materials, "Polyester") == false && strings.Contains(materials, "Viscose") == false {
 		return "5"
 	}
-	if strings.Contains(materials, "coton") == false && strings.Contains(materials, "polyester") == false && strings.Contains(materials, "viscose") == false {
+	if strings.Contains(materials, "Coton") == false && strings.Contains(materials, "Polyester") == false && strings.Contains(materials, "Viscose") == false {
 		return "4"
 	}
-	if strings.Contains(materials, "coton") == true && strings.Contains(materials, "polyester") == true && strings.Contains(materials, "viscose") == true {
+	if strings.Contains(materials, "Coton") == true && strings.Contains(materials, "Polyester") == true && strings.Contains(materials, "Viscose") == true {
 		return "1"
 	}
-	if strings.Contains(materials, "coton") == true || strings.Contains(materials, "polyester") == true || strings.Contains(materials, "viscose") == true {
+	if strings.Contains(materials, "Coton") == true || strings.Contains(materials, "Polyester") == true || strings.Contains(materials, "Viscose") == true {
 		return "3"
 	}
 	return "-1"
@@ -227,8 +227,8 @@ func Handle_upload_cloth_request(context *gin.Context) {
 		context.JSON(400, gin.H{"Error": "error no Picture given"})
 	} else {
 		db := context.MustGet("gorm").(gorm.DB)
-		w_conso, _ := strconv.Atoi(cloth.Water_conso)
-		g_conso, _:=strconv.Atoi(cloth.Greenhouse_gaz_conso)
+		w_conso, _ := strconv.Atoi(calc_water_consommation(cloth.Type))
+		g_conso, _:=strconv.Atoi(calc_gaz_consommation(cloth.Type))
 		cloth_model := models.Cloth{Greenhouse_gaz_conso: calc_gaz_consommation(cloth.Type), Water_conso: calc_water_consommation(cloth.Type), Quality_product: cloth.Quality_product, Conditions_working: cloth.Conditions_working, Materials: cloth.Materials, Factory: cloth.Factory, Pre_wash: cloth.Pre_wash, Packaging: cloth.Packaging, Original_country: cloth.Original_country, Means_of_transports: cloth.Means_of_transports,Brand: cloth.Brand, Type: cloth.Type, Score: calc_score(cloth.Materials, cloth.Type, w_conso, g_conso, cloth.Original_country), Water_score: calc_water_score(cloth.Type), Materials_score: calc_materials_score(cloth.Materials), Gaz_score: calc_gaz_score(cloth.Type), Description: cloth.Description, Price: cloth.Price, Picture: cloth.Picture}
 		db.Create(&cloth_model)
 		var tmp_cloth []models.Cloth
