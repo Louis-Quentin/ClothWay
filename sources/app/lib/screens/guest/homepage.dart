@@ -109,7 +109,7 @@ class HomePageState extends State<HomePage> {
               ),
             ),
           ),
-          Icon(Icons.eco),
+          Icon(Icons.eco, color: Color.fromRGBO(0, 150, 0, 1),),
         ],
       ),
     );
