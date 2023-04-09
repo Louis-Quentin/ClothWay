@@ -13,7 +13,7 @@ type Database struct {
 }
 
 func (database *Database) Init_database() (err error) {
-	dsn := "host=localhost user=dev_user password=Clothway dbname=gorm port=5432 sslmode=disable TimeZone=Europe/Paris"
+	dsn := "host=db user=dev_user password=Clothway dbname=gorm port=5432 sslmode=disable TimeZone=Europe/Paris"
 	database.DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		fmt.Println("ON A PAS OPEN LA DB")
