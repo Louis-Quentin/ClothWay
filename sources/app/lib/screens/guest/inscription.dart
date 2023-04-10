@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:bis/screens/guest/homepage.dart';
 import 'package:bis/screens/guest/login.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +34,6 @@ Future<bool> connection(String email, String password) async {
   }
 }
 
-bool showMessage = false;
 final TextEditingController emailController = TextEditingController();
 final TextEditingController passwordController = TextEditingController();
 
