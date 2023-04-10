@@ -1,18 +1,15 @@
 package router
 
 import (
-	"encoding/json"
-	"fmt"
-	"io"
-	"strings"
-	"strconv"
 	"Back-End.clothway/models"
+	"encoding/json"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
+	"net/http"
+	"unicode"
 )
 
 type NewUser struct {
-	Login    string
 	Password string
 	Email    string
 }
@@ -35,30 +32,101 @@ func Handle_home_request(context *gin.Context) {
 	}
 }
 
-func Handle_register_request(context *gin.Context) {
-	var user NewUser
-	string_body, _ := io.ReadAll(context.Request.Body)
-	err := json.Unmarshal([]byte(string_body), &user)
+func Handle_signin_request(context *gin.Context) {
+	var body NewUser
+	err := json.NewDecoder(context.Request.Body).Decode(&body)
 	if err != nil {
-		context.JSON(400, gin.H{"Error": "Wrong register request format"})
-	} else if user.Login == "" {
-		context.JSON(400, gin.H{"Error": "error no login given"})
-	} else if user.Password == "" {
-		context.JSON(400, gin.H{"Error": "error no password given"})
-	} else if user.Email == "" {
-		context.JSON(400, gin.H{"Error": "error no email given"})
-	} else {
-		db := context.MustGet("gorm").(gorm.DB)
-		user_model := models.User{Name: user.Login, Email: user.Email, Password: user.Password}
-		db.Create(&user_model)
-		var tmp_user []models.User
-		db.Find(&tmp_user)
-		fmt.Println(tmp_user)
-		context.JSON(200, gin.H{"Register": "OK"})
+		context.JSON(http.StatusInternalServerError, gin.H{
+			"Error": "Failed to read body",
+		})
+		return
 	}
+	var user models.User
+	db := context.MustGet("gorm").(gorm.DB)
+	db.First(&user, "email=?", body.Email)
+
+	if user.ID == 0 {
+		context.JSON(http.StatusBadRequest, gin.H{
+			"Error": "Invalid email",
+		})
+		return
+	}
+	if user.Password != body.Password {
+		context.JSON(http.StatusBadRequest, gin.H{
+			"Error": "Invalid Password",
+		})
+		return
+	}
+	context.SetCookie("email", body.Email, 3600*24*30, "", "", false, false)
+	context.JSON(http.StatusAccepted, gin.H{
+		"Success": "Successfully connected",
+	})
 }
 
-func Handle_get_user_request(context *gin.Context) {
+func contains_digit(s string) bool {
+	for _, c := range s {
+		if unicode.IsDigit(c) {
+			return true
+		}
+	}
+	return false
+}
+
+func contains_char(s string) bool {
+	for _, c := range s {
+		if unicode.IsLetter(c) {
+			return true
+		}
+	}
+	return false
+}
+
+func Handle_signup_request(context *gin.Context) {
+	var body NewUser
+	err := json.NewDecoder(context.Request.Body).Decode(&body)
+	if err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{
+			"Error": "Failed to read body",
+		})
+		return
+	}
+	context.SetCookie("email", body.Email, 3600*24*30, "", "", false, false)
+	db := context.MustGet("gorm").(gorm.DB)
+	user := models.User{Email: body.Email, Password: body.Password}
+	res := db.Where(&user).Find(&user)
+	if res.Error != nil && res.Error != gorm.ErrRecordNotFound {
+		println("not found")
+	}
+	if res.RowsAffected == 0 {
+		if len(body.Password) < 8 {
+			context.JSON(http.StatusBadRequest, gin.H{
+				"Error": "Too short password",
+			})
+			return
+		} else if contains_char(body.Password) == false {
+			context.JSON(http.StatusBadRequest, gin.H{
+				"Error": "password require at least one char",
+			})
+			return
+		} else if contains_digit(body.Password) == false {
+			context.JSON(http.StatusBadRequest, gin.H{
+				"Error": "password require at least one digit",
+			})
+			return
+		}
+		db.FirstOrCreate(&user, user)
+		context.JSON(http.StatusCreated, gin.H{
+			"Success": "User Successfully created",
+		})
+	} else {
+		context.JSON(http.StatusBadRequest, gin.H{
+			"Error": "User already Existing",
+		})
+	}
+	println("debug end")
+}
+
+/*func Handle_get_user_request(context *gin.Context) {
 	var mail GetUser
 	string_body, _ := io.ReadAll(context.Request.Body)
 	err := json.Unmarshal([]byte(string_body), &mail)
@@ -72,24 +140,9 @@ func Handle_get_user_request(context *gin.Context) {
 		db.Raw("SELECT Name, Email FROM users WHERE Email= ?", mail.Email).Scan(&result)
 		context.JSON(200, gin.H{"Get_user": result})
 	}
-}
+}*/
 
-func Handle_login_request(context *gin.Context) {
-	var user models.User
-	string_body, _ := io.ReadAll(context.Request.Body)
-	err := json.Unmarshal([]byte(string_body), &user)
-	if err != nil {
-		context.JSON(400, gin.H{"Error": "Wrong login request format"})
-	} else if user.Name == "" {
-		context.JSON(400, gin.H{"Error": "error no login given"})
-	} else if user.Password == "" {
-		context.JSON(400, gin.H{"Error": "error no password given"})
-	} else {
-		context.JSON(200, gin.H{"Login": "OK"})
-	}
-}
-
-func calc_score(materials string, type_ string, water int, gaz int, origin string) (result string) {
+/*func calc_score(materials string, type_ string, water int, gaz int, origin string) (result string) {
 	score := 5
 
 	if strings.Contains(materials, "Coton") == true && score > 1 {
@@ -119,55 +172,55 @@ func calc_score(materials string, type_ string, water int, gaz int, origin strin
 		score -= 1
 	}
 	return strconv.Itoa(score)
-}
+}*/
 
-func calc_water_consommation(type_ string) (result string) {
-	if type_ == "Haut" || type_ == "haut"{
+/*func calc_water_consommation(type_ string) (result string) {
+	if type_ == "Haut" || type_ == "haut" {
 		return "1300"
 	}
-	if type_ == "Bas" || type_ == "bas"{
+	if type_ == "Bas" || type_ == "bas" {
 		return "8500"
 	}
-	if type_ == "Chaussures" || type_ == "chaussures"{
+	if type_ == "Chaussures" || type_ == "chaussures" {
 		return "8000"
 	}
 	return "-1"
-}
+}*/
 
-func calc_gaz_consommation(type_ string) (result string) {
-	if type_ == "Haut" || type_ == "haut"{
+/*func calc_gaz_consommation(type_ string) (result string) {
+	if type_ == "Haut" || type_ == "haut" {
 		return "10"
 	}
-	if type_ == "Bas" || type_ == "bas"{
+	if type_ == "Bas" || type_ == "bas" {
 		return "25"
 	}
-	if type_ == "Chaussures"  || type_ == "chaussures"{
+	if type_ == "Chaussures" || type_ == "chaussures" {
 		return "13"
 	}
 	return "-1"
-}
+}*/
 
-func calc_water_score(type_ string) (result string) {
-	if type_ == "Haut" || type_ == "haut"{
+/*func calc_water_score(type_ string) (result string) {
+	if type_ == "Haut" || type_ == "haut" {
 		return "4"
 	}
-	if type_ == "Bas" || type_ == "bas"{
+	if type_ == "Bas" || type_ == "bas" {
 		return "3"
 	}
-	if type_ == "Chaussures" || type_ == "chaussures"{
+	if type_ == "Chaussures" || type_ == "chaussures" {
 		return "3"
 	}
 	return "-1"
 }
 
 func calc_gaz_score(type_ string) (result string) {
-	if type_ == "Haut" || type_ == "haut"{
+	if type_ == "Haut" || type_ == "haut" {
 		return "4"
 	}
-	if type_ == "Bas" || type_ == "bas"{
+	if type_ == "Bas" || type_ == "bas" {
 		return "3"
 	}
-	if type_ == "Chaussures" || type_ == "chaussures"{
+	if type_ == "Chaussures" || type_ == "chaussures" {
 		return "3"
 	}
 	return "-1"
@@ -228,8 +281,8 @@ func Handle_upload_cloth_request(context *gin.Context) {
 	} else {
 		db := context.MustGet("gorm").(gorm.DB)
 		w_conso, _ := strconv.Atoi(calc_water_consommation(cloth.Type))
-		g_conso, _:=strconv.Atoi(calc_gaz_consommation(cloth.Type))
-		cloth_model := models.Cloth{Greenhouse_gaz_conso: calc_gaz_consommation(cloth.Type), Water_conso: calc_water_consommation(cloth.Type), Quality_product: cloth.Quality_product, Conditions_working: cloth.Conditions_working, Materials: cloth.Materials, Factory: cloth.Factory, Pre_wash: cloth.Pre_wash, Packaging: cloth.Packaging, Original_country: cloth.Original_country, Means_of_transports: cloth.Means_of_transports,Brand: cloth.Brand, Type: cloth.Type, Score: calc_score(cloth.Materials, cloth.Type, w_conso, g_conso, cloth.Original_country), Water_score: calc_water_score(cloth.Type), Materials_score: calc_materials_score(cloth.Materials), Gaz_score: calc_gaz_score(cloth.Type), Description: cloth.Description, Price: cloth.Price, Picture: cloth.Picture}
+		g_conso, _ := strconv.Atoi(calc_gaz_consommation(cloth.Type))
+		cloth_model := models.Cloth{Greenhouse_gaz_conso: calc_gaz_consommation(cloth.Type), Water_conso: calc_water_consommation(cloth.Type), Quality_product: cloth.Quality_product, Conditions_working: cloth.Conditions_working, Materials: cloth.Materials, Factory: cloth.Factory, Pre_wash: cloth.Pre_wash, Packaging: cloth.Packaging, Original_country: cloth.Original_country, Means_of_transports: cloth.Means_of_transports, Brand: cloth.Brand, Type: cloth.Type, Score: calc_score(cloth.Materials, cloth.Type, w_conso, g_conso, cloth.Original_country), Water_score: calc_water_score(cloth.Type), Materials_score: calc_materials_score(cloth.Materials), Gaz_score: calc_gaz_score(cloth.Type), Description: cloth.Description, Price: cloth.Price, Picture: cloth.Picture}
 		db.Create(&cloth_model)
 		var tmp_cloth []models.Cloth
 		db.Find(&tmp_cloth)
@@ -261,4 +314,4 @@ func Handle_get_all_cloths_request(context *gin.Context) {
 // 		db.Raw("SELECT * FROM cloths WHERE ID= ?", id.ID).Scan(&result)
 // 		context.JSON(200, gin.H{"Get cloth": result})
 // 	}
-//}
+//}*/

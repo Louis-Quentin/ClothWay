@@ -12,14 +12,9 @@ import (
 func apply_routes(r *gin.Engine, db *database.Database) {
 
 	r.Use(middleware.Link_api_to_db(db))
-	r.GET("/home", router.Handle_home_request)
 	r.GET("/", router.Handle_home_request)
-	r.GET("/get_user", router.Handle_get_user_request)
-	r.POST("/login", router.Handle_login_request)
-	r.POST("/register", router.Handle_register_request)
-	r.POST("/upload_cloth", router.Handle_upload_cloth_request)
-	//r.GET("/get_cloth", router.Handle_get_cloth_request)
-	r.GET("/get_all_cloths", router.Handle_get_all_cloths_request)
+	r.POST("/signin", router.Handle_signin_request)
+	r.POST("/signup", router.Handle_signup_request)
 }
 
 func main() {
