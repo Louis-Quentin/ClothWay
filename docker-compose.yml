@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+  #Partie base de données
+  db:
+    image: postgres:14.1-alpine
+    restart: always
+    #Informations de la db (mot de passe, nom d'utilisateur,  nom de la db)
+    environment:
+      - POSTGRES_USER=dev_user
+      - POSTGRES_PASSWORD=Clothway
+      - POSTGRES_DB=gorm
+    #Port de la base de données
+    ports:
+      - '5432:5432'
+    volumes:
+      - db:/var/lib/postgresql/data
+    networks:
+      - backend
+
+  #Partie BackEnd
+  server:
+  #Chemin vers le Dockerfile du BackEnd
+    build: ./sources/Back/
+    #Port du BackEnd
+    ports:
+      - "8080:8080"
+    restart: always
+    networks:
+      - backend
+    depends_on:
+      - db
+
+  #Partie FrontEnd
+  client_web:
+  #Chemin vers le Dockerfile du FrontEnd
+    build: ./sources/web-front/
+    #Port du FrontEnd
+    ports:
+      - "8081:3000"
+    restart: always
+    networks:
+      - backend
+    depends_on:
+      - server
+
+  #PartieMobile
+  client_mobile:
+  #Chemin vers le Dockerfile du mobile
+    build: ./sources/app/
+    restart: always
+    networks:
+      - backend
+    command: tail -f /dev/null
+    
+
+networks:
+  backend:
+
+volumes:
+  area:
+  db:
+    driver: local
