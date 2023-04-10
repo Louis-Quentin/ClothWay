@@ -1,7 +1,33 @@
+import 'dart:convert';
+
+import 'package:bis/screens/guest/inscription.dart';
 import 'package:bis/screens/guest/welcome.dart';
 import 'package:flutter/material.dart';
 import 'homepage.dart';
+import 'package:http/http.dart' as http;
 import 'package:animate_do/animate_do.dart';
+
+Future<bool> connection(String email, String password) async {
+  String url = "http://10.68.247.143:8080/signin";
+  final response = await http.post(
+    Uri.parse(url),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, String>{'Email': email, 'Password': password}),
+  );
+  if (response.statusCode == 201) {
+    print("inscription réussie");
+    return true;
+  } else {
+    if (response.statusCode == 400) {
+      print("inscription ratée");
+    } else if (response.statusCode == 500) {
+      print("problème venant du serveur");
+    }
+    return false;
+  }
+}
 
 class connexionPage extends StatelessWidget {
   const connexionPage({super.key});
@@ -13,7 +39,10 @@ class connexionPage extends StatelessWidget {
       child: const Text(
         'ClothWay',
         style: TextStyle(
-            color: Colors.white, fontSize: 25, fontWeight: FontWeight.w900, fontFamily: 'NorFont'),
+            color: Colors.white,
+            fontSize: 25,
+            fontWeight: FontWeight.w900,
+            fontFamily: 'NorFont'),
       ),
     ));
   }
@@ -25,7 +54,7 @@ class connexionPage extends StatelessWidget {
           Container(
             alignment: Alignment.topLeft,
             child: BounceInDown(
-              child :const Text(
+              child: const Text(
                 'Connectez vous !',
                 style: TextStyle(
                     color: Colors.white,
@@ -115,37 +144,43 @@ class connexionPage extends StatelessWidget {
                                 builder: (context) => const WelcomePage()),
                           );
                         },
-                        child: Text(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.black,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 30, vertical: 10),
+                        ),
+                        child: const Text(
                           "retour",
                           style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.white,
-                            fontFamily: 'NorFont'),
-                            ),
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.black,
-                          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                              fontSize: 20,
+                              color: Colors.white,
+                              fontFamily: 'NorFont'),
                         ),
                       ),
                       const SizedBox(width: 80),
                       ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const HomePage()),
-                          );
+                        onPressed: () async {
+                          if (await connection(
+                              emailController.text, passwordController.text)) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const HomePage()),
+                            );
+                          }
+                          ;
                         },
-                        child: Text(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                        ),
+                        child: const Text(
                           "continuer",
                           style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.black,
-                            fontFamily: 'NorFont'),
-                            ),
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.white,
-                          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                              fontSize: 20,
+                              color: Colors.black,
+                              fontFamily: 'NorFont'),
                         ),
                       ),
                     ],

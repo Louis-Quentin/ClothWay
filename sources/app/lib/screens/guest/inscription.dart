@@ -1,10 +1,7 @@
-import 'dart:html';
-
 import 'package:bis/screens/guest/homepage.dart';
 import 'package:bis/screens/guest/login.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'package:animate_do/animate_do.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -13,30 +10,6 @@ bool _motDePasse = false;
 bool validPass(String str) {
   RegExp regex = RegExp(r'^(?=.*?[0-9]).{8,}$');
   return regex.hasMatch(str);
-}
-
-void showError(String errorMessage, BuildContext context) {
-  Timer(Duration(seconds: 10), () {
-    errorMessage = '';
-  });
-
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: Text('Erreur'),
-        content: Text(errorMessage),
-        actions: <Widget>[
-          TextButton(
-            child: Text('OK'),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-        ],
-      );
-    },
-  );
 }
 
 Future<bool> connection(String email, String password) async {
@@ -49,13 +22,18 @@ Future<bool> connection(String email, String password) async {
     body: jsonEncode(<String, String>{'Email': email, 'Password': password}),
   );
   if (response.statusCode == 201) {
+    print("inscription réussie");
     return true;
   } else {
+    if (response.statusCode == 400) {
+      print("inscription ratée");
+    } else if (response.statusCode == 500) {
+      print("problème venant du serveur");
+    }
     return false;
   }
 }
 
-bool showMessage = false;
 final TextEditingController emailController = TextEditingController();
 final TextEditingController passwordController = TextEditingController();
 
