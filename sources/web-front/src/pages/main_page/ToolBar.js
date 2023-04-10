@@ -1,22 +1,30 @@
-import SearchBar from "./SearchBar";
-import DrawerMenu from "./DrawerMenu";
+import SearchBar from "./SearchBar"
+import DrawerMenu from "./DrawerMenu"
 import {
     AppBar,
     Toolbar,
     Typography,
     Button,
     Stack,
-} from '@mui/material';
+} from '@mui/material'
 
-export default function Main() {
+function MyButton({ Text, Href, Size }) {
+    return (
+        <Button href={ Href } color='inherit' style={{textTransform: 'none'}}>
+            <Typography variant={ Size }>
+                { Text }
+            </Typography>
+        </Button>
+    );
+}
+
+export default function ToolBar() {
     return (
         <AppBar elevation={0} position='static' style={{background: '#303030'}}>
             <Toolbar sx={{justifyContent: "space-between"}}>
                 <Stack direction="row" alignItems="center">
                     <DrawerMenu/>
-                    <Typography variant="h6" component="div" sx={{mr: 10}}>
-                        ClothWay
-                    </Typography>
+                    <MyButton Text="ClothWay" Href="/" Size="h4"/>
                 </Stack>
                 <SearchBar/>
                 <Button href="/register" sx={{color: "inherit"}}>

@@ -8,8 +8,8 @@ export default function Main() {
     <div>
         <ToolBar />
         <Presentation />
-        <Slide/>
-        <SetShopList/>
+        {/* <Slide/> */}
+        {/* <SetShopList/> */}
     </div>
   );
 }

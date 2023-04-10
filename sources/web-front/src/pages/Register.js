@@ -1,63 +1,103 @@
-import { Box, Button, TextField, Typography } from "@mui/material";
-import { useState } from "react";
-import { useNavigate } from 'react-router-dom'
-import ProPage from "../pages/main_page/ProPage.js";
-import propage from "../pages/main_page/ProPage.js"
-
-let isPassed = false;
+import {useState} from "react"
+import ToolBar from "./main_page/ToolBar"
+import validator from "validator"
+import {
+    Box,
+    Button,
+    TextField,
+    Typography
+} from "@mui/material"
 
 export default function FormRegistration() {
+    const [isSignup, setIsSignup] = useState(false)
+    const [isSubmit, setIsSubmit] = useState(false)
+    const [inputs, setInputs] = useState({Email: "", Password: ""})
+    const [passwordMessage, setPasswordMessage] = useState('')
+    const [canSubmit, setCanSubmit] = useState(false)
+    const [errorMessage, setErrorMessage] = useState('')
 
-    const [isSignup, setIsSignup] = useState(false);
-    const [isSubmit, setIsSubmit] = useState(false);
-    const [isPro, setIsPro] = useState(false);
-    const [inputs, setInputs] = useState({Genre: "", FirstName: "", Login: "", Email: "", Password: "",});
-    const navigate = useNavigate();
     const handleChange  = (e) => {
         setInputs((prevState) => ({...prevState,
-        [e.target.name] : e.target.value
-    }))
+            [e.target.name] : e.target.value
+        }))
     }
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        setIsSubmit(true)
-        console.log("INPUTS RENTRÉS : ", inputs)
-    }
-    const resetState = () => {
-        setIsSignup(!isSignup);
-        setInputs({Genr:"", FirstName:"", Login:"", Email:"", Password:""})
-    }
-    if (isSubmit && !isPassed) {
-        if ((inputs.Email === "pro@gmail.com" && inputs.Password === "pro1234")) {
-            console.log("OK C EST EGAL À CA")
-            setIsPro(true)
-            navigate("/pro")
+
+    const handleChangePwd = (e) => {
+        setInputs((prevState) => ({...prevState,
+            [e.target.name] : e.target.value
+        }))
+        if (validator.isStrongPassword(e.target.value, {
+            minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1, minSymbols: 1
+        })) {
+            setPasswordMessage("Is Strong Password")
+            setCanSubmit(true)
+        } else {
+            setPasswordMessage("Is Not Strong Password")
+            setCanSubmit(false)
         }
-        isPassed = true
-        console.log("OK C EST")
+    }
+
+    const handleSubmit = (e) => {
+        if (!isSignup) {
+            if (canSubmit) {
+                e.preventDefault()
+                setIsSubmit(true)
+                console.log("INPUTS RENTRÉS : ", inputs)
+            }
+        } else {
+            e.preventDefault()
+            setIsSubmit(true)
+            console.log("INPUTS RENTRÉS : ", inputs)
+        }
+    }
+
+    const resetState = () => {
+            setIsSignup(!isSignup)
+            setInputs({Email:"", Password:""})
+    }
+
+    if (isSubmit) {
         const options = {
             method: "POST",
             body: JSON.stringify(inputs),
             Headers: {
-                "Content-Type": "application/json"
-            }
-        };
-        fetch("http://localhost:8080/register", options)
-        .then(response => response.json())
-        .then(inputs => {
-            // handle response data
-            console.log("OK LE BACK A RENVOYER LA RÉPONSE");
-        })
-        .catch(error => {
-            //handle errors
-        });
+                "Content-Type": "application/json",
+            },
+        }
+        console.log(options)
+        if (isSignup) {
+            fetch("http://localhost:8080/login", options)
+                .then(data => {
+                    console.log("OK LE BACK A RENVOYER LA RÉPONSE: ", data)
+                    if (!data.ok) {
+                        console.log("LAAA")
+                        setErrorMessage(data.status)
+                    }
+                })
+                .catch(error => {
+                    console.log("LA", error)
+                });
+        }
+        else {
+            fetch("http://localhost:8080/signup", options)
+                .then(data => {
+                    console.log("OK LE BACK A RENVOYER LA RÉPONSE: ", data)
+                    if (!data.ok) {
+                        console.log("LAAA")
+                        setErrorMessage(data.status)
+                    }
+                })
+                .catch(error => {
+                    console.log(error.message)
+                });
+        }
         setIsSubmit(false)
     }
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <Box display="flex"
+        <div className='Background'>
+            <ToolBar/>
+            <Box display="flex"
                 flexDirection={"column"}
                 maxWidth={600}
                 margin="auto"
@@ -65,29 +105,56 @@ export default function FormRegistration() {
                 marginTop={20}
                 borderRadius={5}
                 spacing={5}
-                boxShadow={"5px 5px 10px #ccc"} >
-                    <Typography> {isSignup ? "Inscription" : "Connexion"} </Typography>
-                    {/* {isSignup && <FormControl fullWidth>
-                    <InputLabel id="genre-select-label">Genre</InputLabel>
-                    <Select
-                        labelId="genre-select-label"
-                        id="genre-select"
-                        label="Genre"
-                        value={inputs}
-                    >
-                    <MenuItem onChange={handleChange} name="Genre" value={inputs.Genre} >Homme</MenuItem>
-                    <MenuItem onChange={handleChange} name="Genre" value={inputs.Genre}>Femme</MenuItem>
-                    <MenuItem onChange={handleChange} Lname="Genre" value={inputs.Genre}>Autre</MenuItem>
-                    </Select>
-                    </FormControl>} */}
-                    {isSignup && <TextField margin='normal' type={'text'} name="FirstName" value={inputs.FirstName} onChange={handleChange} placeholder="Prénom"></TextField>}
-                    {isSignup && <TextField margin='normal' type={'text'} name="Login" value={inputs.Login} onChange={handleChange} placeholder="Nom"></TextField>}
-                    <TextField name="Email" value={inputs.Email} onChange={handleChange} margin='normal' type={'email'} placeholder="Adresse e-mail"></TextField>
-                    <TextField margin='normal' type={'password'} value={inputs.Password} name="Password" onChange={handleChange} placeholder="Mot de passe"></TextField>
-                    <Button type="submit" sx={{ marginTop: 3, borderRadius: 3}} variant="contained" color="success" > {isSignup ? "Je m'inscris" : "Je me connecte"} </Button>
-                    <Button onClick={resetState} sx={{ marginTop: 3, borderRadius: 3}}> {isSignup ? "Connexion" : "Inscription"} </Button>
-                </Box>
-            </form>
+                sx={{backgroundColor:'white'}}
+            >
+                <Typography>
+                    {!isSignup ? "Inscription" : "Connexion"}
+                </Typography>
+
+                <TextField
+                    name="Email"
+                    value={inputs.Email}
+                    onChange={handleChange}
+                    margin='normal'
+                    type={'email'}
+                    placeholder="Adresse e-mail"
+                />
+
+                <TextField
+                    name="Password"
+                    value={inputs.Password}
+                    onChange={(e) => handleChangePwd(e)}
+                    margin='normal'
+                    type={'password'}
+                    placeholder="Mot de passe"
+                />
+                {passwordMessage === '' ? null :
+                    <Typography>
+                        {passwordMessage}
+                    </Typography>
+                }
+
+                <Button
+                    onClick={handleSubmit}
+                    sx={{marginTop: 3, borderRadius: 3}}
+                    variant="contained"
+                    color="success"
+                >
+                    {!isSignup ? "Je m'inscris" : "Je me connecte"}
+                </Button>
+
+                <Button
+                    onClick={resetState}
+                    sx={{marginTop: 3, borderRadius: 3}}
+                >
+                    {!isSignup ? "Connexion" : "Inscription"}
+                </Button>
+                {errorMessage === '' ? null :
+                    <Typography>
+                        {errorMessage}
+                    </Typography>
+                }
+            </Box>
         </div>
-    );
+    )
 }

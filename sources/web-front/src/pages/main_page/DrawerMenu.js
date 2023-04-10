@@ -17,7 +17,7 @@ import {
 
 export default function DrawerMenu() {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false)
-    const [open, setOpen] = useState(true);
+    const [open, setOpen] = useState(false);
     const handleClick = () => {
         setOpen(!open);
     };
@@ -38,6 +38,7 @@ export default function DrawerMenu() {
                 onClose={() => setIsDrawerOpen(false)}>
                 <Box width='300px'>
                     <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+
                         <ListItemButton onClick={handleClick}>
                             <ListItemIcon>
                                 <InboxIcon />
@@ -73,6 +74,7 @@ export default function DrawerMenu() {
                                 </ListItemButton>
                             </List>
                         </Collapse>
+
                     </List>
                 </Box>
             </Drawer>
