@@ -1,10 +1,11 @@
-import 'package:bis/screens/guest/password.dart';
 import 'package:bis/screens/guest/welcome.dart';
 import 'package:flutter/material.dart';
 import 'homepage.dart';
 import 'package:animate_do/animate_do.dart';
 
 class inscriptionPage extends StatelessWidget {
+  const inscriptionPage({super.key});
+
   Widget titlePage() {
     return Center(
         child: Container(
@@ -12,7 +13,10 @@ class inscriptionPage extends StatelessWidget {
       child: const Text(
         'ClothWay',
         style: TextStyle(
-            color: Colors.white, fontSize: 25, fontWeight: FontWeight.w900, fontFamily: 'NorFont'),
+            color: Colors.white,
+            fontSize: 25,
+            fontWeight: FontWeight.w900,
+            fontFamily: 'NorFont'),
       ),
     ));
   }
@@ -23,35 +27,15 @@ class inscriptionPage extends StatelessWidget {
         children: [
           Container(
             alignment: Alignment.topLeft,
-            child: const Text(
-              'Entrez votre adresse',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 35,
-                  fontWeight: FontWeight.w900,
-                  fontFamily: 'InterFont'),
-            ),
-          ),
-          Container(
-            alignment: Alignment.topLeft,
-            child: const Text(
-              'e-mail pour vous',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 35,
-                  fontWeight: FontWeight.w900,
-                  fontFamily: 'InterFont'),
-            ),
-          ),
-          Container(
-            alignment: Alignment.topLeft,
-            child: const Text(
-              'inscrire',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 35,
-                  fontWeight: FontWeight.w900,
-                  fontFamily: 'InterFont'),
+            child: BounceInDown(
+              child: const Text(
+                'Inscivez vous !',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 35,
+                    fontWeight: FontWeight.w900,
+                    fontFamily: 'InterFont'),
+              ),
             ),
           ),
         ],
@@ -59,14 +43,31 @@ class inscriptionPage extends StatelessWidget {
     );
   }
 
-  Widget emailbar() {
+  Widget createBar({required String name}) {
     return SingleChildScrollView(
       child: TextFormField(
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.symmetric(vertical: 10),
           filled: true,
           fillColor: Colors.white,
-          labelText: ' email',
+          labelText: name,
+          enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(width: 2, color: Colors.white),
+            borderRadius: BorderRadius.circular(50.0),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget passwordBar() {
+    return SingleChildScrollView(
+      child: TextFormField(
+        decoration: InputDecoration(
+          contentPadding: const EdgeInsets.symmetric(vertical: 10),
+          filled: true,
+          fillColor: Colors.white,
+          labelText: 'Password',
           enabledBorder: OutlineInputBorder(
             borderSide: const BorderSide(width: 2, color: Colors.white),
             borderRadius: BorderRadius.circular(50.0),
@@ -87,9 +88,8 @@ class inscriptionPage extends StatelessWidget {
               children: [
                 const SizedBox(height: 10),
                 titlePage(),
-                const SizedBox(height: 80),
-                BounceInDown(
-                child: phrase()),
+                const SizedBox(height: 100),
+                phrase(),
                 const SizedBox(height: 50),
                 const Text(
                   textAlign: TextAlign.left,
@@ -97,11 +97,13 @@ class inscriptionPage extends StatelessWidget {
                   style: TextStyle(fontSize: 20, color: Colors.white),
                 ),
                 const SizedBox(height: 15),
-                emailbar(),
-                const SizedBox(height: 10),
+                createBar(name: ' e-mail'),
+                const SizedBox(height: 30),
+                createBar(name: ' password'),
+                const SizedBox(height: 5),
                 const Text(
                   textAlign: TextAlign.left,
-                  '*Champs obligatoire',
+                  '*Champs obligatoires',
                   style: TextStyle(fontSize: 20, color: Colors.white),
                 ),
                 const SizedBox(height: 200),
@@ -119,13 +121,14 @@ class inscriptionPage extends StatelessWidget {
                         child: Text(
                           "retour",
                           style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.white,
-                            fontFamily: 'NorFont'),
-                            ),
+                              fontSize: 20,
+                              color: Colors.white,
+                              fontFamily: 'NorFont'),
+                        ),
                         style: ElevatedButton.styleFrom(
                           primary: Colors.black,
-                          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 30, vertical: 10),
                         ),
                       ),
                       const SizedBox(width: 80),
@@ -134,19 +137,20 @@ class inscriptionPage extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const PasswordPage()),
+                                builder: (context) => const HomePage()),
                           );
                         },
                         child: Text(
                           "continuer",
                           style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.black,
-                            fontFamily: 'NorFont'),
-                            ),
+                              fontSize: 20,
+                              color: Colors.black,
+                              fontFamily: 'NorFont'),
+                        ),
                         style: ElevatedButton.styleFrom(
                           primary: Colors.white,
-                          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
                         ),
                       ),
                     ],

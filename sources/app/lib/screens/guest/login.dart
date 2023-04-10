@@ -1,4 +1,3 @@
-import 'package:bis/screens/guest/password.dart';
 import 'package:bis/screens/guest/welcome.dart';
 import 'package:flutter/material.dart';
 import 'homepage.dart';
@@ -147,7 +146,7 @@ class LoginPage extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const PasswordPage()),
+                                builder: (context) => const HomePage()),
                           );
                         },
                         child: const Text(

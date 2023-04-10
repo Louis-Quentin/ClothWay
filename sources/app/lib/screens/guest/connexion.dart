@@ -1,4 +1,3 @@
-import 'package:bis/screens/guest/password.dart';
 import 'package:bis/screens/guest/welcome.dart';
 import 'package:flutter/material.dart';
 import 'homepage.dart';
