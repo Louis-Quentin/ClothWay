@@ -124,17 +124,17 @@ class _PasswordPageState extends State<PasswordPage> {
                                 builder: (context) => inscriptionPage()),
                           );
                         },
-                        child: Text(
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.black,
+                          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                        ),
+                        child: const Text(
                           "retour",
                           style: TextStyle(
                             fontSize: 20,
                             color: Colors.white,
                             fontFamily: 'NorFont'),
                             ),
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.black,
-                          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-                        ),
                       ),
                       const SizedBox(width: 80),
                       ElevatedButton(

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'auth.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
   @override
@@ -109,7 +111,10 @@ class HomePageState extends State<HomePage> {
               ),
             ),
           ),
-          Icon(Icons.eco, color: Color.fromRGBO(0, 150, 0, 1),),
+          Icon(
+            Icons.eco,
+            color: Color.fromRGBO(0, 150, 0, 1),
+          ),
         ],
       ),
     );
@@ -121,62 +126,100 @@ class HomePageState extends State<HomePage> {
       padding: const EdgeInsets.only(
         right: 30,
       ),
-      child:
-          Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-        Column(children: [
-          Material(
-            borderRadius: BorderRadius.circular(30),
-            shadowColor: Colors.green,
-            elevation: 1.3,
-            child: TextFormField(
-              autofocus: false,
-              decoration: const InputDecoration(
-                hintText: 'Cherche ton produit',
-                prefixIcon: Icon(Icons.search),
-                fillColor: Colors.white,
-                filled: true,
-                border: OutlineInputBorder(
-                  borderSide: BorderSide.none,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Column(
+            children: [
+              Material(
+                borderRadius: BorderRadius.circular(30),
+                shadowColor: Colors.green,
+                elevation: 1.3,
+                child: TextFormField(
+                  autofocus: false,
+                  decoration: const InputDecoration(
+                    hintText: 'Cherche ton produit',
+                    prefixIcon: Icon(Icons.search),
+                    fillColor: Colors.white,
+                    filled: true,
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          )
-        ]),
-      ]),
+              )
+            ],
+          ),
+        ],
+      ),
     );
   }
 
-  Widget featuresWidget() {
+  Widget banniere(BuildContext context, double height) {
     return Container(
-      height: 80,
-      child:
-          Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-        Container(
-          padding: const EdgeInsets.only(right: 40),
-          child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                Text(
-                  'Pour vous',
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'InterFont',
-                  ),
-                ),
-                Text(
-                  'Tout voir',
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'InterFont',
-                  ),
-                ),
-              ]),
+      width: double.infinity,
+      height: height,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: const AssetImage('assets/image/motif.jpg'),
+          fit: BoxFit.cover,
+          colorFilter: ColorFilter.mode(
+            Colors.black.withOpacity(0.6),
+            BlendMode.darken,
+          ),
         ),
-      ]),
+      ),
+      child: Align(
+        alignment: Alignment.center,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                'Jusqu\'à -50%',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 30.0,
+                ),
+              ),
+              const SizedBox(height: 10),
+              const Text(
+                'Découvrez la nouvelle collection été !',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.normal,
+                  fontSize: 18.0,
+                ),
+              ),
+              const SizedBox(height: 30),
+              ElevatedButton(
+                onPressed: () {
+                  // Action à effectuer lors du clic sur le bouton
+                },
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.black,
+                  backgroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 30.0,
+                      vertical: 10.0), // Marge interne du bouton
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
+                ),
+                child: const Text(
+                  'Achetez',
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
@@ -200,99 +243,95 @@ class HomePageState extends State<HomePage> {
           left: 20,
         ),
         child: ListView(children: [
-          Container(
-            child: Column(children: [
-              searchBar(),
-              seeAllWidget(),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    categories(
-                      image: 'assets/image/femme.jpeg',
-                      name: 'femme',
-                    ),
-                    categories(
-                      image: 'assets/image/homme.jpg',
-                      name: 'homme',
-                    ),
-                    categories(
-                      image: 'assets/image/enfant.jpeg',
-                      name: 'enfant',
-                    ),
-                    categories(
-                      image: 'assets/image/sport.jpg',
-                      name: 'sport',
-                    ),
-                  ],
-                ),
+          banniere(context, 250),
+          Column(children: [
+            searchBar(),
+            seeAllWidget(),
+            const SizedBox(height: 10),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  categories(
+                    image: 'assets/image/femme.jpeg',
+                    name: 'femme',
+                  ),
+                  categories(
+                    image: 'assets/image/homme.jpg',
+                    name: 'homme',
+                  ),
+                  categories(
+                    image: 'assets/image/enfant.jpeg',
+                    name: 'enfant',
+                  ),
+                  categories(
+                    image: 'assets/image/sport.jpg',
+                    name: 'sport',
+                  ),
+                ],
               ),
-              featuresWidget(),
-              SingleChildScrollView(
+            ),
+            SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    suggestion(
-                      image: 'assets/image/lacoste.jpeg',
-                      description: 't-shirt noir Lacoste 42e',
-                    ),
-                    suggestion(
-                      image: 'assets/image/nike.jpeg',
-                      description: 't-shirt noir Nike 25e',
-                    ),
-                    suggestion(
-                      image: 'assets/image/ck.jpg',
-                      description: 't-shirt noir Calvin 35e',
-                    ),
-                    suggestion(
-                      image: 'assets/image/uniqlo.jpg',
-                      description: 't-shirt noir Uniqlo 27e',
-                    ),
-                  ])),
-              SingleChildScrollView(
+                child: Row(children: [
+                  suggestion(
+                    image: 'assets/image/lacoste.jpeg',
+                    description: 't-shirt noir Lacoste 42e',
+                  ),
+                  suggestion(
+                    image: 'assets/image/nike.jpeg',
+                    description: 't-shirt noir Nike 25e',
+                  ),
+                  suggestion(
+                    image: 'assets/image/ck.jpg',
+                    description: 't-shirt noir Calvin 35e',
+                  ),
+                  suggestion(
+                    image: 'assets/image/uniqlo.jpg',
+                    description: 't-shirt noir Uniqlo 27e',
+                  ),
+                ])),
+            SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    suggestion(
-                      image: 'assets/image/jordan.jpeg',
-                      description: 'Nike Jordan4 180e',
-                    ),
-                    suggestion(
-                      image: 'assets/image/puma.jpg',
-                      description: 'Puma Cell viper 140e',
-                    ),
-                    suggestion(
-                      image: 'assets/image/adidas.jpg',
-                      description: 'Adidas Origins 160e',
-                    ),
-                    suggestion(
-                      image: 'assets/image/fila.jpg',
-                      description: 'Fila 120e',
-                    ),
-                  ])),
-              SingleChildScrollView(
+                child: Row(children: [
+                  suggestion(
+                    image: 'assets/image/jordan.jpeg',
+                    description: 'Nike Jordan4 180e',
+                  ),
+                  suggestion(
+                    image: 'assets/image/puma.jpg',
+                    description: 'Puma Cell viper 140e',
+                  ),
+                  suggestion(
+                    image: 'assets/image/adidas.jpg',
+                    description: 'Adidas Origins 160e',
+                  ),
+                  suggestion(
+                    image: 'assets/image/fila.jpg',
+                    description: 'Fila 120e',
+                  ),
+                ])),
+            SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    suggestion(
-                      image: 'assets/image/doudoune_nike.jpg',
-                      description: 'Doudoune Nike rouge 225e',
-                    ),
-                    suggestion(
-                      image: 'assets/image/tommy.jpg',
-                      description: 'Doudoune Tommy rouge 250e',
-                    ),
-                    suggestion(
-                      image: 'assets/image/north_face.jpg',
-                      description: 'The North face rouge 275e',
-                    ),
-                    suggestion(
-                      image: 'assets/image/schott.jpg',
-                      description: 'Doudoune Schott rouge 200e',
-                    ),
-                  ])),
-            ]),
-          ),
+                child: Row(children: [
+                  suggestion(
+                    image: 'assets/image/doudoune_nike.jpg',
+                    description: 'Doudoune Nike rouge 225e',
+                  ),
+                  suggestion(
+                    image: 'assets/image/tommy.jpg',
+                    description: 'Doudoune Tommy rouge 250e',
+                  ),
+                  suggestion(
+                    image: 'assets/image/north_face.jpg',
+                    description: 'The North face rouge 275e',
+                  ),
+                  suggestion(
+                    image: 'assets/image/schott.jpg',
+                    description: 'Doudoune Schott rouge 200e',
+                  ),
+                ])),
+          ]),
         ]),
       ),
     );
