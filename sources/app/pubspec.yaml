@@ -77,13 +77,13 @@ flutter:
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
-  fonts:
-    - family: NorFont
-      fonts:
-        - asset: fonts/nor.otf
-    - family: InterFont
-      fonts:
-        - asset: fonts/inter.ttf
+fonts:
+  - family: NorFont
+    fonts:
+      - asset: fonts/nor.otf
+  - family: InterFont
+    fonts:
+      - asset: fonts/inter.ttf
   # example:
   # fonts:
   #   - family: Schyler

@@ -1,161 +1,344 @@
-import 'package:bis/screens/guest/password.dart';
-import 'package:bis/screens/guest/welcome.dart';
+import 'dart:html';
+
+import 'package:bis/screens/guest/homepage.dart';
+import 'package:bis/screens/guest/login.dart';
 import 'package:flutter/material.dart';
-import 'homepage.dart';
+import 'dart:async';
 import 'package:animate_do/animate_do.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-class inscriptionPage extends StatelessWidget {
-  Widget titlePage() {
-    return Center(
-        child: Container(
-      alignment: Alignment.topLeft,
-      child: const Text(
-        'ClothWay',
-        style: TextStyle(
-            color: Colors.white, fontSize: 25, fontWeight: FontWeight.w900, fontFamily: 'NorFont'),
-      ),
-    ));
-  }
+bool _motDePasse = false;
 
-  Widget phrase() {
-    return Center(
-      child: Column(
-        children: [
-          Container(
-            alignment: Alignment.topLeft,
-            child: const Text(
-              'Entrez votre adresse',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 35,
-                  fontWeight: FontWeight.w900,
-                  fontFamily: 'InterFont'),
-            ),
-          ),
-          Container(
-            alignment: Alignment.topLeft,
-            child: const Text(
-              'e-mail pour vous',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 35,
-                  fontWeight: FontWeight.w900,
-                  fontFamily: 'InterFont'),
-            ),
-          ),
-          Container(
-            alignment: Alignment.topLeft,
-            child: const Text(
-              'inscrire',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 35,
-                  fontWeight: FontWeight.w900,
-                  fontFamily: 'InterFont'),
-            ),
+bool validPass(String str) {
+  RegExp regex = RegExp(r'^(?=.*?[0-9]).{8,}$');
+  return regex.hasMatch(str);
+}
+
+void showError(String errorMessage, BuildContext context) {
+  Timer(Duration(seconds: 10), () {
+    errorMessage = '';
+  });
+
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Erreur'),
+        content: Text(errorMessage),
+        actions: <Widget>[
+          TextButton(
+            child: Text('OK'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
           ),
         ],
-      ),
-    );
-  }
+      );
+    },
+  );
+}
 
-  Widget emailbar() {
-    return SingleChildScrollView(
-      child: TextFormField(
-        decoration: InputDecoration(
-          contentPadding: const EdgeInsets.symmetric(vertical: 10),
-          filled: true,
-          fillColor: Colors.white,
-          labelText: ' email',
-          enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(width: 2, color: Colors.white),
-            borderRadius: BorderRadius.circular(50.0),
-          ),
-        ),
-      ),
-    );
+Future<bool> connection(String email, String password) async {
+  String url = "http://10.68.247.143:8080/signup";
+  final response = await http.post(
+    Uri.parse(url),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, String>{'Email': email, 'Password': password}),
+  );
+  if (response.statusCode == 201) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+bool showMessage = false;
+final TextEditingController emailController = TextEditingController();
+final TextEditingController passwordController = TextEditingController();
+
+class inscriptionPage extends StatefulWidget {
+  @override
+  _inscriptionPageState createState() => _inscriptionPageState();
+}
+
+class _inscriptionPageState extends State<inscriptionPage> {
+  @override
+  Widget build(BuildContext context) {
+    return initWidget();
   }
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
+
+    passwordController.addListener(() {
+      setState(() {
+        _motDePasse = validPass(passwordController.text);
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  Widget initWidget() {
     return Scaffold(
-        backgroundColor: const Color.fromRGBO(30, 30, 30, 30),
-        body: Container(
-          padding: const EdgeInsets.all(16.0),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                const SizedBox(height: 10),
-                titlePage(),
-                const SizedBox(height: 80),
-                BounceInDown(
-                child: phrase()),
-                const SizedBox(height: 50),
-                const Text(
-                  textAlign: TextAlign.left,
-                  'E-mail*',
-                  style: TextStyle(fontSize: 20, color: Colors.white),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              height: 250,
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(90),
                 ),
-                const SizedBox(height: 15),
-                emailbar(),
-                const SizedBox(height: 10),
-                const Text(
-                  textAlign: TextAlign.left,
-                  '*Champs obligatoire',
-                  style: TextStyle(fontSize: 20, color: Colors.white),
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.blue,
+                    Colors.purple,
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
                 ),
-                const SizedBox(height: 200),
-                ListTile(
-                  title: Row(
-                    children: <Widget>[
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const WelcomePage()),
-                          );
-                        },
-                        child: Text(
-                          "retour",
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.white,
-                            fontFamily: 'NorFont'),
-                            ),
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.black,
-                          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+              ),
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(top: 50),
+                      height: 150,
+                      width: 150,
+                      child: Image.asset("assets/image/logoClothway.png"),
+                    ),
+                    Container(
+                      alignment: Alignment.bottomRight,
+                      margin: const EdgeInsets.only(
+                        right: 20,
+                        top: 20,
+                      ),
+                      child: const Text(
+                        "Inscrivez vous",
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.white,
                         ),
                       ),
-                      const SizedBox(width: 80),
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const PasswordPage()),
-                          );
-                        },
-                        child: Text(
-                          "continuer",
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.black,
-                            fontFamily: 'NorFont'),
-                            ),
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.white,
-                          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.only(left: 20, right: 20, top: 20),
+              padding: const EdgeInsets.only(left: 20, right: 20),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+                color: Colors.grey[200],
+                boxShadow: const [
+                  BoxShadow(
+                    offset: Offset(0, 10),
+                    blurRadius: 50,
+                    color: Color(0xffEEEEEE),
+                  ),
+                ],
+              ),
+              alignment: Alignment.center,
+              child: const TextField(
+                cursorColor: Color(0xffF5591F),
+                decoration: InputDecoration(
+                  icon: Icon(
+                    Icons.person,
+                    color: Color(0xffF5591F),
+                  ),
+                  hintText: "Full Name",
+                  enabledBorder: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                ),
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.only(left: 20, right: 20, top: 20),
+              padding: const EdgeInsets.only(left: 20, right: 20),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+                color: Colors.grey[200],
+                boxShadow: const [
+                  BoxShadow(
+                    offset: Offset(0, 10),
+                    blurRadius: 50,
+                    color: Color(0xffEEEEEE),
+                  ),
+                ],
+              ),
+              alignment: Alignment.center,
+              child: TextField(
+                controller: emailController,
+                cursorColor: const Color(0xffF5591F),
+                decoration: const InputDecoration(
+                  icon: Icon(
+                    Icons.email,
+                    color: Color(0xffF5591F),
+                  ),
+                  hintText: "Enter Email",
+                  enabledBorder: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                ),
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.only(left: 20, right: 20, top: 20),
+              padding: const EdgeInsets.only(left: 20, right: 20),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+                color: Colors.grey[200],
+                boxShadow: const [
+                  BoxShadow(
+                    offset: Offset(0, 10),
+                    blurRadius: 50,
+                    color: Color(0xffEEEEEE),
+                  ),
+                ],
+              ),
+              alignment: Alignment.center,
+              child: const TextField(
+                cursorColor: Color(0xffF5591F),
+                decoration: InputDecoration(
+                  icon: Icon(
+                    Icons.phone,
+                    color: Color(0xffF5591F),
+                  ),
+                  hintText: "Phone Number",
+                  enabledBorder: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                ),
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.only(left: 20, right: 20, top: 20),
+              padding: const EdgeInsets.only(left: 20, right: 20),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+                color: Colors.grey[200],
+                boxShadow: const [
+                  BoxShadow(
+                    offset: Offset(0, 10),
+                    blurRadius: 50,
+                    color: Color(0xffEEEEEE),
+                  ),
+                ],
+              ),
+              alignment: Alignment.center,
+              child: TextField(
+                obscureText: false,
+                controller: passwordController,
+                cursorColor: const Color(0xffF5591F),
+                decoration: const InputDecoration(
+                  icon: Icon(
+                    Icons.vpn_key,
+                    color: Color(0xffF5591F),
+                  ),
+                  hintText: "Password",
+                  enabledBorder: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            Text(
+              _motDePasse
+                  ? 'Mot de passe valide'
+                  : 'Mot de passe non valide\nLe mot de passe doit faire au moins 8 caractères avec 1 chiffre comprit',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 20,
+                color: _motDePasse ? Colors.green : Colors.red,
+              ),
+            ),
+            GestureDetector(
+              onTap: () async => {
+                print(emailController.text),
+                print(passwordController.text),
+                if (validPass(passwordController.text))
+                  {
+                    if (await connection(
+                        emailController.text, passwordController.text))
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const HomePage(),
                         ),
                       ),
+                  }
+              },
+              child: Container(
+                margin: const EdgeInsets.only(left: 20, right: 20, top: 50),
+                padding: const EdgeInsets.only(left: 20, right: 20),
+                alignment: Alignment.center,
+                height: 54,
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    colors: [
+                      // (Color(0xffF5591F)),
+                      // (Color(0xffF2861E)),
+                      Colors.blue,
+                      Colors.purple,
                     ],
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                  ),
+                  borderRadius: BorderRadius.circular(50),
+                  boxShadow: const [
+                    BoxShadow(
+                      offset: Offset(0, 10),
+                      blurRadius: 50,
+                      color: Color(0xffEEEEEE),
+                    ),
+                  ],
+                ),
+                child: const Text(
+                  "REGISTER",
+                  style: TextStyle(
+                    color: Colors.white,
                   ),
                 ),
-              ],
-            ), // child: const Text('Back'),
-          ),
-        ));
-    // const SizedBox(height: 20),
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.only(top: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text("Already Member ?"),
+                  GestureDetector(
+                    onTap: () => {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => LoginPage(),
+                        ),
+                      ),
+                    },
+                    child: const Text(
+                      "Login Now",
+                      style: TextStyle(
+                        color: Color(0xffF5591F),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
