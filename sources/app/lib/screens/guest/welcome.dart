@@ -5,7 +5,7 @@ import 'dart:ui';
 import 'package:animate_do/animate_do.dart';
 
 class WelcomePage extends StatelessWidget {
-  const   WelcomePage({super.key});
+  const WelcomePage({super.key});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -35,22 +35,26 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             ImageHome(),
             Positioned(
-              left: MediaQuery.of(context).size.width/2-180,
-              top: MediaQuery.of(context).size.height/2-200,
+              left: MediaQuery.of(context).size.width / 2 - 180,
+              top: MediaQuery.of(context).size.height / 2 - 400,
               right: 10,
               child: BounceInDown(
-                  child: TextHome(),
-                ),
+                child: TextHome(),
               ),
-            Positioned(
-              left: MediaQuery.of(context).size.width/2,
-              top: MediaQuery.of(context).size.height/2+230,
-              child: ButtonHome2(),
             ),
             Positioned(
-              left: MediaQuery.of(context).size.width/2-170,
-              top: MediaQuery.of(context).size.height/2+230,
-              child: ButtonHome1(),
+              left: MediaQuery.of(context).size.width / 2 - 125,
+              bottom: MediaQuery.of(context).size.height / 10,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ButtonHome1(),
+                  SizedBox(
+                    width: 20.0,
+                  ),
+                  ButtonHome2(),
+                ],
+              ),
             ),
           ],
         ),
@@ -62,25 +66,29 @@ class _MyHomePageState extends State<MyHomePage> {
 class ButtonHome1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    double buttonWidth = MediaQuery.of(context).size.width * 0.04;
+    double buttonHeight = MediaQuery.of(context).size.height * 0.006;
+
     return ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => inscriptionPage()),
-                  );
-                },
-                child: Text(
-                  "s'inscrire",
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.white,
-                    fontFamily: 'NorFont'),
-                    ),
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.blueGrey,
-                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-                ),
-              );
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => inscriptionPage()),
+        );
+      },
+      style: ElevatedButton.styleFrom(
+        primary: Colors.blueGrey,
+        padding: EdgeInsets.symmetric(
+          horizontal: buttonWidth,
+          vertical: buttonHeight,
+        ),
+      ),
+      child: const Text(
+        "s'inscrire",
+        style:
+            TextStyle(fontSize: 20, color: Colors.white, fontFamily: 'NorFont'),
+      ),
+    );
   }
 }
 
@@ -88,46 +96,50 @@ class ButtonHome2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => connexionPage()),
-                  );
-                },
-                child: Text(
-                  "s'identifier",
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.white,
-                    fontFamily: 'NorFont'),
-                    ),
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.black,
-                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-                ),
-              );
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => connexionPage()),
+        );
+      },
+      style: ElevatedButton.styleFrom(
+        primary: Colors.black,
+        padding: EdgeInsets.symmetric(
+          horizontal: MediaQuery.of(context).size.width * 0.008,
+          vertical: MediaQuery.of(context).size.height * 0.003,
+        ),
+      ),
+      child: const Text(
+        "s'identifier",
+        style:
+            TextStyle(fontSize: 20, color: Colors.white, fontFamily: 'NorFont'),
+      ),
+    );
   }
 }
 
 class ImageHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new Container(
-              height: 810,
-              width: 400,
-              decoration: new BoxDecoration(
-                image: new DecorationImage(
-                  image: new ExactAssetImage('assets/image/home_page.png'),
-                  fit: BoxFit.cover,
-                ),
-              ),
-              child: new BackdropFilter(
-                filter: new ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
-                child: new Container(
-                  decoration: new BoxDecoration(color: Colors.white.withOpacity(0.0)),
-                ),
-              ),
+    final Size screenSize = MediaQuery.of(context).size;
+    final double imageHeight = screenSize.height;
+    final double imageWidth = screenSize.width * 0.8;
+
+    return Container(
+      height: imageHeight,
+      width: imageWidth,
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: ExactAssetImage('assets/image/home_page.png'),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
+        child: Container(
+          decoration: BoxDecoration(color: Colors.white.withOpacity(0.0)),
+        ),
+      ),
     );
   }
 }
@@ -135,31 +147,39 @@ class ImageHome extends StatelessWidget {
 class TextHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return RichText(
-      text: TextSpan(
-        children: const <TextSpan>[
-          TextSpan(
-            text: 'ClothWay ',
-            style: TextStyle(
-              color: Colors.black87,
-              fontSize: 50,
-              fontFamily: 'NorFont',
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        double fontSize =
+            constraints.maxWidth / 20; // adjust this value as needed
+        return RichText(
+          text: const TextSpan(
+            children: <TextSpan>[
+              TextSpan(
+                text: 'ClothWay ',
+                style: TextStyle(
+                  color: Colors.black87,
+                  fontSize: 50,
+                  fontFamily: 'NorFont',
+                ),
               ),
+              TextSpan(
+                text:
+                    "L'impacte écologique de vos vetements calculé pour acheter tout en respectant la planète",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 40,
+                  fontFamily: "InterFont",
+                  /*foreground: Paint()
+                  ..style = PaintingStyle.stroke
+                  ..strokeWidth = 6
+                  ..color = Colors.white,*/
+                ),
+              ),
+            ],
           ),
-          TextSpan(
-            text: "L'impacte écologique de vos vetements calculé pour acheter tout en respectant la planète",
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 40,
-              fontFamily: "InterFont",
-              /*foreground: Paint()
-              ..style = PaintingStyle.stroke
-              ..strokeWidth = 6
-              ..color = Colors.white,*/
-              ),
-            ),
-        ],
-      ),
+          textScaleFactor: fontSize / 14, // adjust this value as needed
+        );
+      },
     );
   }
 }
