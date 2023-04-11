@@ -66,16 +66,15 @@ export default function FormRegistration() {
         }
         console.log(options)
         if (isSignup) {
-            fetch("http://localhost:8080/login", options)
+            fetch("http://localhost:8080/signin", options)
                 .then(data => {
                     console.log("OK LE BACK A RENVOYER LA RÉPONSE: ", data)
                     if (!data.ok) {
-                        console.log("LAAA")
                         setErrorMessage(data.status)
                     }
                 })
                 .catch(error => {
-                    console.log("LA", error)
+                    console.log(error.message)
                 });
         }
         else {
@@ -83,7 +82,6 @@ export default function FormRegistration() {
                 .then(data => {
                     console.log("OK LE BACK A RENVOYER LA RÉPONSE: ", data)
                     if (!data.ok) {
-                        console.log("LAAA")
                         setErrorMessage(data.status)
                     }
                 })
