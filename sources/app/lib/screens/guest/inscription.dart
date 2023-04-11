@@ -1,3 +1,4 @@
+import 'package:bis/screens/guest/connexion.dart';
 import 'package:bis/screens/guest/homepage.dart';
 import 'package:bis/screens/guest/login.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,7 @@ bool validPass(String str) {
 }
 
 Future<bool> connection(String email, String password) async {
-  String url = "http://10.68.247.143:8080/signup";
+  String url = "http://192.168.0.149:8080/signup";
   final response = await http.post(
     Uri.parse(url),
     headers: <String, String>{
@@ -300,7 +301,7 @@ class _inscriptionPageState extends State<inscriptionPage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => LoginPage(),
+                          builder: (context) => const connexionPage(),
                         ),
                       ),
                     },

@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:bis/screens/guest/inscription.dart';
 import 'package:bis/screens/guest/welcome.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:animate_do/animate_do.dart';
 
 Future<bool> connection(String email, String password) async {
-  String url = "http://10.68.247.143:8080/signin";
+  String url = "http://192.168.0.149:8080/signin";
   final response = await http.post(
     Uri.parse(url),
     headers: <String, String>{
@@ -16,7 +15,9 @@ Future<bool> connection(String email, String password) async {
     },
     body: jsonEncode(<String, String>{'Email': email, 'Password': password}),
   );
-  if (response.statusCode == 201) {
+  print(response.body);
+  print(response.statusCode);
+  if (response.statusCode == 202) {
     print("inscription réussie");
     return true;
   } else {
@@ -72,6 +73,7 @@ class connexionPage extends StatelessWidget {
   Widget createBar({required String name}) {
     return SingleChildScrollView(
       child: TextFormField(
+        controller: emailController,
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.symmetric(vertical: 10),
           filled: true,
@@ -89,6 +91,7 @@ class connexionPage extends StatelessWidget {
   Widget passwordBar() {
     return SingleChildScrollView(
       child: TextFormField(
+        controller: passwordController,
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.symmetric(vertical: 10),
           filled: true,
@@ -125,7 +128,7 @@ class connexionPage extends StatelessWidget {
                 const SizedBox(height: 15),
                 createBar(name: ' e-mail'),
                 const SizedBox(height: 30),
-                createBar(name: ' password'),
+                passwordBar(),
                 const SizedBox(height: 5),
                 const Text(
                   textAlign: TextAlign.left,
@@ -160,6 +163,8 @@ class connexionPage extends StatelessWidget {
                       const SizedBox(width: 80),
                       ElevatedButton(
                         onPressed: () async {
+                          print(emailController.text);
+                          print(passwordController.text);
                           if (await connection(
                               emailController.text, passwordController.text)) {
                             Navigator.push(
