@@ -15,6 +15,7 @@ func apply_routes(r *gin.Engine, db *database.Database) {
 	r.GET("/", router.Handle_home_request)
 	r.POST("/signin", router.Handle_signin_request)
 	r.POST("/signup", router.Handle_signup_request)
+	r.GET("/get_all", router.Handle_get_all_cloths_request)
 }
 
 func main() {
