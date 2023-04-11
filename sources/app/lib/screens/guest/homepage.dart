@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
-
+import 'package:bis/screens/guest/panierpage.dart';
+import 'package:bis/screens/guest/favorispage.dart';
+import 'package:bis/screens/guest/newspage.dart';
+import 'package:bis/screens/guest/profilpage.dart';
+import 'package:bis/screens/guest/notificationpage.dart';
+import 'package:bis/screens/guest/parampage.dart';
 import 'auth.dart';
 
 class HomePage extends StatefulWidget {
@@ -224,9 +229,102 @@ class HomePageState extends State<HomePage> {
   }
 
   @override
+  Widget buildHeader(BuildContext context) => Material(
+    color: Colors.black,
+    child: InkWell(
+      onTap: (() {
+        Navigator.pop(context);
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ProfilPage()));
+      }),
+      child: Container(
+      color: Colors.black,
+
+      padding: EdgeInsets.only(
+        top: 25 + MediaQuery.of(context).padding.top,
+        bottom: 25
+      ),
+      child: Column(
+        children: const [
+          CircleAvatar(
+            radius: 50,
+            backgroundImage: NetworkImage("https://media.istockphoto.com/id/1300972574/photo/millennial-male-team-leader-organize-virtual-workshop-with-employees-online.jpg?s=170667a&w=0&k=20&c=S9AVbcsSpY1e6vwbnrrZHJzlAtnuSQKtmk11fDItSHE="),
+          ),
+          SizedBox(height: 11),
+          Text('Marc Sarl', style: TextStyle(fontSize: 30, color: Colors.white),),
+          Text('marc.sarl@gmail.com', style: TextStyle(fontSize: 15, color: Colors.white)),
+        ],
+      ),
+      ),
+    ),
+  );
+  Widget buildMenuItems(BuildContext context) => Wrap(
+    runSpacing: 15,
+    children: [
+      ListTile(
+        leading: const Icon(Icons.home_outlined),
+        title: const Text('Home', style: TextStyle(fontSize: 20)),
+        onTap: () { 
+          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const HomePage()));
+        },
+      ),
+      ListTile(
+        leading: const Icon(Icons.shop_2_outlined),
+        title: const Text('Panier', style: TextStyle(fontSize: 20)),
+        onTap: () { 
+          Navigator.pop(context);
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => const PanierPage()));
+        },
+      ),
+      ListTile(
+        leading: const Icon(Icons.favorite_border_outlined),
+        title: const Text('Favoris', style: TextStyle(fontSize: 20)),
+         onTap: () { 
+          Navigator.pop(context);
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => const FavorisPage()));
+        },
+      ),
+      ListTile(
+        leading: const Icon(Icons.emoji_nature),
+        title: const Text('Eco News', style: TextStyle(fontSize: 20)),
+        onTap: () {
+          Navigator.pop(context);
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => const NewsPage()));
+        
+        },
+      ),
+      const Divider(color: Color.fromARGB(255, 0, 0, 0)),
+      ListTile(
+        leading: const Icon(Icons.settings_applications),
+        title: const Text('Parametres', style: TextStyle(fontSize: 20)),
+        onTap: () {
+          Navigator.pop(context);
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ParamPage()));
+        },
+      ),
+      ListTile(
+        leading: const Icon(Icons.notification_add_outlined),
+        title: const Text('Notifications', style: TextStyle(fontSize: 20)),
+        onTap: () { 
+          Navigator.pop(context);
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => const NotificationPage()));
+        
+        },
+      ),
+    ],
+  );
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const Drawer(),
+      drawer: Drawer(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children : <Widget>[
+              buildHeader(context),
+              buildMenuItems(context),
+            ],
+          ),
+        ),
+      ),
       backgroundColor: Colors.white,
       appBar: AppBar(
           iconTheme: const IconThemeData(color: Colors.white),
