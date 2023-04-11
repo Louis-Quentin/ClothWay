@@ -126,6 +126,21 @@ func Handle_signup_request(context *gin.Context) {
 	println("debug end")
 }
 
+func Handle_get_all_cloths_request(context *gin.Context) {
+	var result []models.Cloth
+
+	db := context.MustGet("gorm").(gorm.DB)
+	err := db.Raw("SELECT * FROM cloths").Scan(&result)
+
+	if err != nil {
+		context.JSON(500, gin.H{"error": err})
+	} else if len(result) <= 0 {
+		context.JSON(400, gin.H{"Error": "No cloths founded"})
+	}
+	context.JSON(200, gin.H{"All cloths": result})
+}
+
+
 /*func Handle_get_user_request(context *gin.Context) {
 	var mail GetUser
 	string_body, _ := io.ReadAll(context.Request.Body)
