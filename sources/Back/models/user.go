@@ -10,6 +10,12 @@ type User struct {
 	Password string
 }
 
+type Partner struct {
+	gorm.Model
+	Email    string
+	Password string
+}
+
 type Cloth struct {
 	gorm.Model
 	Greenhouse_gaz_conso string
@@ -36,4 +42,8 @@ type Cloth struct {
 
 func (user *User) Create(database *gorm.DB) error {
 	return database.Create(&user).Error
+}
+
+func (partner *Partner) Create(database *gorm.DB) error {
+	return database.Create(&partner).Error
 }

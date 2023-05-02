@@ -14,6 +14,11 @@ type NewUser struct {
 	Email    string
 }
 
+type NewPartner struct {
+	Password string
+	Email    string
+}
+
 type GetUser struct {
 	Email string
 }
@@ -126,6 +131,82 @@ func Handle_signup_request(context *gin.Context) {
 	println("debug end")
 }
 
+func Handle_partner_signin_request(context *gin.Context) {
+	var body NewPartner
+	err := json.NewDecoder(context.Request.Body).Decode(&body)
+	if err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{
+			"Error": "Failed to read body",
+		})
+		return
+	}
+	var partner models.Partner
+	db := context.MustGet("gorm").(gorm.DB)
+	db.First(&partner, "email=?", body.Email)
+
+	if partner.ID == 0 {
+		context.JSON(http.StatusBadRequest, gin.H{
+			"Error": "Invalid email",
+		})
+		return
+	}
+	if partner.Password != body.Password {
+		context.JSON(http.StatusBadRequest, gin.H{
+			"Error": "Invalid Password",
+		})
+		return
+	}
+	context.SetCookie("email", body.Email, 3600*24*30, "", "", false, false)
+	context.JSON(http.StatusAccepted, gin.H{
+		"Success": "Partner Successfully connected",
+	})
+}
+
+func Handle_partner_signup_request(context *gin.Context) {
+	var body NewPartner
+	err := json.NewDecoder(context.Request.Body).Decode(&body)
+	if err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{
+			"Error": "Failed to read body",
+		})
+		return
+	}
+	context.SetCookie("email", body.Email, 3600*24*30, "", "", false, false)
+	db := context.MustGet("gorm").(gorm.DB)
+	partner := models.Partner{Email: body.Email, Password: body.Password}
+	res := db.Where(&partner).Find(&partner)
+	if res.Error != nil && res.Error != gorm.ErrRecordNotFound {
+		println("not found")
+	}
+	if res.RowsAffected == 0 {
+		if len(body.Password) < 8 {
+			context.JSON(http.StatusBadRequest, gin.H{
+				"Error": "Too short password",
+			})
+			return
+		} else if contains_char(body.Password) == false {
+			context.JSON(http.StatusBadRequest, gin.H{
+				"Error": "password require at least one char",
+			})
+			return
+		} else if contains_digit(body.Password) == false {
+			context.JSON(http.StatusBadRequest, gin.H{
+				"Error": "password require at least one digit",
+			})
+			return
+		}
+		db.FirstOrCreate(&partner, partner)
+		context.JSON(http.StatusCreated, gin.H{
+			"Success": "Partner Successfully created",
+		})
+	} else {
+		context.JSON(http.StatusBadRequest, gin.H{
+			"Error": "Partner already Existing",
+		})
+	}
+	println("debug end")
+}
+
 func Handle_get_all_cloths_request(context *gin.Context) {
 	var result []models.Cloth
 
@@ -139,7 +220,6 @@ func Handle_get_all_cloths_request(context *gin.Context) {
 	}
 	context.JSON(200, gin.H{"All cloths": result})
 }
-
 
 /*func Handle_get_user_request(context *gin.Context) {
 	var mail GetUser
