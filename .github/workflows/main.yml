@@ -1,0 +1,69 @@
+name: Node CI
+
+on: push
+
+jobs:
+  Front-End:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+
+      - name: Navigate to front-end directory 🏎
+        run: cd sources/web-front
+
+      - name: Install 🔧
+        run: npm install --force --prefix sources/web-front
+
+      - name: Install serve 🤖
+        run: npm install -g serve --prefix sources/web-front
+
+      - name: Install ESLint ⌛
+        run: npm install --save-dev eslint --prefix sources/web-front --force
+
+      - name: Configure ESLint ⌛
+        run: npx eslint --init --prefix sources/web-front
+
+      - name: Build 🏗️
+        run: npm run build --prefix sources/web-front GENERATE_SOURCEMAP=false
+        env:
+          CI: false
+
+  Back-End:
+    runs-on: ubuntu-latest
+
+    steps:
+     - name: Checkout 🛎️
+       uses: actions/checkout@v2
+       with:
+          persist-credentials: false
+
+     - name: Verify docker-compose file syntax 🐧
+       run: docker-compose config
+
+     - name: Setup Go 🔧
+       uses: actions/setup-go@v2
+       with:
+          go-version: 1.17
+
+     - name: Navigate to back-end directory 🏎
+       run: cd sources/Back
+
+     - name: Verify dependencies 🐧
+       run: 'cd sources/Back/ && go mod tidy'
+
+     - name: Start Postgres 🚀
+       run: |
+         docker-compose up -d
+         docker-compose ps
+         sleep 10s
+     - name: Build 🏗️
+       run: 'cd sources/Back/ && go run .'
+       env:
+         POSTGRES_HOST: db
+         POSTGRES_PORT: 5432
+         POSTGRES_USER: dev_user
+         POSTGRES_PASSWORD: Clothway
+         POSTGRES_DB: gorm
