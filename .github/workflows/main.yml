@@ -39,9 +39,12 @@ jobs:
        uses: actions/checkout@v2
        with:
           persist-credentials: false
-
-     - name: Verify docker-compose file syntax 🐧
-       run: docker-compose config
+    
+     - name: Start Postgres 🚀
+       run: |
+         docker-compose up -d
+         docker-compose ps
+         sleep 10s
 
      - name: Setup Go 🔧
        uses: actions/setup-go@v2
@@ -54,11 +57,6 @@ jobs:
      - name: Verify dependencies 🐧
        run: 'cd sources/Back/ && go mod tidy'
 
-     - name: Start Postgres 🚀
-       run: |
-         docker-compose up -d
-         docker-compose ps
-         sleep 10s
      - name: Build 🏗️
        run: 'cd sources/Back/ && go run .'
        env:
