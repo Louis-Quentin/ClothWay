@@ -50,7 +50,7 @@ jobs:
           go-version: 1.16
 
      - name: Dependance verification 🐧
-       run: go mod tidy --prefix sources/Back
+       run: go mod tidy
      
      - name: Build 🏗️
        run: go run . --prefix sources/Back
