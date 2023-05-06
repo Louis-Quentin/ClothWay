@@ -22,7 +22,7 @@ jobs:
         run: npm install -g serve --prefix sources/web-front
 
       - name: Install ESLint
-        run: npm install --save-dev eslint --prefix sources/web-front
+        run: npm install --save-dev eslint --prefix sources/web-front --force
 
       - name: Configure ESLint
         run: npx eslint --init --prefix sources/web-front
