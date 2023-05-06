@@ -50,7 +50,7 @@ jobs:
        run: cd sources/Back
 
      - name: Dependance verification 🐧
-       run: go mod verify --prefix sources/Back
+       run: go mod verify -modfile=/sources/Back/go.mod -p prefix
      
      - name: Build 🏗️
        run: go run . --prefix sources/Back
