@@ -33,16 +33,25 @@ jobs:
 
   Back-End:
     runs-on: ubuntu-latest
-    
+  
+    version: "3"
+  
     services:
-      db:
-        image: postgres
-        ports:
-          - "5432:5432"
-        env:
+     db:
+       image: postgres
+       ports:
+         - "5432:5432"
+       env:
           POSTGRES_USER: dev_user
           POSTGRES_PASSWORD: Clothway
           POSTGRES_DB: gorm
+
+       app:
+        build: .
+        ports:
+          - "8080:8080"
+        environment:
+          POSTGRES_HOST: db
       
     steps:
      - name: Checkout 🛎️
