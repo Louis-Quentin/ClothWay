@@ -1,38 +1,27 @@
-name: Build Back-end/Front-end/Mobile parts
+name: Node CI
 
-on:
-  push:
-    branches:
-      - main
+on: push
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout (front) 🛎️
+      - name: Checkout 🛎️
         uses: actions/checkout@v2
         with:
           persist-credentials: false
-  
-      - name: Navigate to front-end directory
-        run: cd sources/web-front/
 
-      - name: Install (front) 🔧
-        run: npm install --force --prefix sources/web-front
-      
-      - name: Install (front) 🤖
-        run: npm install -g serve --prefix sources/web-front
-        
+      - name: Install 🔧
+        run: npm install --prefix sources/web-front
+
       - name: Lint 🧐
         run: npm run lint --prefix sources/web-front
 
-      - name: Build (front) 🏗️
+      - name: Build 🏗️
         run: npm run build --prefix sources/web-front
 
-      - name: Test (front) 🚨
+      - name: Test 🚨
         run: npm test --prefix sources/web-front
-        
-        
 
   
