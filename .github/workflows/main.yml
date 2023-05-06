@@ -11,6 +11,9 @@ jobs:
         uses: actions/checkout@v2
         with:
           persist-credentials: false
+      
+      - name: Navigate to front-end directory 🏎
+        run: cd sources/web-front
 
       - name: Install 🔧
         run: npm install --prefix sources/web-front
