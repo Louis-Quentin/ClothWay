@@ -33,30 +33,15 @@ jobs:
 
   Back-End:
     runs-on: ubuntu-latest
-    
-    services:
-      docker-compose:
-        image: docker/compose:1.29.2
-        env:
-          POSTGRES_USER: dev_user
-          POSTGRES_PASSWORD: Clothway
-          POSTGRES_DB: gorm
-        ports:
-          - 5432:5432
-        options: >-
-          --name db
-          -v db_data:/var/lib/postgresql/data
-          -v db_backup:/backup
-          -e POSTGRES_HOST_AUTH_METHOD=trust
-      command: >-
-          -f docker-compose.yml
-          up
 
     steps:
      - name: Checkout 🛎️
        uses: actions/checkout@v2
        with:
           persist-credentials: false
+
+     - name: Verify docker-compose file syntax 🐧
+       run: docker-compose config
 
      - name: Setup Go 🔧
        uses: actions/setup-go@v2
@@ -70,12 +55,15 @@ jobs:
        run: 'cd sources/Back/ && go mod tidy'
 
      - name: Start Postgres 🚀
-       run: docker-compose up -d db
+       run: |
+         docker-compose up -d
+         docker-compose ps
+         sleep 10s
 
      - name: Build 🏗️
        run: 'cd sources/Back/ && go run .'
        env:
-         POSTGRES_HOST: db
+         POSTGRES_HOST: localhost
          POSTGRES_PORT: 5432
          POSTGRES_USER: dev_user
          POSTGRES_PASSWORD: Clothway
