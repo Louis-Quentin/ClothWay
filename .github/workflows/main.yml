@@ -5,22 +5,13 @@ on: push
 jobs:
   Database:
     runs-on: ubuntu-latest
+    container:
+      image: docker/compose
     steps:
       - name : Setup db 🏗️
-        uses: docker-compose@v2
-        with:
-          services: db
-          config: |
-            version: "3.8"
-            services:
-              db:
-                image: postgres
-                ports:
-                  - "5432:5432"
-                environment:
-                  POSTGRES_USER: dev_user
-                  POSTGRES_PASSWORD: Clothway
-                  POSTGRES_DB: gorm
+        run: |
+          docker-compose version
+          docker-compose up -d
         env:
           POSTGRES_HOST: db
           POSTGRES_PORT: 5432
