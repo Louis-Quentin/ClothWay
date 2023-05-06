@@ -33,7 +33,20 @@ jobs:
 
   Back-End:
     runs-on: ubuntu-latest
-
+    
+    services:
+      db:
+        image: postgres:14.1-alpine
+        env:
+          POSTGRES_USER: dev_user
+          POSTGRES_PASSWORD: Clothway
+          POSTGRES_DB: gorm
+        ports:
+          - 5432:5432
+        volumes:
+          - db:/var/lib/postgresql/data
+      command: -c 'max_connections=500'
+  
     steps:
      - name: Checkout 🛎️
        uses: actions/checkout@v2
