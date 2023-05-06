@@ -50,9 +50,7 @@ jobs:
        run: cd sources/Back
 
      - name: Verify dependencies 🐧
-       run: cd sources/Back/
-            go mod download
+       run: 'cd sources/Back/ && go mod tidy'
      
      - name: Build 🏗️
-       run: cd sources/Back/
-            go run .
+       run: 'cd sources/Back/ && go run .'
