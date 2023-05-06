@@ -45,17 +45,14 @@ jobs:
        uses: actions/setup-go@v2
        with:
           go-version: 1.17
-       env:
-          GO111MODULE: on
   
      - name: Navigate to back-end directory 🏎
        run: cd sources/Back
 
-     - name: Install dependencies 🐧
-       run: go mod download
-     
-     - name: Verify dependencies 🔍
-       run: go mod veridy
+     - name: Verify dependencies 🐧
+       run: cd sources/Back/
+            go mod download
      
      - name: Build 🏗️
-       run: go run . --prefix sources/Back
+       run: cd sources/Back/
+            go run .
