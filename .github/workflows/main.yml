@@ -21,8 +21,11 @@ jobs:
       - name: Install (front) 🔧
         run: npm install --force --prefix sources/web-front
       
-      - name: Install (front-end)
+      - name: Install (front) 🤖
         run: npm install -g serve --prefix sources/web-front
+        
+      - name: Lint 🧐
+        run: npm run lint --prefix sources/web-front
 
       - name: Build (front) 🏗️
         run: npm run build --prefix sources/web-front
