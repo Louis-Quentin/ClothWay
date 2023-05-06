@@ -31,3 +31,26 @@ jobs:
         run: npm run build --prefix sources/web-front GENERATE_SOURCEMAP=false
         env:
           CI: false
+
+  Back-End:
+    runs-on: ubuntu-latest
+    
+    steps:
+     - name: Checkout 🛎️
+       uses: actions/checkout@v2
+       with:
+          persist-credentials: false
+  
+     - name: Navigate to back-end directory 🏎
+       run: cd sources/Back
+       
+     - name: Install Go 🔧
+       uses: actions/setup-go@v2
+       with:
+          go-version: 1.16
+
+     - name: Dependance verification 🐧
+       run: go mod tidy --prefix sources/Back
+     
+     - name: Build 🏗️
+       run: go run . --prefix sources/Back
