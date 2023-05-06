@@ -15,8 +15,8 @@ jobs:
         with:
           persist-credentials: false
   
-      - name: Navigate to backend directory
-        run: cd ../../sources/web-front
+      - name: Navigate to front-end directory
+        run: cd   sources/web-front/src
 
       - name: Install (front) 🔧
         run: npm install
