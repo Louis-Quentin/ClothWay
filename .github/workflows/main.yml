@@ -12,9 +12,6 @@ jobs:
         with:
           persist-credentials: false
       
-      - name: Clear npm cache
-        run: npm cache clean --force
-        
       - name: Navigate to front-end directory 🏎
         run: cd sources/web-front
 
@@ -24,8 +21,15 @@ jobs:
       - name: Install serve 🤖
         run: npm install -g serve --prefix sources/web-front
 
+      - name: Install ESLint
+        run: npm install --save-dev eslint --prefix sources/web-front
+
+      - name: Configure ESLint
+        run: npx eslint --init --prefix sources/web-front
+      
       - name: Build 🏗️
         run: npm run build --prefix sources/web-front GENERATE_SOURCEMAP=false
 
       - name: Test 🚨
         run: npm test --prefix sources/web-front
+
