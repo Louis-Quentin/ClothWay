@@ -1,0 +1,25 @@
+name: Deploy Go
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout 🛎️
+      uses: actions/checkout@v2
+    - name: Set up Go 1.x 🏃‍♂️
+      uses: actions/setup-go@v2
+      with:
+        go-version: ^1.16
+    - name: Build 🏗️
+      run: go run .
+    - name: Deploy 🚀
+      uses: easingthemes/ssh-deploy@v2.2.9
+      with:
+        ssh-private-key: ${{ secrets.PRIVATE_KEY }}
+        ssh-known-hosts: ${{ secrets.KNOWN_HOSTS }}
+        args: '-r /remote/path -l /local/path'
