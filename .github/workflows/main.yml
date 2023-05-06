@@ -29,6 +29,9 @@ jobs:
       
       - name: Build 🏗️
         run: npm run build --prefix sources/web-front GENERATE_SOURCEMAP=false
+        env:
+          CI: false
+
 
       - name: Test 🚨
         run: npm test --prefix sources/web-front
