@@ -16,7 +16,10 @@ jobs:
         run: cd sources/web-front
 
       - name: Install 🔧
-        run: npm install --prefix sources/web-front
+        run: npm install --force --prefix sources/web-front
+        
+      - name: Install serve 🤖
+        run: npm install -g serve --prefix sources/web-front
 
       - name: Lint 🧐
         run: npm run lint --prefix sources/web-front
