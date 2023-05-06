@@ -17,20 +17,33 @@ function MyButton({ Text, Href, Size }) {
         </Button>
     );
 }
-
 export default function ToolBar() {
     return (
-        <AppBar elevation={0} position='static' style={{background: '#303030'}}>
-            <Toolbar sx={{justifyContent: "space-between"}}>
-                <Stack direction="row" alignItems="center">
-                    <DrawerMenu/>
-                    <MyButton Text="ClothWay" Href="/" Size="h4"/>
-                </Stack>
-                <SearchBar/>
-                <Button href="/register" sx={{color: "inherit"}}>
-                    Se connecter
-                </Button>
-            </Toolbar>
-        </AppBar>
+      <AppBar elevation={0} position='static' style={{background: '#303030'}}>
+        <Toolbar sx={{justifyContent: "space-between"}}>
+          <Stack direction="row" alignItems="center">
+            <DrawerMenu/>
+            <MyButton Text="ClothWay" Href="/" Size="h4"/>
+          </Stack>
+          <div style={{ position: 'absolute', right: '500px' }}>
+          <Button href="/news" sx={{color: "inherit"}}>
+            Actualités
+          </Button>
+          </div>
+          <div style={{ position: 'absolute', right: '900px' }}>
+            <SearchBar/>
+          </div>
+          <Button href="/register" sx={{color: "inherit"}}>
+            Se connecter
+          </Button>
+        </Toolbar>
+      </AppBar>
     );
-}
+  }
+  
+  
+  
+  
+  
+  
+  
