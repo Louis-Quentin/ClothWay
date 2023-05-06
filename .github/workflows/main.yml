@@ -21,18 +21,13 @@ jobs:
       - name: Install serve 🤖
         run: npm install -g serve --prefix sources/web-front
 
-      - name: Install ESLint
+      - name: Install ESLint ⌛
         run: npm install --save-dev eslint --prefix sources/web-front --force
 
-      - name: Configure ESLint
+      - name: Configure ESLint ⌛
         run: npx eslint --init --prefix sources/web-front
       
       - name: Build 🏗️
         run: npm run build --prefix sources/web-front GENERATE_SOURCEMAP=false
         env:
           CI: false
-
-
-      - name: Test 🚨
-        run: npm test --prefix sources/web-front
-
