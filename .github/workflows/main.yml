@@ -1,0 +1,29 @@
+name: Build Back-end/Front-end/Mobile parts
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout (front) 🛎️
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+
+      - name: Install (front) 🔧
+        run: npm install
+
+      - name: Build (front) 🏗️
+        run: npm run build
+
+      - name: Test (front) 🚨
+        run: npm test
+        
+        
+
+  
