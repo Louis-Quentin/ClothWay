@@ -12,6 +12,9 @@ jobs:
         with:
           persist-credentials: false
       
+      - name: Clear npm cache
+        run: npm cache clean --force
+        
       - name: Navigate to front-end directory 🏎
         run: cd sources/web-front
 
@@ -26,5 +29,3 @@ jobs:
 
       - name: Test 🚨
         run: npm test --prefix sources/web-front
-
-  
