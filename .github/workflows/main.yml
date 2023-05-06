@@ -3,7 +3,7 @@ name: Node CI
 on: push
 
 jobs:
-  build:
+  Front-End:
     runs-on: ubuntu-latest
 
     steps:
