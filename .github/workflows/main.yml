@@ -22,7 +22,7 @@ jobs:
         run: npm install -g serve --prefix sources/web-front
 
       - name: Build 🏗️
-        run: npm run build --prefix sources/web-front
+        run: npm run build --prefix sources/web-front GENERATE_SOURCEMAP=false
 
       - name: Test 🚨
         run: npm test --prefix sources/web-front
