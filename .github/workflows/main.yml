@@ -11,62 +11,8 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Navigate to front-end directory 🏎
-        run: cd sources/web-front
-
-      - name: Install 🔧
-        run: npm install --force --prefix sources/web-front
-
-      - name: Install serve 🤖
-        run: npm install -g serve --prefix sources/web-front
-
-      - name: Install ESLint ⌛
-        run: npm install --save-dev eslint --prefix sources/web-front --force
-
-      - name: Configure ESLint ⌛
-        run: npx eslint --init --prefix sources/web-front
-
-      - name: Build 🏗️
-        run: npm run build --prefix sources/web-front GENERATE_SOURCEMAP=false
-        env:
-          CI: false
-
-  Back-End:
-    runs-on: ubuntu-latest
-
-    services:
-      db:
-        image: postgres:alpine
-        ports:
-          - 5432:5432
-        env:
-          POSTGRES_USER: dev_user
-          POSTGRES_PASSWORD: dev_password
-          POSTGRES_DB: gorm
-          POSTGRES_HOST_AUTH_METHOD: trust
-
-    steps:
-     - name: Checkout 🛎️
-       uses: actions/checkout@v2
-       with:
-          persist-credentials: false
-
-     - name: Setup Go 🔧
-       uses: actions/setup-go@v2
-       with:
-          go-version: 1.17
-
-     - name: Navigate to back-end directory 🏎
-       run: cd sources/Back
-
-     - name: Verify dependencies 🐧
-       run: 'cd sources/Back/ && go mod tidy'
- 
-     - name: Build 🏗️
-       env:
-         DB_HOST: db
-         DB_PORT: 5432
-         DB_USER: dev_user
-         DB_PASS: dev_password
-         DB_NAME: gorm
-       run: 'cd sources/Back/ && go run .'
+      - name: Building docker image 🏗️
+        run: docker-compose build web-front
+      
+      - name: Running docker containers 🏎
+        run: docker-compose up web-front
