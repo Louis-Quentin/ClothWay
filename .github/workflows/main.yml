@@ -3,7 +3,7 @@ name: Node CI
 on: push
 
 jobs:
-  Front-End:
+  Build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
@@ -12,7 +12,4 @@ jobs:
           persist-credentials: false
 
       - name: Building docker image 🏗️
-        run: docker-compose build client_web
-      
-      - name: Running docker containers 🏎
-        run: docker-compose up client_web --exit-code-from client_web
+        run: docker-compose build
