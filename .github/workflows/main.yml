@@ -15,4 +15,4 @@ jobs:
         run: docker-compose build client_web
       
       - name: Running docker containers 🏎
-        run: docker-compose up client_web
+        run: docker-compose up client_web --exit-code-from client_web
