@@ -34,6 +34,16 @@ jobs:
   Back-End:
     runs-on: ubuntu-latest
 
+    services:
+      db:
+        image: postgres:13
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_USER: dev_user
+          POSTGRES_PASSWORD: dev_password
+          POSTGRES_DB: gorm
+
     steps:
      - name: Checkout 🛎️
        uses: actions/checkout@v2
@@ -50,10 +60,17 @@ jobs:
 
      - name: Verify dependencies 🐧
        run: 'cd sources/Back/ && go mod tidy'
-     
+
      - name: Start database 🐳
        run: docker-compose up -d
-       
-     - name: Build 🏗️
-       run: 'cd sources/Back/ && go run .'
-  
+
+     - name: Connect to database
+       env:
+         DB_HOST: db
+         DB_PORT: 5432
+         DB_USER: dev_user
+         DB_PASS: dev_password
+         DB_NAME: gorm
+       run: |
+         go get -v github.com/lib/pq
+         go run main.go
