@@ -62,7 +62,7 @@ jobs:
        run: 'cd sources/Back/ && go mod tidy'
 
      - name: Start database 🐳
-       run: docker-compose up -d
+       run: docker-compose up --build
 
      - name: Connect to database
        env:
