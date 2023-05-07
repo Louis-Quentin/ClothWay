@@ -60,14 +60,8 @@ jobs:
 
      - name: Verify dependencies 🐧
        run: 'cd sources/Back/ && go mod tidy'
-     
-     
-     - name: Start database 🐳
-       run: docker-compose up -d
-     - name: Wait for database to start 🔍
-       run: sleep 10
-  
-     - name: Connect to database
+ 
+     - name: Build 🏗️
        env:
          DB_HOST: db
          DB_PORT: 5432
