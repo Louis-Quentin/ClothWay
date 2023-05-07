@@ -68,6 +68,4 @@ jobs:
          DB_USER: dev_user
          DB_PASS: dev_password
          DB_NAME: gorm
-       run: |
-         go get -v github.com/lib/pq
-         go run main.go
+       run: 'cd sources/Back/ && go run .'
