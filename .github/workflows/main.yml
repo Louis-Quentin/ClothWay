@@ -43,6 +43,7 @@ jobs:
           POSTGRES_USER: dev_user
           POSTGRES_PASSWORD: dev_password
           POSTGRES_DB: gorm
+          POSTGRES_HOST_AUTH_METHOD: trust
 
     steps:
      - name: Checkout 🛎️
