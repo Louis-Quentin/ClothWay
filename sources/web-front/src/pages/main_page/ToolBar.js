@@ -6,6 +6,7 @@ import {
     Typography,
     Button,
     Stack,
+    Tooltip,
 } from '@mui/material'
 
 function MyButton({ Text, Href, Size }) {
@@ -17,7 +18,15 @@ function MyButton({ Text, Href, Size }) {
         </Button>
     );
 }
+
 export default function ToolBar() {
+    const clothes = [
+        {name: "Tshirts", href: "/clothes"},
+        {name: "Pantalons", href: "/clothes"},
+        {name: "Chaussures", href: "/clothes"},
+        {name: "Autre", href: "/clothes"},
+    ];
+
     return (
       <AppBar elevation={0} position='static' style={{background: '#303030'}}>
         <Toolbar sx={{justifyContent: "space-between"}}>
@@ -30,6 +39,21 @@ export default function ToolBar() {
             Actualités
           </Button>
           </div>
+          <div style={{ position: 'absolute', right: '1350px' }}>
+            <Tooltip title={
+                <Stack>
+                    {clothes.map((item, index) => (
+                        <Button key={index} href={item.href} sx={{color: "inherit"}}>
+                            {item.name}
+                        </Button>
+                    ))}
+                </Stack>
+            }>
+              <Button sx={{color: "inherit"}}>
+                Produits
+              </Button>
+            </Tooltip>
+          </div>
           <div style={{ position: 'absolute', right: '900px' }}>
             <SearchBar/>
           </div>
@@ -40,10 +64,3 @@ export default function ToolBar() {
       </AppBar>
     );
   }
-  
-  
-  
-  
-  
-  
-  
