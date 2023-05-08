@@ -1,5 +1,6 @@
 import SearchBar from "./SearchBar"
 import DrawerMenu from "./DrawerMenu"
+import LogoClothWay from '../../images/logo_clothway.png'
 import {
     AppBar,
     Toolbar,
@@ -8,16 +9,6 @@ import {
     Stack,
     Tooltip,
 } from '@mui/material'
-
-function MyButton({ Text, Href, Size }) {
-    return (
-        <Button href={ Href } color='inherit' style={{textTransform: 'none'}}>
-            <Typography variant={ Size }>
-                { Text }
-            </Typography>
-        </Button>
-    );
-}
 
 export default function ToolBar() {
     const clothes = [
@@ -32,14 +23,16 @@ export default function ToolBar() {
         <Toolbar sx={{justifyContent: "space-between"}}>
           <Stack direction="row" alignItems="center">
             <DrawerMenu/>
-            <MyButton Text="ClothWay" Href="/" Size="h4"/>
+            <a href='/'>
+              <img width='40%' src={LogoClothWay} alt='ClothWay' href='/'/>
+            </a>
           </Stack>
           <div style={{ position: 'absolute', right: '500px' }}>
           <Button href="/news" sx={{color: "inherit"}}>
             Actualités
           </Button>
           </div>
-          <div style={{ position: 'absolute', right: '1350px' }}>
+          {/* <div style={{ position: 'absolute', right: '1350px' }}>
             <Tooltip title={
                 <Stack>
                     {clothes.map((item, index) => (
@@ -53,7 +46,7 @@ export default function ToolBar() {
                 Produits
               </Button>
             </Tooltip>
-          </div>
+          </div> */}
           <div style={{ position: 'absolute', right: '900px' }}>
             <SearchBar/>
           </div>
