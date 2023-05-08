@@ -23,7 +23,7 @@ export default function GetTheNews() {
   return (
     <div className="news-banner">
     <Button href="/" sx={{color: "inherit"}}>
-        Retour
+        Nouvelle Actu
     </Button>
       {news.length > 0 ? (
         <>

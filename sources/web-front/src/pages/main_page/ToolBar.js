@@ -27,9 +27,9 @@ export default function ToolBar() {
               <img width='40%' src={LogoClothWay} alt='ClothWay' href='/'/>
             </a>
           </Stack>
-          <div style={{ position: 'absolute', right: '500px' }}>
-          <Button href="/news" sx={{color: "inherit"}}>
-            Actualités
+          <div style={{ position: 'absolute', right: '300px' }}>
+          <Button href="/register" sx={{color: "inherit"}}>
+            Se connecter entreprise
           </Button>
           </div>
           {/* <div style={{ position: 'absolute', right: '1350px' }}>
