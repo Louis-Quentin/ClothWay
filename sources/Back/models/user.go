@@ -24,7 +24,6 @@ type Cloth struct {
 	Conditions_working   string
 	Workers_salary       string
 	Materials            string
-	Factory              string
 	Pre_wash             string
 	Packaging            string
 	Original_country     string
