@@ -8,6 +8,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "animated_theme_switcher",
+      "rootUri": "file:///Users/Redouane/Dev/flutter/.pub-cache/hosted/pub.dartlang.org/animated_theme_switcher-2.0.8",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
       "name": "async",
       "rootUri": "file:///Users/Redouane/Dev/flutter/.pub-cache/hosted/pub.dartlang.org/async-2.9.0",
       "packageUri": "lib/",
@@ -182,7 +188,7 @@
       "languageVersion": "2.18"
     }
   ],
-  "generated": "2023-04-11T01:42:10.345954Z",
+  "generated": "2023-05-09T00:59:17.404723Z",
   "generator": "pub",
   "generatorVersion": "2.18.6"
 }

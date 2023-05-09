@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:bis/screens/guest/panierpage.dart';
 import 'package:bis/screens/guest/favorispage.dart';
 import 'package:bis/screens/guest/newspage.dart';
-import 'package:bis/screens/guest/profilpage.dart';
+import 'package:bis/screens/guest/profilpage.dart'; 
+import 'package:bis/screens/guest/profil/page/profile_page.dart';
 import 'package:bis/screens/guest/notificationpage.dart';
 import 'package:bis/screens/guest/parampage.dart';
 import 'auth.dart';
@@ -234,7 +235,7 @@ class HomePageState extends State<HomePage> {
     child: InkWell(
       onTap: (() {
         Navigator.pop(context);
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ProfilPage()));
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProfilePage()));
       }),
       child: Container(
       color: Colors.black,
