@@ -14,7 +14,7 @@ bool validPass(String str) {
 }
 
 Future<bool> connection(String email, String password) async {
-  String url = "http://192.168.0.149:8080/signup";
+  String url = "http://192.168.0.24:8080/signup";
   final response = await http.post(
     Uri.parse(url),
     headers: <String, String>{
