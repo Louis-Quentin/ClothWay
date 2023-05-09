@@ -40,6 +40,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   animate_do: ^3.0.2
   tabler_icons: ^0.0.3
+  animated_theme_switcher: "^2.0.8"
 
 dev_dependencies:
   flutter_test:
