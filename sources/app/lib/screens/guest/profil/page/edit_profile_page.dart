@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:bis/screens/guest/profil/model/user.dart';
@@ -16,11 +15,9 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
-  User user = UserPreferences.myUser;
 
   @override
-  Widget build(BuildContext context) => ThemeSwitchingArea(
-        child: Builder(
+  Widget build(BuildContext context) => Builder(
           builder: (context) => Scaffold(
             appBar: buildAppBar(context),
             body: ListView(
@@ -28,32 +25,31 @@ class _EditProfilePageState extends State<EditProfilePage> {
               physics: BouncingScrollPhysics(),
               children: [
                 ProfileWidget(
-                  imagePath: user.imagePath,
+                  imagePath: UserPreferences.myUser.imagePath,
                   isEdit: true,
                   onClicked: () async {},
                 ),
                 const SizedBox(height: 24),
                 TextFieldWidget(
                   label: 'Full Name',
-                  text: user.name,
+                  text: UserPreferences.myUser.name,
                   onChanged: (name) {},
                 ),
                 const SizedBox(height: 24),
                 TextFieldWidget(
                   label: 'Email',
-                  text: user.email,
+                  text: UserPreferences.myUser.email,
                   onChanged: (email) {},
                 ),
                 const SizedBox(height: 24),
                 TextFieldWidget(
                   label: 'About',
-                  text: user.about,
+                  text: UserPreferences.myUser.about,
                   maxLines: 5,
                   onChanged: (about) {},
                 ),
               ],
             ),
           ),
-        ),
       );
 }
