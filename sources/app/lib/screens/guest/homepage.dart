@@ -6,6 +6,7 @@ import 'package:bis/screens/guest/profilpage.dart';
 import 'package:bis/screens/guest/profil/page/profile_page.dart';
 import 'package:bis/screens/guest/notificationpage.dart';
 import 'package:bis/screens/guest/parampage.dart';
+import 'package:bis/screens/guest/profil/utils/user_preferences.dart';
 import 'auth.dart';
 
 class HomePage extends StatefulWidget {
@@ -233,7 +234,8 @@ class HomePageState extends State<HomePage> {
   Widget buildHeader(BuildContext context) => Material(
     color: Colors.black,
     child: InkWell(
-      onTap: (() {
+      onTap: (() async {
+        await UserPreferences.init();
         Navigator.pop(context);
         Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProfilePage()));
       }),

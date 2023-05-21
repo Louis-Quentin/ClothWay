@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:bis/screens/guest/profil/model/user.dart';
 import 'package:bis/screens/guest/profil/widget/textfield_widget.dart';
 import 'package:bis/screens/guest/profil/utils/user_preferences.dart';
@@ -15,41 +17,74 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
+  late User user;
+
+  @override
+  void initState() {
+    super.initState();
+
+    user = UserPreferences.getUser();
+  }
 
   @override
   Widget build(BuildContext context) => Builder(
           builder: (context) => Scaffold(
-            appBar: buildAppBar(context),
+            appBar: AppBar(
+            title: Text("Edit profile"),
+            centerTitle: true,
+            backgroundColor: const Color.fromRGBO(30, 30, 30, 30)
+            ),
             body: ListView(
               padding: EdgeInsets.symmetric(horizontal: 32),
               physics: BouncingScrollPhysics(),
               children: [
                 ProfileWidget(
-                  imagePath: UserPreferences.myUser.imagePath,
+                  imagePath: user.imagePath,
                   isEdit: true,
-                  onClicked: () async {},
+                  onClicked: () async {
+                    final image = await ImagePicker()
+                        .getImage(source: ImageSource.gallery);
+
+                    if (image == null) return;
+
+                    final directory = await getApplicationDocumentsDirectory();
+                    final name = basename(image.path);
+                    final imageFile = File('${directory.path}/$name');
+                    final newImage =
+                        await File(image.path).copy(imageFile.path);
+
+                    setState(() => user = user.copy(imagePath: newImage.path));
+                  },
                 ),
                 const SizedBox(height: 24),
                 TextFieldWidget(
                   label: 'Full Name',
-                  text: UserPreferences.myUser.name,
-                  onChanged: (name) {},
+                  text: user.name,
+                  onChanged: (name) => user = user.copy(name: name),
                 ),
                 const SizedBox(height: 24),
                 TextFieldWidget(
                   label: 'Email',
-                  text: UserPreferences.myUser.email,
-                  onChanged: (email) {},
+                  text: user.email,
+                  onChanged: (email) => user = user.copy(email: email),
                 ),
                 const SizedBox(height: 24),
                 TextFieldWidget(
                   label: 'About',
-                  text: UserPreferences.myUser.about,
+                  text: user.about,
                   maxLines: 5,
-                  onChanged: (about) {},
+                  onChanged: (about) => user = user.copy(about: about),
+                ),
+                const SizedBox(height: 24),
+                ButtonWidget(
+                  text: 'Save',
+                  onClicked: () {
+                    UserPreferences.setUser(user);
+                    Navigator.of(context).pop();
+                  },
                 ),
               ],
             ),
           ),
-      );
+        );
 }

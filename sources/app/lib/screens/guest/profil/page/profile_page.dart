@@ -17,44 +17,50 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
+    final user = UserPreferences.getUser();
 
     return Builder(
         builder: (context) => Scaffold(
-          appBar: buildAppBar(context),
+          appBar: AppBar(
+            title: Text("Profile"),
+            centerTitle: true,
+            backgroundColor: const Color.fromRGBO(30, 30, 30, 30)
+            ),
           body: ListView(
             physics: BouncingScrollPhysics(),
             children: [
               ProfileWidget(
-                imagePath: UserPreferences.myUser.imagePath,
-                onClicked: () {
-                  Navigator.of(context).push(
+                imagePath: user.imagePath,
+                onClicked: () async {
+                  await Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => EditProfilePage()),
                   );
+                  setState(() {});
                 },
               ),
               const SizedBox(height: 24),
-              buildName(),
+              buildName(user),
               const SizedBox(height: 24),
               Center(child: buildUpgradeButton()),
               const SizedBox(height: 24),
               NumbersWidget(),
               const SizedBox(height: 48),
-              buildAbout(),
+              buildAbout(user),
             ],
           ),
         ),
-    );
+      );
   }
 
-  Widget buildName() => Column(
+  Widget buildName(User user) => Column(
         children: [
           Text(
-            UserPreferences.myUser.name,
+            user.name,
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
           ),
           const SizedBox(height: 4),
           Text(
-            UserPreferences.myUser.email,
+            user.email,
             style: TextStyle(color: Colors.grey),
           )
         ],
@@ -65,7 +71,7 @@ class _ProfilePageState extends State<ProfilePage> {
         onClicked: () {},
       );
 
-  Widget buildAbout() => Container(
+  Widget buildAbout(User user) => Container(
         padding: EdgeInsets.symmetric(horizontal: 48),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,7 +82,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             const SizedBox(height: 16),
             Text(
-              UserPreferences.myUser.about,
+              user.about,
               style: TextStyle(fontSize: 16, height: 1.4),
             ),
           ],
