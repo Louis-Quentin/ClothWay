@@ -1,0 +1,191 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="io.flutter.plugins.googlesigninexample"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="16"
+9        android:targetSdkVersion="28" />
+10    <!--
+11         Flutter needs internet permission to communicate with the running application
+12         to allow setting breakpoints, to provide hot reload, etc.
+13    -->
+14    <uses-permission android:name="android.permission.INTERNET" />
+14-->/Users/malloc/Documents/EIP/cloth_way_googleauth/android/app/src/main/AndroidManifest.xml:4:5-66
+14-->/Users/malloc/Documents/EIP/cloth_way_googleauth/android/app/src/main/AndroidManifest.xml:4:22-64
+15    <uses-permission android:name="android.permission.REORDER_TASKS" />
+15-->[androidx.test:core:1.5.0] /Users/malloc/.gradle/caches/transforms-3/42404c9ba6bb8e8980e4a423ea5c9475/transformed/core-1.5.0/AndroidManifest.xml:24:5-72
+15-->[androidx.test:core:1.5.0] /Users/malloc/.gradle/caches/transforms-3/42404c9ba6bb8e8980e4a423ea5c9475/transformed/core-1.5.0/AndroidManifest.xml:24:22-69
+16
+17    <queries>
+17-->[androidx.test:runner:1.5.2] /Users/malloc/.gradle/caches/transforms-3/7937fc85a19718866fdee5d1c82a5560/transformed/runner-1.5.2/AndroidManifest.xml:24:5-28:15
+18        <package android:name="androidx.test.orchestrator" />
+18-->[androidx.test:runner:1.5.2] /Users/malloc/.gradle/caches/transforms-3/7937fc85a19718866fdee5d1c82a5560/transformed/runner-1.5.2/AndroidManifest.xml:25:9-62
+18-->[androidx.test:runner:1.5.2] /Users/malloc/.gradle/caches/transforms-3/7937fc85a19718866fdee5d1c82a5560/transformed/runner-1.5.2/AndroidManifest.xml:25:18-59
+19        <package android:name="androidx.test.services" />
+19-->[androidx.test:runner:1.5.2] /Users/malloc/.gradle/caches/transforms-3/7937fc85a19718866fdee5d1c82a5560/transformed/runner-1.5.2/AndroidManifest.xml:26:9-58
+19-->[androidx.test:runner:1.5.2] /Users/malloc/.gradle/caches/transforms-3/7937fc85a19718866fdee5d1c82a5560/transformed/runner-1.5.2/AndroidManifest.xml:26:18-55
+20        <package android:name="com.google.android.apps.common.testing.services" />
+20-->[androidx.test:runner:1.5.2] /Users/malloc/.gradle/caches/transforms-3/7937fc85a19718866fdee5d1c82a5560/transformed/runner-1.5.2/AndroidManifest.xml:27:9-83
+20-->[androidx.test:runner:1.5.2] /Users/malloc/.gradle/caches/transforms-3/7937fc85a19718866fdee5d1c82a5560/transformed/runner-1.5.2/AndroidManifest.xml:27:18-80
+21    </queries>
+22
+23    <application
+23-->/Users/malloc/Documents/EIP/cloth_way_googleauth/android/app/src/main/AndroidManifest.xml:6:5-18:19
+24        android:name="androidx.multidex.MultiDexApplication"
+25        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+25-->[androidx.core:core:1.6.0] /Users/malloc/.gradle/caches/transforms-3/cef6208d4eb9a434f06cd16779216b07/transformed/core-1.6.0/AndroidManifest.xml:24:18-86
+26        android:debuggable="true"
+27        android:usesCleartextTraffic="true" >
+27-->/Users/malloc/Documents/EIP/cloth_way_googleauth/android/app/src/debug/AndroidManifest.xml:7:18-53
+28        <activity
+28-->/Users/malloc/Documents/EIP/cloth_way_googleauth/android/app/src/debug/AndroidManifest.xml:8:9-15:20
+29            android:name="io.flutter.plugins.googlesigninexample.GoogleSignInTestActivity"
+29-->/Users/malloc/Documents/EIP/cloth_way_googleauth/android/app/src/debug/AndroidManifest.xml:9:13-53
+30            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+30-->/Users/malloc/Documents/EIP/cloth_way_googleauth/android/app/src/debug/AndroidManifest.xml:12:13-163
+31            android:hardwareAccelerated="true"
+31-->/Users/malloc/Documents/EIP/cloth_way_googleauth/android/app/src/debug/AndroidManifest.xml:13:13-47
+32            android:launchMode="singleTop"
+32-->/Users/malloc/Documents/EIP/cloth_way_googleauth/android/app/src/debug/AndroidManifest.xml:10:13-43
+33            android:theme="@android:style/Theme.Black.NoTitleBar"
+33-->/Users/malloc/Documents/EIP/cloth_way_googleauth/android/app/src/debug/AndroidManifest.xml:11:13-66
+34            android:windowSoftInputMode="adjustResize" >
+34-->/Users/malloc/Documents/EIP/cloth_way_googleauth/android/app/src/debug/AndroidManifest.xml:14:13-55
+35        </activity>
+36        <activity
+36-->/Users/malloc/Documents/EIP/cloth_way_googleauth/android/app/src/main/AndroidManifest.xml:7:9-16:20
+37            android:name="io.flutter.embedding.android.FlutterActivity"
+37-->/Users/malloc/Documents/EIP/cloth_way_googleauth/android/app/src/main/AndroidManifest.xml:7:19-78
+38            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection"
+38-->/Users/malloc/Documents/EIP/cloth_way_googleauth/android/app/src/main/AndroidManifest.xml:9:19-112
+39            android:hardwareAccelerated="true"
+39-->/Users/malloc/Documents/EIP/cloth_way_googleauth/android/app/src/main/AndroidManifest.xml:10:19-53
+40            android:theme="@android:style/Theme.Black.NoTitleBar"
+40-->/Users/malloc/Documents/EIP/cloth_way_googleauth/android/app/src/main/AndroidManifest.xml:8:19-72
+41            android:windowSoftInputMode="adjustResize" >
+41-->/Users/malloc/Documents/EIP/cloth_way_googleauth/android/app/src/main/AndroidManifest.xml:11:19-61
+42            <intent-filter>
+42-->/Users/malloc/Documents/EIP/cloth_way_googleauth/android/app/src/main/AndroidManifest.xml:12:13-15:29
+43                <action android:name="android.intent.action.MAIN" />
+43-->/Users/malloc/Documents/EIP/cloth_way_googleauth/android/app/src/main/AndroidManifest.xml:13:17-69
+43-->/Users/malloc/Documents/EIP/cloth_way_googleauth/android/app/src/main/AndroidManifest.xml:13:25-66
+44
+45                <category android:name="android.intent.category.LAUNCHER" />
+45-->/Users/malloc/Documents/EIP/cloth_way_googleauth/android/app/src/main/AndroidManifest.xml:14:17-77
+45-->/Users/malloc/Documents/EIP/cloth_way_googleauth/android/app/src/main/AndroidManifest.xml:14:27-74
+46            </intent-filter>
+47        </activity>
+48
+49        <meta-data
+49-->/Users/malloc/Documents/EIP/cloth_way_googleauth/android/app/src/main/AndroidManifest.xml:17:9-71
+50            android:name="flutterEmbedding"
+50-->/Users/malloc/Documents/EIP/cloth_way_googleauth/android/app/src/main/AndroidManifest.xml:17:20-51
+51            android:value="2" />
+51-->/Users/malloc/Documents/EIP/cloth_way_googleauth/android/app/src/main/AndroidManifest.xml:17:52-69
+52
+53        <activity
+53-->[androidx.test:core:1.5.0] /Users/malloc/.gradle/caches/transforms-3/42404c9ba6bb8e8980e4a423ea5c9475/transformed/core-1.5.0/AndroidManifest.xml:27:9-34:20
+54            android:name="androidx.test.core.app.InstrumentationActivityInvoker$BootstrapActivity"
+54-->[androidx.test:core:1.5.0] /Users/malloc/.gradle/caches/transforms-3/42404c9ba6bb8e8980e4a423ea5c9475/transformed/core-1.5.0/AndroidManifest.xml:28:13-99
+55            android:exported="true"
+55-->[androidx.test:core:1.5.0] /Users/malloc/.gradle/caches/transforms-3/42404c9ba6bb8e8980e4a423ea5c9475/transformed/core-1.5.0/AndroidManifest.xml:29:13-36
+56            android:theme="@style/WhiteBackgroundTheme" >
+56-->[androidx.test:core:1.5.0] /Users/malloc/.gradle/caches/transforms-3/42404c9ba6bb8e8980e4a423ea5c9475/transformed/core-1.5.0/AndroidManifest.xml:30:13-56
+57            <intent-filter android:priority="-100" >
+57-->[androidx.test:core:1.5.0] /Users/malloc/.gradle/caches/transforms-3/42404c9ba6bb8e8980e4a423ea5c9475/transformed/core-1.5.0/AndroidManifest.xml:31:13-33:29
+57-->[androidx.test:core:1.5.0] /Users/malloc/.gradle/caches/transforms-3/42404c9ba6bb8e8980e4a423ea5c9475/transformed/core-1.5.0/AndroidManifest.xml:31:28-51
+58                <category android:name="android.intent.category.LAUNCHER" />
+58-->/Users/malloc/Documents/EIP/cloth_way_googleauth/android/app/src/main/AndroidManifest.xml:14:17-77
+58-->/Users/malloc/Documents/EIP/cloth_way_googleauth/android/app/src/main/AndroidManifest.xml:14:27-74
+59            </intent-filter>
+60        </activity>
+61        <activity
+61-->[androidx.test:core:1.5.0] /Users/malloc/.gradle/caches/transforms-3/42404c9ba6bb8e8980e4a423ea5c9475/transformed/core-1.5.0/AndroidManifest.xml:35:9-42:20
+62            android:name="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"
+62-->[androidx.test:core:1.5.0] /Users/malloc/.gradle/caches/transforms-3/42404c9ba6bb8e8980e4a423ea5c9475/transformed/core-1.5.0/AndroidManifest.xml:36:13-95
+63            android:exported="true"
+63-->[androidx.test:core:1.5.0] /Users/malloc/.gradle/caches/transforms-3/42404c9ba6bb8e8980e4a423ea5c9475/transformed/core-1.5.0/AndroidManifest.xml:37:13-36
+64            android:theme="@style/WhiteBackgroundTheme" >
+64-->[androidx.test:core:1.5.0] /Users/malloc/.gradle/caches/transforms-3/42404c9ba6bb8e8980e4a423ea5c9475/transformed/core-1.5.0/AndroidManifest.xml:38:13-56
+65            <intent-filter android:priority="-100" >
+65-->[androidx.test:core:1.5.0] /Users/malloc/.gradle/caches/transforms-3/42404c9ba6bb8e8980e4a423ea5c9475/transformed/core-1.5.0/AndroidManifest.xml:31:13-33:29
+65-->[androidx.test:core:1.5.0] /Users/malloc/.gradle/caches/transforms-3/42404c9ba6bb8e8980e4a423ea5c9475/transformed/core-1.5.0/AndroidManifest.xml:31:28-51
+66                <category android:name="android.intent.category.LAUNCHER" />
+66-->/Users/malloc/Documents/EIP/cloth_way_googleauth/android/app/src/main/AndroidManifest.xml:14:17-77
+66-->/Users/malloc/Documents/EIP/cloth_way_googleauth/android/app/src/main/AndroidManifest.xml:14:27-74
+67            </intent-filter>
+68        </activity>
+69        <activity
+69-->[androidx.test:core:1.5.0] /Users/malloc/.gradle/caches/transforms-3/42404c9ba6bb8e8980e4a423ea5c9475/transformed/core-1.5.0/AndroidManifest.xml:43:9-50:20
+70            android:name="androidx.test.core.app.InstrumentationActivityInvoker$EmptyFloatingActivity"
+70-->[androidx.test:core:1.5.0] /Users/malloc/.gradle/caches/transforms-3/42404c9ba6bb8e8980e4a423ea5c9475/transformed/core-1.5.0/AndroidManifest.xml:44:13-103
+71            android:exported="true"
+71-->[androidx.test:core:1.5.0] /Users/malloc/.gradle/caches/transforms-3/42404c9ba6bb8e8980e4a423ea5c9475/transformed/core-1.5.0/AndroidManifest.xml:45:13-36
+72            android:theme="@style/WhiteBackgroundDialogTheme" >
+72-->[androidx.test:core:1.5.0] /Users/malloc/.gradle/caches/transforms-3/42404c9ba6bb8e8980e4a423ea5c9475/transformed/core-1.5.0/AndroidManifest.xml:46:13-62
+73            <intent-filter android:priority="-100" >
+73-->[androidx.test:core:1.5.0] /Users/malloc/.gradle/caches/transforms-3/42404c9ba6bb8e8980e4a423ea5c9475/transformed/core-1.5.0/AndroidManifest.xml:31:13-33:29
+73-->[androidx.test:core:1.5.0] /Users/malloc/.gradle/caches/transforms-3/42404c9ba6bb8e8980e4a423ea5c9475/transformed/core-1.5.0/AndroidManifest.xml:31:28-51
+74                <category android:name="android.intent.category.LAUNCHER" />
+74-->/Users/malloc/Documents/EIP/cloth_way_googleauth/android/app/src/main/AndroidManifest.xml:14:17-77
+74-->/Users/malloc/Documents/EIP/cloth_way_googleauth/android/app/src/main/AndroidManifest.xml:14:27-74
+75            </intent-filter>
+76        </activity>
+77        <activity
+77-->[com.google.android.gms:play-services-auth:20.5.0] /Users/malloc/.gradle/caches/transforms-3/8e5742d10843680fcc466d5fc5cb6039/transformed/play-services-auth-20.5.0/AndroidManifest.xml:23:9-27:75
+78            android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
+78-->[com.google.android.gms:play-services-auth:20.5.0] /Users/malloc/.gradle/caches/transforms-3/8e5742d10843680fcc466d5fc5cb6039/transformed/play-services-auth-20.5.0/AndroidManifest.xml:24:13-93
+79            android:excludeFromRecents="true"
+79-->[com.google.android.gms:play-services-auth:20.5.0] /Users/malloc/.gradle/caches/transforms-3/8e5742d10843680fcc466d5fc5cb6039/transformed/play-services-auth-20.5.0/AndroidManifest.xml:25:13-46
+80            android:exported="false"
+80-->[com.google.android.gms:play-services-auth:20.5.0] /Users/malloc/.gradle/caches/transforms-3/8e5742d10843680fcc466d5fc5cb6039/transformed/play-services-auth-20.5.0/AndroidManifest.xml:26:13-37
+81            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+81-->[com.google.android.gms:play-services-auth:20.5.0] /Users/malloc/.gradle/caches/transforms-3/8e5742d10843680fcc466d5fc5cb6039/transformed/play-services-auth-20.5.0/AndroidManifest.xml:27:13-72
+82        <!--
+83            Service handling Google Sign-In user revocation. For apps that do not integrate with
+84            Google Sign-In, this service will never be started.
+85        -->
+86        <service
+86-->[com.google.android.gms:play-services-auth:20.5.0] /Users/malloc/.gradle/caches/transforms-3/8e5742d10843680fcc466d5fc5cb6039/transformed/play-services-auth-20.5.0/AndroidManifest.xml:33:9-37:51
+87            android:name="com.google.android.gms.auth.api.signin.RevocationBoundService"
+87-->[com.google.android.gms:play-services-auth:20.5.0] /Users/malloc/.gradle/caches/transforms-3/8e5742d10843680fcc466d5fc5cb6039/transformed/play-services-auth-20.5.0/AndroidManifest.xml:34:13-89
+88            android:exported="true"
+88-->[com.google.android.gms:play-services-auth:20.5.0] /Users/malloc/.gradle/caches/transforms-3/8e5742d10843680fcc466d5fc5cb6039/transformed/play-services-auth-20.5.0/AndroidManifest.xml:35:13-36
+89            android:permission="com.google.android.gms.auth.api.signin.permission.REVOCATION_NOTIFICATION"
+89-->[com.google.android.gms:play-services-auth:20.5.0] /Users/malloc/.gradle/caches/transforms-3/8e5742d10843680fcc466d5fc5cb6039/transformed/play-services-auth-20.5.0/AndroidManifest.xml:36:13-107
+90            android:visibleToInstantApps="true" />
+90-->[com.google.android.gms:play-services-auth:20.5.0] /Users/malloc/.gradle/caches/transforms-3/8e5742d10843680fcc466d5fc5cb6039/transformed/play-services-auth-20.5.0/AndroidManifest.xml:37:13-48
+91
+92        <activity
+92-->[com.google.android.gms:play-services-base:18.0.1] /Users/malloc/.gradle/caches/transforms-3/75cecaacfdd9f6b8f729a5b418666604/transformed/play-services-base-18.0.1/AndroidManifest.xml:20:9-22:45
+93            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+93-->[com.google.android.gms:play-services-base:18.0.1] /Users/malloc/.gradle/caches/transforms-3/75cecaacfdd9f6b8f729a5b418666604/transformed/play-services-base-18.0.1/AndroidManifest.xml:20:19-85
+94            android:exported="false"
+94-->[com.google.android.gms:play-services-base:18.0.1] /Users/malloc/.gradle/caches/transforms-3/75cecaacfdd9f6b8f729a5b418666604/transformed/play-services-base-18.0.1/AndroidManifest.xml:22:19-43
+95            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+95-->[com.google.android.gms:play-services-base:18.0.1] /Users/malloc/.gradle/caches/transforms-3/75cecaacfdd9f6b8f729a5b418666604/transformed/play-services-base-18.0.1/AndroidManifest.xml:21:19-78
+96
+97        <meta-data
+97-->[com.google.android.gms:play-services-basement:18.2.0] /Users/malloc/.gradle/caches/transforms-3/baf43e55eeff341f99555d3d51ebb07a/transformed/play-services-basement-18.2.0/AndroidManifest.xml:21:9-23:69
+98            android:name="com.google.android.gms.version"
+98-->[com.google.android.gms:play-services-basement:18.2.0] /Users/malloc/.gradle/caches/transforms-3/baf43e55eeff341f99555d3d51ebb07a/transformed/play-services-basement-18.2.0/AndroidManifest.xml:22:13-58
+99            android:value="@integer/google_play_services_version" />
+99-->[com.google.android.gms:play-services-basement:18.2.0] /Users/malloc/.gradle/caches/transforms-3/baf43e55eeff341f99555d3d51ebb07a/transformed/play-services-basement-18.2.0/AndroidManifest.xml:23:13-66
+100
+101        <uses-library
+101-->[androidx.window:window:1.0.0-beta04] /Users/malloc/.gradle/caches/transforms-3/004d1ef54a3b2e9fbad68ec0c95ea3f8/transformed/window-1.0.0-beta04/AndroidManifest.xml:25:9-27:40
+102            android:name="androidx.window.extensions"
+102-->[androidx.window:window:1.0.0-beta04] /Users/malloc/.gradle/caches/transforms-3/004d1ef54a3b2e9fbad68ec0c95ea3f8/transformed/window-1.0.0-beta04/AndroidManifest.xml:26:13-54
+103            android:required="false" />
+103-->[androidx.window:window:1.0.0-beta04] /Users/malloc/.gradle/caches/transforms-3/004d1ef54a3b2e9fbad68ec0c95ea3f8/transformed/window-1.0.0-beta04/AndroidManifest.xml:27:13-37
+104        <uses-library
+104-->[androidx.window:window:1.0.0-beta04] /Users/malloc/.gradle/caches/transforms-3/004d1ef54a3b2e9fbad68ec0c95ea3f8/transformed/window-1.0.0-beta04/AndroidManifest.xml:28:9-30:40
+105            android:name="androidx.window.sidecar"
+105-->[androidx.window:window:1.0.0-beta04] /Users/malloc/.gradle/caches/transforms-3/004d1ef54a3b2e9fbad68ec0c95ea3f8/transformed/window-1.0.0-beta04/AndroidManifest.xml:29:13-51
+106            android:required="false" />
+106-->[androidx.window:window:1.0.0-beta04] /Users/malloc/.gradle/caches/transforms-3/004d1ef54a3b2e9fbad68ec0c95ea3f8/transformed/window-1.0.0-beta04/AndroidManifest.xml:30:13-37
+107    </application>
+108
+109</manifest>

@@ -1,0 +1,13 @@
+CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/AppAuth" "${PODS_ROOT}/Headers/Public/GTMAppAuth" "${PODS_ROOT}/Headers/Public/GTMSessionFetcher" "${PODS_ROOT}/Headers/Public/GoogleSignIn" "${PODS_ROOT}/Headers/Public/google_sign_in_ios" "${PODS_ROOT}/Headers/Public/integration_test"
+LIBRARY_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/AppAuth" "${PODS_CONFIGURATION_BUILD_DIR}/GTMAppAuth" "${PODS_CONFIGURATION_BUILD_DIR}/GTMSessionFetcher" "${PODS_CONFIGURATION_BUILD_DIR}/GoogleSignIn" "${PODS_CONFIGURATION_BUILD_DIR}/google_sign_in_ios" "${PODS_CONFIGURATION_BUILD_DIR}/integration_test"
+OTHER_CFLAGS = $(inherited) -fmodule-map-file="${PODS_ROOT}/Headers/Private/google_sign_in_ios/google_sign_in_ios.modulemap" -fmodule-map-file="${PODS_ROOT}/Headers/Public/GoogleSignIn/GoogleSignIn.modulemap" -fmodule-map-file="${PODS_ROOT}/Headers/Public/integration_test/integration_test.modulemap"
+OTHER_LDFLAGS = $(inherited) -ObjC -l"AppAuth" -l"GTMAppAuth" -l"GTMSessionFetcher" -l"GoogleSignIn" -l"google_sign_in_ios" -l"integration_test" -framework "CoreGraphics" -framework "CoreText" -framework "Foundation" -framework "LocalAuthentication" -framework "SafariServices" -framework "Security" -framework "UIKit" -weak_framework "AuthenticationServices"
+OTHER_SWIFT_FLAGS = $(inherited) -D COCOAPODS -Xcc -fmodule-map-file="${PODS_ROOT}/Headers/Private/google_sign_in_ios/google_sign_in_ios.modulemap" -Xcc -fmodule-map-file="${PODS_ROOT}/Headers/Public/GoogleSignIn/GoogleSignIn.modulemap" -Xcc -fmodule-map-file="${PODS_ROOT}/Headers/Public/integration_test/integration_test.modulemap"
+PODS_BUILD_DIR = ${BUILD_DIR}
+PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
+PODS_PODFILE_DIR_PATH = ${SRCROOT}/.
+PODS_ROOT = ${SRCROOT}/Pods
+PODS_XCFRAMEWORKS_BUILD_DIR = $(PODS_CONFIGURATION_BUILD_DIR)/XCFrameworkIntermediates
+USE_RECURSIVE_SCRIPT_INPUTS_IN_SCRIPT_PHASES = YES

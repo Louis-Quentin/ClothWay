@@ -1,0 +1,20 @@
+{
+    "logs": [
+        {
+            "outputFile": "io.flutter.plugins.googlesigninexample.app-mergeDebugResources-24:/values-watch-v21/values-watch-v21.xml",
+            "map": [
+                {
+                    "source": "/Users/malloc/.gradle/caches/transforms-3/206d4196d01590e8750f6970bb394b5a/transformed/appcompat-1.2.0/res/values-watch-v21/values-watch-v21.xml",
+                    "from": {
+                        "startLines": "2,6,10",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "55,271,499",
+                        "endLines": "5,9,13",
+                        "endColumns": "12,12,12",
+                        "endOffsets": "266,494,724"
+                    }
+                }
+            ]
+        }
+    ]
+}

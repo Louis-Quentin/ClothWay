@@ -1,0 +1,20 @@
+.news-banner {
+    background-color: #fff;
+    color: #333;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 20px auto;
+  }
+  
+  .news-title {
+    font-size: 2rem;
+    margin-top: 0;
+  }
+  
+  .news-description {
+    font-size: 1.2rem;
+    margin-bottom: 0;
+  }
+  
