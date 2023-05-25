@@ -1,11 +1,13 @@
 // This is a generated file; do not edit or check into version control.
-FLUTTER_ROOT=/Users/Redouane/Dev/flutter
-FLUTTER_APPLICATION_PATH=/Users/Redouane/EIP/ClothWay/sources/app
+FLUTTER_ROOT=/opt/homebrew/Caskroom/flutter/3.7.12/flutter
+FLUTTER_APPLICATION_PATH=/Users/malloc/Documents/EIP/ClothWay/ClothWay/sources/app
 COCOAPODS_PARALLEL_CODE_SIGN=true
+FLUTTER_TARGET=/Users/malloc/Documents/EIP/ClothWay/ClothWay/sources/app/lib/main.dart
 FLUTTER_BUILD_DIR=build
 FLUTTER_BUILD_NAME=1.0.0
 FLUTTER_BUILD_NUMBER=1
+DART_DEFINES=RkxVVFRFUl9XRUJfQVVUT19ERVRFQ1Q9dHJ1ZQ==,RkxVVFRFUl9XRUJfQ0FOVkFTS0lUX1VSTD1odHRwczovL3d3dy5nc3RhdGljLmNvbS9mbHV0dGVyLWNhbnZhc2tpdC9iNGZiMTEyMTRkZDJkZGE2Y2UwMTJkZDk4ZWE0OThlOWU4YjkxMjYyLw==
 DART_OBFUSCATION=false
 TRACK_WIDGET_CREATION=true
 TREE_SHAKE_ICONS=false
-PACKAGE_CONFIG=.dart_tool/package_config.json
+PACKAGE_CONFIG=/Users/malloc/Documents/EIP/ClothWay/ClothWay/sources/app/.dart_tool/package_config.json
