@@ -3,15 +3,24 @@ package router
 import (
 	"Back-End.clothway/models"
 	"encoding/json"
+	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/golang-jwt/jwt"
+	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
+	"io"
 	"net/http"
-	"unicode"
+	"os"
 	"strconv"
 	"strings"
-	"io"
-	"fmt"
+	"time"
+	"unicode"
 )
+
+type UpdatedUser struct {
+	Pseudo string
+	Email  string
+}
 
 type NewUser struct {
 	Password string
@@ -41,6 +50,38 @@ func Handle_home_request(context *gin.Context) {
 	}
 }
 
+func Handle_user_profile(context *gin.Context) {
+	var body UpdatedUser
+	err := json.NewDecoder(context.Request.Body).Decode(&body)
+	if err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{
+			"Error": "Failed to read body",
+		})
+		return
+	}
+	db := context.MustGet("gorm").(gorm.DB)
+	println("ici ?")
+	tmp_user := context.MustGet("user").(models.User)
+	println("ici 2 ?")
+	if body.Pseudo != "" {
+		tmp_user.Pseudo = body.Pseudo
+	}
+	if body.Email != "" {
+		tmp_user.Email = body.Email
+	}
+	res := db.Model(&tmp_user).Updates(&tmp_user)
+	if res.Error != nil {
+		println("update failed")
+		context.JSON(http.StatusBadRequest, gin.H{
+			"Error": "profile update failed",
+		})
+		return
+	}
+	context.JSON(http.StatusOK, gin.H{
+		"Success": tmp_user,
+	})
+}
+
 func Handle_signin_request(context *gin.Context) {
 	var body NewUser
 	err := json.NewDecoder(context.Request.Body).Decode(&body)
@@ -60,12 +101,36 @@ func Handle_signin_request(context *gin.Context) {
 		})
 		return
 	}
-	if user.Password != body.Password {
+	/*if user.Password != body.Password {
 		context.JSON(http.StatusBadRequest, gin.H{
 			"Error": "Invalid Password",
 		})
 		return
+	}*/
+
+	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(body.Password))
+
+	if err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{
+			"error": "Invalid Password",
+		})
+		return
 	}
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+		"sub": user.ID,
+		"exp": time.Now().Add(time.Hour * 24 * 30).Unix(),
+	})
+
+	token_string, err := token.SignedString([]byte(os.Getenv("SECRET")))
+	if err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{
+			"error": "Failed to create token",
+		})
+		return
+	}
+	//r.SetSameSite(http.SameSiteLaxMode)
+	context.SetCookie("Authorization", token_string, 3600*24*30, "", "", false, false)
+
 	context.SetCookie("email", body.Email, 3600*24*30, "", "", false, false)
 	context.JSON(http.StatusAccepted, gin.H{
 		"Success": "Successfully connected",
@@ -99,9 +164,16 @@ func Handle_signup_request(context *gin.Context) {
 		})
 		return
 	}
+	hash, err := bcrypt.GenerateFromPassword([]byte(body.Password), 10)
+	if err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{
+			"error": "failed to hash the password",
+		})
+		return
+	}
 	context.SetCookie("email", body.Email, 3600*24*30, "", "", false, false)
 	db := context.MustGet("gorm").(gorm.DB)
-	user := models.User{Email: body.Email, Password: body.Password}
+	user := models.User{Email: body.Email, Password: hash}
 	res := db.Where(&user).Find(&user)
 	if res.Error != nil && res.Error != gorm.ErrRecordNotFound {
 		println("not found")
@@ -154,12 +226,29 @@ func Handle_partner_signin_request(context *gin.Context) {
 		})
 		return
 	}
-	if partner.Password != body.Password {
+	err = bcrypt.CompareHashAndPassword([]byte(partner.Password), []byte(body.Password))
+
+	if err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{
-			"Error": "Invalid Password",
+			"error": "Invalid Password",
 		})
 		return
 	}
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+		"sub": partner.ID,
+		"exp": time.Now().Add(time.Hour * 24 * 30).Unix(),
+	})
+
+	token_string, err := token.SignedString([]byte(os.Getenv("SECRET")))
+	if err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{
+			"error": "Failed to create token",
+		})
+		return
+	}
+	//r.SetSameSite(http.SameSiteLaxMode)
+	context.SetCookie("Authorization", token_string, 3600*24*30, "", "", false, false)
+
 	context.SetCookie("email", body.Email, 3600*24*30, "", "", false, false)
 	context.JSON(http.StatusAccepted, gin.H{
 		"Success": "Partner Successfully connected",
@@ -175,9 +264,16 @@ func Handle_partner_signup_request(context *gin.Context) {
 		})
 		return
 	}
+	hash, err := bcrypt.GenerateFromPassword([]byte(body.Password), 10)
+	if err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{
+			"error": "failed to hash the password",
+		})
+		return
+	}
 	context.SetCookie("email", body.Email, 3600*24*30, "", "", false, false)
 	db := context.MustGet("gorm").(gorm.DB)
-	partner := models.Partner{Email: body.Email, Password: body.Password}
+	partner := models.Partner{Email: body.Email, Password: hash}
 	res := db.Where(&partner).Find(&partner)
 	if res.Error != nil && res.Error != gorm.ErrRecordNotFound {
 		println("not found")
@@ -242,9 +338,9 @@ func Handle_get_user_request(context *gin.Context) {
 }
 
 func calc_score(materials string, type_ string, water int, gaz int, origin string, means_of_transports string, brand string) (result string) {
-	//Score de base 
+	//Score de base
 	score := 3.0
-	
+
 	materials_score, err := strconv.ParseFloat(calc_materials_score(materials), 64)
 	if err != nil {
 		fmt.Println("Error :", err)
@@ -261,7 +357,7 @@ func calc_score(materials string, type_ string, water int, gaz int, origin strin
 		score -= 0.5
 	}
 
-	worst_country := [8]string {
+	worst_country := [8]string{
 		"Bangladesh",
 		"Chine",
 		"Inde",
@@ -272,7 +368,7 @@ func calc_score(materials string, type_ string, water int, gaz int, origin strin
 		"Pakistan",
 	}
 
-	good_country := [9]string {
+	good_country := [9]string{
 		"France",
 		"Suède",
 		"Allemagne",
@@ -291,7 +387,7 @@ func calc_score(materials string, type_ string, water int, gaz int, origin strin
 	}
 
 	for i := 0; i < len(worst_country); i++ {
-		if origin == worst_country[i] && score > 1{
+		if origin == worst_country[i] && score > 1 {
 			score -= 1
 		}
 	}
@@ -300,11 +396,11 @@ func calc_score(materials string, type_ string, water int, gaz int, origin strin
 		score -= 0.5
 	}
 
-	good_transport := [1]string {
+	good_transport := [1]string{
 		"Train",
 	}
 
-	worst_transport := [3]string {
+	worst_transport := [3]string{
 		"Avion",
 		"Bâteau",
 		"Camion",
@@ -322,7 +418,7 @@ func calc_score(materials string, type_ string, water int, gaz int, origin strin
 		}
 	}
 
-	good_brand := [3]string {
+	good_brand := [3]string{
 		"Patagonia",
 		"Veja",
 		"Le Slip Français",
@@ -334,22 +430,20 @@ func calc_score(materials string, type_ string, water int, gaz int, origin strin
 		}
 	}
 
-	
-
 	fmt.Println("Score : ", score)
 	return strconv.FormatFloat(score, 'f', 2, 64)
 }
 
 func calc_water_consommation(type_ string) (result string) {
 	//en litres
-	arr := map[string]int {
-		"Écharpe": 2000,
-		"Casquette": 1000,
-		"Pull": 5500,
-		"T-shirt": 2700,
-		"Pantalon": 8500,
-		"Short": 2000,
-		"Chaussures": 8000,
+	arr := map[string]int{
+		"Écharpe":     2000,
+		"Casquette":   1000,
+		"Pull":        5500,
+		"T-shirt":     2700,
+		"Pantalon":    8500,
+		"Short":       2000,
+		"Chaussures":  8000,
 		"Chaussettes": 70,
 	}
 
@@ -364,14 +458,14 @@ func calc_water_consommation(type_ string) (result string) {
 func calc_gaz_consommation(type_ string) (result string) {
 
 	//en kg
-	arr := map[string]float64 {
-		"Écharpe": 5,
-		"Casquette": 0.3,
-		"Pull": 20,
-		"T-shirt": 6,
-		"Pantalon": 25,
-		"Short": 5,
-		"Chaussures": 13,
+	arr := map[string]float64{
+		"Écharpe":     5,
+		"Casquette":   0.3,
+		"Pull":        20,
+		"T-shirt":     6,
+		"Pantalon":    25,
+		"Short":       5,
+		"Chaussures":  13,
 		"Chaussettes": 0.15,
 	}
 
@@ -384,14 +478,14 @@ func calc_gaz_consommation(type_ string) (result string) {
 }
 
 func calc_water_score(type_ string) (result string) {
-	arr := map[string]float64 {
-		"Écharpe": 3.5,
-		"Casquette": 4.0,
-		"Pull": 2.5,
-		"T-shirt": 3.0,
-		"Pantalon": 2.0,
-		"Short": 4.0,
-		"Chaussures": 3.5,
+	arr := map[string]float64{
+		"Écharpe":     3.5,
+		"Casquette":   4.0,
+		"Pull":        2.5,
+		"T-shirt":     3.0,
+		"Pantalon":    2.0,
+		"Short":       4.0,
+		"Chaussures":  3.5,
 		"Chaussettes": 4.5,
 	}
 
@@ -406,14 +500,14 @@ func calc_water_score(type_ string) (result string) {
 
 func calc_gaz_score(type_ string) (result string) {
 
-	arr := map[string]float64 {
-		"Écharpe": 4.5,
-		"Casquette": 4.5,
-		"Pull": 2.0,
-		"T-shirt": 3.5,
-		"Pantalon": 3,
-		"Short": 3.5,
-		"Chaussures": 3,
+	arr := map[string]float64{
+		"Écharpe":     4.5,
+		"Casquette":   4.5,
+		"Pull":        2.0,
+		"T-shirt":     3.5,
+		"Pantalon":    3,
+		"Short":       3.5,
+		"Chaussures":  3,
 		"Chaussettes": 4.5,
 	}
 
@@ -425,12 +519,11 @@ func calc_gaz_score(type_ string) (result string) {
 	return "-1"
 }
 
-
 func calc_materials_score(materials string) (result string) {
 	score := 3.0
 
 	//textiles les mieux côtés
-	good_materials := [8]string {
+	good_materials := [8]string{
 		"Chanvre",
 		"Lin",
 		"Coton biologique",
@@ -442,7 +535,7 @@ func calc_materials_score(materials string) (result string) {
 	}
 
 	//texttiles les moins côtés
-	worst_materials := [7]string {
+	worst_materials := [7]string{
 		"Polyester",
 		"Viscose",
 		"Nylon",
@@ -453,13 +546,13 @@ func calc_materials_score(materials string) (result string) {
 	}
 
 	for i := 0; i < len(good_materials); i++ {
-		if strings.Contains(materials, good_materials[i]) && score < 5{
+		if strings.Contains(materials, good_materials[i]) && score < 5 {
 			score += 0.5
 		}
 	}
 
 	for i := 0; i < len(worst_materials); i++ {
-		if strings.Contains(materials, worst_materials[i]) && score > 1{
+		if strings.Contains(materials, worst_materials[i]) && score > 1 {
 			score -= 1.0
 		}
 	}

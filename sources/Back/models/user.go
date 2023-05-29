@@ -6,14 +6,16 @@ import (
 
 type User struct {
 	gorm.Model
+	Pseudo   string
 	Email    string
-	Password string
+	Password []byte
 }
 
 type Partner struct {
 	gorm.Model
+	Pseudo   string
 	Email    string
-	Password string
+	Password []byte
 }
 
 type Cloth struct {
