@@ -20,6 +20,7 @@ dependencies:
   http: ^0.13.0
 
 dev_dependencies:
+  mockito: ^5.2.0
   espresso: ^0.2.0
   flutter_driver:
     sdk: flutter

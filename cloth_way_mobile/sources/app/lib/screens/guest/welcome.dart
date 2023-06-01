@@ -3,6 +3,12 @@ import 'package:flutter/material.dart';
 import 'connexion.dart';
 import 'dart:ui';
 import 'package:animate_do/animate_do.dart';
+import 'package:mockito/mockito.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/src/mock.dart';
+
+// Import the files that contain the classes being tested
+
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
@@ -182,4 +188,58 @@ class TextHome extends StatelessWidget {
       },
     );
   }
+}
+
+class MockNavigatorObserver extends Mock implements NavigatorObserver {}
+
+void main() {
+  group('WelcomePage', () {
+    testWidgets('WelcomePage Renders MyHomePage as the home route', (WidgetTester tester) async {
+      await tester.pumpWidget(MaterialApp(
+        home: WelcomePage(),
+      ));
+
+  await tester.pumpAndSettle(); // Wait for any pending asynchronous operations to complete
+
+  expect(find.byType(MyHomePage), findsOneWidget);
+});
+
+testWidgets('Tapping ButtonHome1 navigates to inscriptionPage',
+      (WidgetTester tester) async {
+    final mockObserver = MockNavigatorObserver();
+    await tester.pumpWidget(
+      MaterialApp(
+        home: WelcomePage(),
+        navigatorObservers: [mockObserver],
+      ),
+    );
+
+    expect(find.byType(ButtonHome1), findsOneWidget);
+    await tester.tap(find.byType(ButtonHome1));
+    await tester.pumpAndSettle();
+
+    /// Verify that a push event happened
+    //verify(mockObserver.didPush(any, any));
+
+    /// You'd also want to be sure that your page is now
+    /// present in the screen.
+    expect(find.byType(inscriptionPage), findsOneWidget);
+  });
+
+// testWidgets('Tapping ButtonHome2 navigates to connexionPage', (WidgetTester tester) async {
+//   final mockObserver = MockNavigatorObserver();
+
+//   await tester.pumpWidget(MaterialApp(
+//     home: WelcomePage(),
+//     navigatorObservers: [mockObserver],
+//   ));
+
+//   await tester.tap(find.byType(ButtonHome2));
+//   await tester.pumpAndSettle();
+
+//   final capturedRoute = verify(mockObserver.didPush(any, captureAnyNamed('route'))).captured.single;
+//   expect(capturedRoute, isA<Route<dynamic>>());
+//   expect(find.byType(connexionPage), findsOneWidget);
+// });
+  });
 }
