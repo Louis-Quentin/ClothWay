@@ -2,6 +2,7 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+<!-- Définition des ID Firebase -->
 	<key>CLIENT_ID</key>
 	<string>641058851976-ufv5hjhdtdacvqr4ms67lqv9qgqmu8rp.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>

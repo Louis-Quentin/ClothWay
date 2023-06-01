@@ -29,6 +29,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
+			<!-- Définition des ID Firebase -->
 				<string>com.googleusercontent.apps.641058851976-ufv5hjhdtdacvqr4ms67lqv9qgqmu8rp</string>
 			</array>
 		</dict>

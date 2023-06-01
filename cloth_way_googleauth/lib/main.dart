@@ -99,7 +99,7 @@ class _testState extends State<test> {
     });
   }
 
-  // Gère l'événement de clic sur le bouton de connexion
+  // Cas d'erreur lors du clic sur le outon
   Future<void> _handleSignIn() async {
     try {
       await _googleSignIn.signIn();
@@ -108,7 +108,7 @@ class _testState extends State<test> {
     }
   }
 
-  // Demande à l'utilisateur d'autoriser les scopes requis
+  // Demande d'autorisation pour les scopes
   Future<void> _handleAuthorizeScopes() async {
     final bool isAuthorized = await _googleSignIn.requestScopes(scopes);
     setState(() {
@@ -119,10 +119,10 @@ class _testState extends State<test> {
     }
   }
 
-  // Déconnecte l'utilisateur
+  // Déconnection
   Future<void> _handleSignOut() => _googleSignIn.disconnect();
 
-  // Construit le contenu de la page en fonction de l'état de connexion de l'utilisateur
+  // ENgine, build la page en fonction de l'état définit avant
   Widget _buildBody() {
     final GoogleSignInAccount? user = _currentUser;
     if (user != null) {
@@ -139,7 +139,7 @@ class _testState extends State<test> {
           ),
           const Text('Signed in successfully.'),
           if (_isAuthorized) ...<Widget>[
-            // L'utilisateur a autorisé tous les scopes requis
+            // Les scopes sont autorisés 
             Text(_contactText),
             ElevatedButton(
               child: const Text('REFRESH'),
@@ -152,14 +152,14 @@ class _testState extends State<test> {
             ),
           ],
           if (!_isAuthorized) ...<Widget>[
-            // L'utilisateur n'a pas autorisé tous les scopes requis.
-            // (Les utilisateurs mobiles ne verront peut-être jamais ce bouton !)
+            // L'utilisateur n'a pas autorisé tous les scopes requis
             const Text('Additional permissions needed to read your contacts.'),
             ElevatedButton(
               onPressed: _handleAuthorizeScopes,
               child: const Text('REQUEST PERMISSIONS'),
             ),
           ],
+          //Bouton sign out 
           ElevatedButton(
             onPressed: _handleSignOut,
             child: const Text('SIGN OUT'),
@@ -167,7 +167,7 @@ class _testState extends State<test> {
         ],
       );
     } else {
-      // L'utilisateur n'est pas connecté
+      // Utilisation non connecté
       return Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
@@ -224,7 +224,7 @@ class _testState extends State<test> {
             ],
           );
         } else {
-          return _buildBody(); // Return an empty widget if _isPopupVisible is false
+          return _buildBody(); // Soit affichage des contactes, soit affichage du body !
         }
       },
     )
