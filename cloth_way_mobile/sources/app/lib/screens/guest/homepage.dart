@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:bis/screens/guest/panierpage.dart';
 import 'package:bis/screens/guest/favorispage.dart';
 import 'package:bis/screens/guest/newspage.dart';
+import 'package:bis/screens/guest/Home_button.dart';
 import 'package:bis/screens/guest/profilpage.dart'; 
 import 'package:bis/screens/guest/profil/page/profile_page.dart';
 import 'package:bis/screens/guest/notificationpage.dart';
@@ -317,6 +318,7 @@ class HomePageState extends State<HomePage> {
   );
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: BottomButton(),
       drawer: Drawer(
         child: SingleChildScrollView(
           child: Column(

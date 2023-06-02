@@ -209,37 +209,32 @@ testWidgets('Tapping ButtonHome1 navigates to inscriptionPage',
     final mockObserver = MockNavigatorObserver();
     await tester.pumpWidget(
       MaterialApp(
+        home: WelcomePage(), // Page a tester
+        navigatorObservers: [mockObserver], 
+      ),
+    );
+
+    expect(find.byType(ButtonHome1), findsOneWidget); // Trouver le boutton
+    await tester.tap(find.byType(ButtonHome1)); // CLiquer dessus
+    await tester.pumpAndSettle(); // On laisse le temps à la page de charger
+    expect(find.byType(inscriptionPage), findsOneWidget); // On check si on obtient bien la bonne redirection
+  });
+
+  testWidgets('Tapping ButtonHome2 navigates to connexionPage', // Problème de visibilité du boutton de la page de connexion
+      (WidgetTester tester) async {
+    final mockObserver = MockNavigatorObserver();
+    await tester.pumpWidget(
+      MaterialApp(
         home: WelcomePage(),
         navigatorObservers: [mockObserver],
       ),
     );
 
-    expect(find.byType(ButtonHome1), findsOneWidget);
-    await tester.tap(find.byType(ButtonHome1));
+    expect(find.byType(ButtonHome2), findsOneWidget);
+    await tester.tap(find.byType(ButtonHome2));
     await tester.pumpAndSettle();
 
-    /// Verify that a push event happened
-    //verify(mockObserver.didPush(any, any));
-
-    /// You'd also want to be sure that your page is now
-    /// present in the screen.
-    expect(find.byType(inscriptionPage), findsOneWidget);
+    expect(find.byType(connexionPage), findsOneWidget);
   });
-
-// testWidgets('Tapping ButtonHome2 navigates to connexionPage', (WidgetTester tester) async {
-//   final mockObserver = MockNavigatorObserver();
-
-//   await tester.pumpWidget(MaterialApp(
-//     home: WelcomePage(),
-//     navigatorObservers: [mockObserver],
-//   ));
-
-//   await tester.tap(find.byType(ButtonHome2));
-//   await tester.pumpAndSettle();
-
-//   final capturedRoute = verify(mockObserver.didPush(any, captureAnyNamed('route'))).captured.single;
-//   expect(capturedRoute, isA<Route<dynamic>>());
-//   expect(find.byType(connexionPage), findsOneWidget);
-// });
   });
 }
