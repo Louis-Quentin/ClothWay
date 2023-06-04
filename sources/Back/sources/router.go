@@ -41,12 +41,40 @@ type InfosFromGet struct {
 	Email string
 }
 
+type SocialNetwork struct {
+	SocialNetwork string
+}
+
 func Handle_home_request(context *gin.Context) {
 	var msg string
 	if err := context.ShouldBind(&msg); err != nil {
 		context.JSON(400, gin.H{"Error": "Wrong home request format"})
 	} else {
 		context.JSON(200, gin.H{"Home": "OK"})
+	}
+}
+
+func Handle_get_social_network(context *gin.Context) {
+	var body SocialNetwork
+	err := json.NewDecoder(context.Request.Body).Decode(&body)
+	if err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{
+			"Error": "Failed to read body",
+		})
+		return
+	}
+	if body.SocialNetwork == "instagram" {
+		context.JSON(http.StatusOK, gin.H{
+			"URL": "https://www.instagram.com/clothwayclothway/",
+		})
+	} else if body.SocialNetwork == "twitter" {
+		context.JSON(http.StatusOK, gin.H{
+			"URL": "https://twitter.com/_clothway_",
+		})
+	} else {
+		context.JSON(http.StatusOK, gin.H{
+			"Unknown social network": "try <instagram> or <twitter>",
+		})
 	}
 }
 

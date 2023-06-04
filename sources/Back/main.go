@@ -20,6 +20,7 @@ func apply_routes(r *gin.Engine, db *database.Database) {
 	r.POST("/partner_signup", router.Handle_partner_signup_request)
 	r.POST("/register_cloth", router.Handle_upload_cloth_request)
 	r.GET("/get_user_profile", middleware.Require_auth, router.Handle_user_profile)
+	r.GET("/get_social_network", router.Handle_get_social_network)
 }
 
 func main() {

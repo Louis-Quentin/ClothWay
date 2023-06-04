@@ -39,6 +39,7 @@ type Cloth struct {
 	Description          string
 	Price                string
 	Picture              string
+	Factory              string
 }
 
 func (user *User) Create(database *gorm.DB) error {
