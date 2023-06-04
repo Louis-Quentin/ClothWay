@@ -184,6 +184,7 @@ class _getNewPassword extends State<getNewPassword> {
               onTap: () async => {
                 if (validPass(passwordController.text))
                   {
+                    passwordController.text = '',
                     Navigator.push(
                       context,
                       MaterialPageRoute(
