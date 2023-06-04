@@ -9,7 +9,7 @@ type User struct {
 	Pseudo   string
 	Email    string
 	Password []byte
-	Purshased []int
+	Purshased []float64 `gorm:"type:json"`
 }
 
 type Partner struct {

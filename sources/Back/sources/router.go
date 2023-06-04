@@ -402,10 +402,10 @@ func Update_user(context *gin.Context) {
 	}
 }
 
-func Calc_average(arr []int) (result float64) {
+func Calc_average(arr []float64) (result float64) {
     size := len(arr)
      
-    sum := 0
+    sum := 0.0
 
     for i := 0; i < size; i++ {
         sum += (arr[i])
