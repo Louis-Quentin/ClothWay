@@ -238,6 +238,8 @@ class _setNewPassword extends State<setNewPassword> {
               onTap: () async => {
                 if (checker && both)
                   {
+                    password2Controller.text = '',
+                    passwordControllerr.text = '',
                     Navigator.push(
                       context,
                       MaterialPageRoute(
