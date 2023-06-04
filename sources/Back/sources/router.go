@@ -337,6 +337,101 @@ func Handle_get_user_request(context *gin.Context) {
 	}
 }
 
+func All_users(context *gin.Context) {
+	var result []models.User
+
+	db := context.MustGet("gorm").(gorm.DB)
+	err := db.Raw("SELECT * FROM users").Scan(&result)
+
+	if err != nil {
+		context.JSON(500, gin.H{"error": err})
+	} else if len(result) <= 0 {
+		context.JSON(400, gin.H{"Error": "No users founded"})
+	}
+	context.JSON(200, gin.H{"All users": result})
+	
+}
+
+func Control_string(str string) (result int) {
+	arr := []string {
+		"AND",
+		"and",
+		"WHERE",
+		"where",
+		"SELECT",
+		"select",
+		"FROM",
+		"from",
+		"*",
+		"1=1",
+	}
+
+	for i := 0; i < len(arr); i++ {
+		if strings.Contains(str, arr[i]) == true {
+			return 1
+		}
+	}
+	return 0
+}
+
+func Update_user(context *gin.Context) {
+	db := context.MustGet("gorm").(gorm.DB)
+	var updated_user models.User
+	string_body, _ := io.ReadAll(context.Request.Body)
+	err := json.Unmarshal([]byte(string_body), &updated_user)
+	if err != nil {
+		context.JSON(400, gin.H{"Error": "Wrong update user profil request format"})
+	} else if updated_user.Pseudo == "" {
+		context.JSON(400, gin.H{"Error": "error no pseudo given"})
+	} else if updated_user.Email == "" {
+		context.JSON(400, gin.H{"Error": "error no email given"})
+	} else if (Control_string(updated_user.Pseudo) == 1 || Control_string(updated_user.Email) == 1) {
+		context.JSON(400, gin.H{"Error": "Bad characters founded"})
+	} else {
+		user_mail, err2 := context.Cookie("email")
+		if err2 != nil {
+			context.JSON(400, gin.H{"Error": "Can't get user's informations from cookie"})
+			return
+		}
+		fmt.Println(user_mail)
+		db.Model(&updated_user).Where("email = ?", user_mail).Updates(models.User{Email: updated_user.Email, Pseudo: updated_user.Pseudo})
+
+		updates_informations := UpdatedUser{Email: updated_user.Email, Pseudo: updated_user.Pseudo}
+
+		context.JSON(200, gin.H{"Success": updates_informations})
+	}
+}
+
+func Calc_average(arr []int) (result float64) {
+    size := len(arr)
+     
+    sum := 0
+
+    for i := 0; i < size; i++ {
+        sum += (arr[i])
+    }
+     
+    avg := (float64(sum)) / (float64(size))
+     
+    return avg
+}
+
+func Get_user_score(context *gin.Context) {
+	db := context.MustGet("gorm").(gorm.DB)
+	user_mail, err := context.Cookie("email")
+	if err != nil {
+		context.JSON(400, gin.H{"Error": "Can't get user's informations from cookie"})
+		return
+	}
+	var result models.User
+	db.Raw("SELECT Name, Email FROM users WHERE Email= ?", user_mail).Scan(&result)
+	if len(result.Purshased) == 0 {
+		context.JSON(400, gin.H{"Error": "User does not have buy cloths"})
+	}
+	context.JSON(200, gin.H{"User eco score": Calc_average(result.Purshased)})
+
+}
+
 func calc_score(materials string, type_ string, water int, gaz int, origin string, means_of_transports string, brand string) (result string) {
 	//Score de base
 	score := 3.0
@@ -566,6 +661,17 @@ func Handle_upload_cloth_request(context *gin.Context) {
 	if err != nil {
 		context.JSON(400, gin.H{"Error": "Wrong upload request format"})
 		//} else if cloth.ID < 0 {
+		//	context.JSON(400, gin.H{"Error": "error no id given"})
+	} else if cloth.Brand == "" {
+		context.JSON(400, gin.H{"Error": "error no brand given"})
+		//} else if cloth.Quality_product <= 0 || cloth.Quality_product > 5 {
+		//	context.JSON(400, gin.H{"Error": "error no quality_product given"})
+		//} else if cloth.Conditions_working == "" {
+		//	context.JSON(400, gin.H{"Error": "error no conditions_working given"})
+		//} else if cloth.Workers_salary <= 0 {
+		//	context.JSON(400, gin.H{"Error": "error no workers_salary given"})
+	} else if cloth.Materials == "" {
+		context.JSON(400, gin.H{"Error": "error no materials given"})
 		//	context.JSON(400, gin.H{"Error": "error no id given"})
 	} else if cloth.Brand == "" {
 		context.JSON(400, gin.H{"Error": "error no brand given"})

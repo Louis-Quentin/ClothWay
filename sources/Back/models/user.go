@@ -9,6 +9,7 @@ type User struct {
 	Pseudo   string
 	Email    string
 	Password []byte
+	Purshased []int
 }
 
 type Partner struct {
