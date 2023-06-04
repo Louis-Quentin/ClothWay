@@ -6,14 +6,17 @@ import (
 
 type User struct {
 	gorm.Model
+	Pseudo   string
 	Email    string
-	Password string
+	Password []byte
+	Purshased []float64 `gorm:"type:json"`
 }
 
 type Partner struct {
 	gorm.Model
+	Pseudo   string
 	Email    string
-	Password string
+	Password []byte
 }
 
 type Cloth struct {
@@ -37,6 +40,7 @@ type Cloth struct {
 	Description          string
 	Price                string
 	Picture              string
+	Factory              string
 }
 
 func (user *User) Create(database *gorm.DB) error {
