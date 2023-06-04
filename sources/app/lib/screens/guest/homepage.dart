@@ -5,6 +5,8 @@ import 'package:bis/screens/guest/newspage.dart';
 import 'package:bis/screens/guest/profilpage.dart'; 
 import 'package:bis/screens/guest/profil/page/profile_page.dart';
 import 'package:bis/screens/guest/notificationpage.dart';
+import 'package:bis/screens/guest/confidentialitypage.dart';
+import 'package:bis/screens/guest/socialnetworkspage.dart';
 import 'package:bis/screens/guest/parampage.dart';
 import 'package:bis/screens/guest/profil/utils/user_preferences.dart';
 import 'auth.dart';
@@ -310,6 +312,24 @@ class HomePageState extends State<HomePage> {
         onTap: () { 
           Navigator.pop(context);
           Navigator.of(context).push(MaterialPageRoute(builder: (context) => const NotificationPage()));
+        
+        },
+      ),
+      ListTile(
+        leading: const Icon(Icons.facebook),
+        title: const Text('Social networks', style: TextStyle(fontSize: 20)),
+        onTap: () { 
+          Navigator.pop(context);
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => const SocialPage()));
+        
+        },
+      ),
+      ListTile(
+        leading: const Icon(Icons.security_update_rounded),
+        title: const Text('Confidentiality', style: TextStyle(fontSize: 20)),
+        onTap: () { 
+          Navigator.pop(context);
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ConfidentialityPage()));
         
         },
       ),
