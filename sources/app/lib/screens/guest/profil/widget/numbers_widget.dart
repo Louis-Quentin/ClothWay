@@ -7,9 +7,9 @@ class NumbersWidget extends StatelessWidget {
         children: <Widget>[
           buildButton(context, '4.8', 'EcoScore'),
           buildDivider(),
-          buildButton(context, '35K', 'Liter of Water used'),
+          buildButton(context, '35K', "Litres d'eau utilisée"),
           buildDivider(),
-          buildButton(context, '13', 'Orders'),
+          buildButton(context, '13', 'Commandes'),
         ],
       );
   Widget buildDivider() => Container(

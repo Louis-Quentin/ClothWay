@@ -317,7 +317,7 @@ class HomePageState extends State<HomePage> {
       ),
       ListTile(
         leading: const Icon(Icons.facebook),
-        title: const Text('Social networks', style: TextStyle(fontSize: 20)),
+        title: const Text('Réseaux sociaux', style: TextStyle(fontSize: 20)),
         onTap: () { 
           Navigator.pop(context);
           Navigator.of(context).push(MaterialPageRoute(builder: (context) => const SocialPage()));
@@ -326,7 +326,7 @@ class HomePageState extends State<HomePage> {
       ),
       ListTile(
         leading: const Icon(Icons.security_update_rounded),
-        title: const Text('Confidentiality', style: TextStyle(fontSize: 20)),
+        title: const Text('Confidentialité', style: TextStyle(fontSize: 20)),
         onTap: () { 
           Navigator.pop(context);
           Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ConfidentialityPage()));

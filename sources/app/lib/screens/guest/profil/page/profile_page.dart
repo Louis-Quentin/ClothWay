@@ -22,7 +22,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return Builder(
         builder: (context) => Scaffold(
           appBar: AppBar(
-            title: Text("Profile"),
+            title: Text("Profil"),
             centerTitle: true,
             backgroundColor: const Color.fromRGBO(30, 30, 30, 30)
             ),
@@ -66,10 +66,16 @@ class _ProfilePageState extends State<ProfilePage> {
         ],
       );
 
-  Widget buildUpgradeButton() => ButtonWidget(
-        text: 'Upgrade To PRO',
-        onClicked: () {},
-      );
+  Widget buildUpgradeButton() => ElevatedButton(
+                  onPressed: () {
+                  },
+                  style: ElevatedButton.styleFrom(
+                    primary: const Color.fromRGBO(30, 30, 30, 30), // Background color
+                  ),
+                  child: const Text(
+                    'Achetez version PRO',
+                  ),
+                );
 
   Widget buildAbout(User user) => Container(
         padding: EdgeInsets.symmetric(horizontal: 48),
@@ -77,7 +83,7 @@ class _ProfilePageState extends State<ProfilePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'About',
+              'À propos',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),

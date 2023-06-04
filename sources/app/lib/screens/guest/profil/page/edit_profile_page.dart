@@ -30,7 +30,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Widget build(BuildContext context) => Builder(
           builder: (context) => Scaffold(
             appBar: AppBar(
-            title: Text("Edit profile"),
+            title: Text("Edit profil"),
             centerTitle: true,
             backgroundColor: const Color.fromRGBO(30, 30, 30, 30)
             ),
@@ -58,7 +58,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 ),
                 const SizedBox(height: 24),
                 TextFieldWidget(
-                  label: 'Full Name',
+                  label: 'Nom Prénom',
                   text: user.name,
                   onChanged: (name) => user = user.copy(name: name),
                 ),
@@ -70,19 +70,24 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 ),
                 const SizedBox(height: 24),
                 TextFieldWidget(
-                  label: 'About',
+                  label: 'À propos',
                   text: user.about,
                   maxLines: 5,
                   onChanged: (about) => user = user.copy(about: about),
                 ),
                 const SizedBox(height: 24),
-                ButtonWidget(
-                  text: 'Save',
-                  onClicked: () {
+                ElevatedButton(
+                  onPressed: () {
                     UserPreferences.setUser(user);
                     Navigator.of(context).pop();
                   },
-                ),
+                  style: ElevatedButton.styleFrom(
+                    primary: const Color.fromRGBO(30, 30, 30, 30), // Background color
+                  ),
+                  child: const Text(
+                    'Enregistrer',
+                  ),
+                )
               ],
             ),
           ),

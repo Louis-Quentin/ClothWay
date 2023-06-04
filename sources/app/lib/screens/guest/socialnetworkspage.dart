@@ -96,7 +96,7 @@ const SocialPage({Key? key}) : super(key: key);
  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-            title: Text("Social Networks"),
+            title: Text("Réseaux sociaux"),
             centerTitle: true,
             backgroundColor: const Color.fromRGBO(30, 30, 30, 30)
             ),
@@ -119,10 +119,10 @@ const SocialPage({Key? key}) : super(key: key);
                           ),
                         ),
                         SizedBox(
-                          height: 10,
+                          height: 20,
                         ),
                         Text(
-                          'Retrouvez tous nos services ci-dessous',
+                          'Pour mieux suivre nos actualités, retrouvez tous nos réseaux sociaux ci-dessous',
                           style: TextStyle(color: Colors.white, fontSize: 18),
                         ),
                         Padding(
