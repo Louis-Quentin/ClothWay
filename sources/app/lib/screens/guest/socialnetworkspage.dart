@@ -1,7 +1,18 @@
 
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'homepage.dart';
 import 'package:animate_do/animate_do.dart';
+
+
+launchURL(String url) async {
+  final my_url = Uri.parse(url);
+  if (await canLaunchUrl(my_url)) {
+    await launch(url, forceWebView: true);
+  } else {
+    throw 'could not launch $url';
+  }
+}
 
 class Service_twitter extends StatelessWidget {
   String image;
@@ -40,8 +51,9 @@ class Service_twitter extends StatelessWidget {
         ),
       ),
       onTap: () {
-        //Navigator.push(context, MaterialPageRoute(builder:(context) => GmailPage(mail : optionalParam)));
-      },
+        const url = 'https://twitter.com/_clothway_';
+        launchURL(url);
+       },
     );
   }
 }
@@ -83,8 +95,9 @@ class Service_insta extends StatelessWidget {
         ),
       ),
       onTap: () {
-        //Navigator.push(context, MaterialPageRoute(builder:(context) => GmailPage(mail : optionalParam)));
-      },
+        const url = 'https://www.instagram.com/clothwayclothway/';
+        launchURL(url);
+        },
     );
   }
 }
