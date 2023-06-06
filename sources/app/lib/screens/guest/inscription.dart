@@ -301,7 +301,7 @@ class _inscriptionPageState extends State<inscriptionPage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const connexionPage(),
+                          builder: (context) => connexionPage(),
                         ),
                       ),
                     },
