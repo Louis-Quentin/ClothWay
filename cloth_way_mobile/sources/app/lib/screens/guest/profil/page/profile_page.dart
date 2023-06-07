@@ -1,6 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:bis/screens/guest/Home_button.dart';
 import 'package:bis/screens/guest/profil//page/edit_profile_page.dart';
 import 'package:bis/screens/guest/profil/model/user.dart';
 import 'package:bis/screens/guest/profil/utils/user_preferences.dart';
@@ -17,10 +18,12 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
+    
     final user = UserPreferences.getUser();
 
     return Builder(
         builder: (context) => Scaffold(
+          bottomNavigationBar: BottomButton(),
           appBar: AppBar(
             title: Text("Profile"),
             centerTitle: true,

@@ -17,7 +17,7 @@ class BottomButton extends StatelessWidget {
         onPressed: () {
           Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(builder: (context) => connexionPage()),
+            MaterialPageRoute(builder: (context) => HomePage()),
             (Route<dynamic> route) => false,
           );
         },

@@ -118,7 +118,7 @@ class _testerState extends State<tester> {
     }
   }
 
-  // Déconnection
+  // Déconnexion
   Future<void> _handleSignOut() => _googleSignIn.disconnect();
 
   // ENgine, build la page en fonction de l'état définit avant
@@ -141,7 +141,7 @@ class _testerState extends State<tester> {
             // Les scopes sont autorisés 
             Text(_contactText),
             ElevatedButton(
-              child: const Text('REFRESH'),
+              child: const Text('CONTACTS'),
               onPressed: () {
                 setState(() {
                   _isPopupVisible = true;
@@ -152,10 +152,10 @@ class _testerState extends State<tester> {
           ],
           if (!_isAuthorized) ...<Widget>[
             // L'utilisateur n'a pas autorisé tous les scopes requis
-            const Text('Additional permissions needed to read your contacts.'),
+            const Text('Il faut plus de permissions'),
             ElevatedButton(
               onPressed: _handleAuthorizeScopes,
-              child: const Text('REQUEST PERMISSIONS'),
+              child: const Text('Perms'),
             ),
           ],
           //Bouton sign out 
@@ -235,7 +235,7 @@ class _testerState extends State<tester> {
 
 void main() {
   // Test de la classe _testState
-  group('_testState', () {
+  group('TEST', () {
     late _testerState testState;
     late MockGoogleSignInAccount mockGoogleSignInAccount;
 

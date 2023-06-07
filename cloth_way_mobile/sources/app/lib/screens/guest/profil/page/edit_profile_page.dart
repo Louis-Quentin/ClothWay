@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
+import 'package:bis/screens/guest/Home_button.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:bis/screens/guest/profil/model/user.dart';
 import 'package:bis/screens/guest/profil/widget/textfield_widget.dart';
@@ -29,6 +30,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   @override
   Widget build(BuildContext context) => Builder(
           builder: (context) => Scaffold(
+            bottomNavigationBar: BottomButton(),
             appBar: AppBar(
             title: Text("Edit profile"),
             centerTitle: true,
