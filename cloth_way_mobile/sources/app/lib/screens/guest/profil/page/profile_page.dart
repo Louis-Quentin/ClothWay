@@ -1,4 +1,6 @@
 
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bis/screens/guest/Home_button.dart';
@@ -9,6 +11,11 @@ import 'package:bis/screens/guest/profil/widget/appbar_widget.dart';
 import 'package:bis/screens/guest/profil/widget/button_widget.dart';
 import 'package:bis/screens/guest/profil/widget/numbers_widget.dart';
 import 'package:bis/screens/guest/profil/widget/profile_widget.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/mockito.dart';
+import 'package:bis/screens/guest/profil/model/user.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -91,4 +98,93 @@ class _ProfilePageState extends State<ProfilePage> {
           ],
         ),
       );
+}
+
+class MockUserPreferences extends Mock implements UserPreferences {
+  static const _keyUser = 'user';
+  User getUser() {
+    return User(
+      imagePath: 'mockImagePath',
+      name: 'mockName',
+      email: 'mockEmail',
+      about: 'mockAbout',
+      isDarkMode: false,
+    );
+  }
+  Future setUser(User user, SharedPreferences preferences) async {
+    final json = jsonEncode(user.toJson());
+
+    await preferences.setString(_keyUser, json);
+  }
+}
+
+void main() {
+  late ProfilePage profilePage;
+  late MockUserPreferences mockUserPreferences;
+  late SharedPreferences ok;
+  
+
+  setUp(() {
+    mockUserPreferences = MockUserPreferences();
+    profilePage = ProfilePage();
+  });
+
+  testWidgets('Affiche le nom et l\'email de l\'utilisateur', (WidgetTester tester) async {
+    final user = User(imagePath: 'path/to/image.jpg',
+      name: 'John Doe',
+      email: 'john.doe@example.com',
+      about: 'About me',
+      isDarkMode: false,);
+    when(mockUserPreferences.getUser()).thenReturn(user);
+
+    await tester.pumpWidget(profilePage);
+
+    expect(find.text(user.name), findsOneWidget);
+    expect(find.text(user.email), findsOneWidget);
+  });
+
+  testWidgets('Ouvre la page d\'édition du profil lorsqu\'on clique sur l\'image', (WidgetTester tester) async {
+    final user = User(imagePath: 'path/to/image.jpg',
+      name: 'John Doe',
+      email: 'john.doe@example.com',
+      about: 'About me',
+      isDarkMode: false,);
+    when(mockUserPreferences.getUser()).thenReturn(user);
+
+    await tester.pumpWidget(profilePage);
+
+    await tester.tap(find.byType(ProfileWidget));
+
+    verify(mockUserPreferences.getUser());
+    verify(mockUserPreferences.setUser(user, ok));
+
+    expect(find.byType(EditProfilePage), findsOneWidget);
+  });
+
+  testWidgets('Affiche le bouton d\'amélioration vers PRO', (WidgetTester tester) async {
+   final user = User(imagePath: 'path/to/image.jpg',
+      name: 'John Doe',
+      email: 'john.doe@example.com',
+      about: 'About me',
+      isDarkMode: false,);
+    when(mockUserPreferences.getUser()).thenReturn(user);
+
+    await tester.pumpWidget(profilePage);
+
+    expect(find.text('Upgrade To PRO'), findsOneWidget);
+  });
+
+  testWidgets('Affiche les détails de l\'utilisateur', (WidgetTester tester) async {
+    final user = User(imagePath: 'path/to/image.jpg',
+      name: 'John Doe',
+      email: 'john.doe@example.com',
+      about: 'About me',
+      isDarkMode: false,);
+    when(mockUserPreferences.getUser()).thenReturn(user);
+
+    await tester.pumpWidget(profilePage);
+
+    expect(find.text('About'), findsOneWidget);
+    expect(find.text(user.about), findsOneWidget);
+  });
 }

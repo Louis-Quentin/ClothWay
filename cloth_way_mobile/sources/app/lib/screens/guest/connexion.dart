@@ -6,6 +6,10 @@ import 'homepage.dart';
 import 'package:http/http.dart' as http;
 import 'package:animate_do/animate_do.dart';
 
+import 'package:mockito/mockito.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:http/testing.dart';
+
 Future<bool> connection(String email, String password) async {
   String url = "http://192.168.0.149:8080/signin";
   final response = await http.post(
@@ -196,5 +200,78 @@ class connexionPage extends StatelessWidget {
           ),
         ));
     // const SizedBox(height: 20),
+  }
+}
+
+
+Future<void> main() async {
+  test('Test connexion', () async {
+    final email = 'test@example.com';
+    final password = 'password';
+
+    // Création d'un faux serveur pour le test
+    final server = MockServer();
+
+    // URL du serveur
+    server.url = 'http://127.0.0.1:8080/signin';
+
+    // Définition de la réponse du serveur pour un test réussi
+    server.responseStatusCode = 201;
+
+    // Exécution de la connexion_test
+    final result = await connection_test(email, password, server);
+
+    expect(result, true);
+    expect(server.requests.length, 1);
+    expect(server.requests[0].url, server.url);
+    expect(server.requests[0].headers?['Content-Type'], 'application/json; charset=UTF-8');
+
+    expect(server.requests[0].body, jsonEncode({'Email': email, 'Password': password}));
+  });
+}
+
+class MockServer {
+  late String url;
+  int? responseStatusCode;
+  List<MockRequest> requests = [];
+
+  // Simule une requête HTTP POST vers le serveur fictif.
+  Future<http.Response> post(Uri url, {Map<String, String>? headers, body, Encoding? encoding}) async {
+    // Ajoute la requête simulée à la liste des requêtes effectuées sur le serveur fictif.
+    requests.add(MockRequest(url.toString(), headers, body));
+
+    // Retourne le code d'état de la requête
+    return http.Response('', responseStatusCode ?? 200);
+  }
+}
+
+class MockRequest {
+  String url;
+  Map<String, String>? headers;
+  dynamic body;
+  // Requête HTTP simulée
+  MockRequest(this.url, this.headers, this.body);
+}
+
+//Fonction similaire à l'originale
+Future<bool> connection_test(String email, String password, MockServer server) async {
+  final response = await server.post(
+    Uri.parse(server.url),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, String>{'Email': email, 'Password': password}),
+  );
+  if (response.statusCode == 201) {
+    print("connexion réussie");
+    return true;
+  } else {
+    if (response.statusCode == 400) {
+      print("connexion ratée");
+      print(password);
+    } else if (response.statusCode == 500) {
+      print("problème venant du serveur");
+    }
+    return false;
   }
 }

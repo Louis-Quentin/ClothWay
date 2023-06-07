@@ -199,7 +199,7 @@ void main() {
         home: WelcomePage(),
       ));
 
-  await tester.pumpAndSettle(); // Wait for any pending asynchronous operations to complete
+  await tester.pumpAndSettle(); // On attend que toutes les tâches se terminent
 
   expect(find.byType(MyHomePage), findsOneWidget);
 });
