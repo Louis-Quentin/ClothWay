@@ -3,6 +3,7 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
+import LockIcon from '@mui/icons-material/Lock';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 
@@ -58,6 +59,12 @@ export default function Social() {
             sx={{ color: "#fff" }}
           >
             <TwitterIcon />
+          </IconButton>
+          <IconButton
+            aria-label="locker"
+            sx={{ color: "#fff" }}
+          >
+            <LockIcon />
           </IconButton>
         </div>
       </Toolbar>

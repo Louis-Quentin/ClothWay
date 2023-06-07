@@ -28,7 +28,7 @@ export default function ToolBar() {
             </a>
           </Stack>
           <div style={{ position: 'absolute', right: '300px' }}>
-          <Button href="/register" sx={{color: "inherit"}}>
+          <Button href="/register_partner" sx={{color: "inherit"}}>
             Se connecter entreprise
           </Button>
           </div>

@@ -5,6 +5,7 @@ import ProPage from "./pages/main_page/ProPage"
 import GetTheNews from "./pages/main_page/news";
 import ProductSearch from "./pages/main_page/Clothes";
 import NoClothesYet from "./pages/main_page/Clothes";
+import FormRegistrationPartner from "./pages/RegisterPartner";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/register" element={<FormRegistration />} />
+          <Route path="/register_partner" element={<FormRegistrationPartner/>} />
           <Route path="/pro" element={<ProPage />} />
           <Route path="/news" element={<GetTheNews />} />
           <Route path="/clothes" element={<NoClothesYet />} />
