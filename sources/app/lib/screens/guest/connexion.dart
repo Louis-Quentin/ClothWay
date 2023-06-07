@@ -16,7 +16,7 @@ bool validPass(String str) {
 }
 
 Future<bool> connection(String email, String password) async {
-  String url = "http://192.168.0.24:8080/signup";
+  String url = "http://192.168.0.149:8080/signin";
   final response = await http.post(
     Uri.parse(url),
     headers: <String, String>{
@@ -24,12 +24,12 @@ Future<bool> connection(String email, String password) async {
     },
     body: jsonEncode(<String, String>{'Email': email, 'Password': password}),
   );
-  if (response.statusCode == 201) {
-    print("inscription réussie");
+  if (response.statusCode == 202) {
+    print("connexion réussie");
     return true;
   } else {
     if (response.statusCode == 400) {
-      print("inscription ratée");
+      print("connexion ratée");
     } else if (response.statusCode == 500) {
       print("problème venant du serveur");
     }
