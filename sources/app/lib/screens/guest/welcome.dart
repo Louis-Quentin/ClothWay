@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'connexion.dart';
 import 'dart:ui';
 import 'package:animate_do/animate_do.dart';
+import 'package:mockito/mockito.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/src/mock.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
@@ -182,4 +185,54 @@ class TextHome extends StatelessWidget {
       },
     );
   }
+}
+
+
+class MockNavigatorObserver extends Mock implements NavigatorObserver {}
+
+void main() {
+  group('WelcomePage', () {
+    testWidgets('WelcomePage Renders MyHomePage as the home route', (WidgetTester tester) async {
+      await tester.pumpWidget(MaterialApp(
+        home: WelcomePage(),
+      ));
+
+      await tester.pumpAndSettle(); // On attend que toutes les tâches se terminent
+
+      expect(find.byType(MyHomePage), findsOneWidget);
+    });
+
+    testWidgets('Tapping ButtonHome1 navigates to inscriptionPage',
+          (WidgetTester tester) async {
+        final mockObserver = MockNavigatorObserver();
+        await tester.pumpWidget(
+          MaterialApp(
+            home: WelcomePage(), // Page a tester
+            navigatorObservers: [mockObserver], 
+          ),
+        );
+
+        expect(find.byType(ButtonHome1), findsOneWidget); // Trouver le boutton
+        await tester.tap(find.byType(ButtonHome1)); // CLiquer dessus
+        await tester.pumpAndSettle(); // On laisse le temps à la page de charger
+        expect(find.byType(inscriptionPage), findsOneWidget); // On check si on obtient bien la bonne redirection
+      });
+
+      testWidgets('Tapping ButtonHome2 navigates to connexionPage', // Problème de visibilité du boutton de la page de connexion
+          (WidgetTester tester) async {
+        final mockObserver = MockNavigatorObserver();
+        await tester.pumpWidget(
+          MaterialApp(
+            home: WelcomePage(),
+            navigatorObservers: [mockObserver],
+          ),
+        );
+
+        expect(find.byType(ButtonHome2), findsOneWidget);
+        await tester.tap(find.byType(ButtonHome2));
+        await tester.pumpAndSettle();
+
+        expect(find.byType(connexionPage), findsOneWidget);
+      });
+  });
 }
