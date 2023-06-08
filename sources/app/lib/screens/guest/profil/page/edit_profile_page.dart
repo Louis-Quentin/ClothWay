@@ -10,6 +10,7 @@ import 'package:bis/screens/guest/profil/utils/user_preferences.dart';
 import 'package:bis/screens/guest/profil/widget/appbar_widget.dart';
 import 'package:bis/screens/guest/profil/widget/button_widget.dart';
 import 'package:bis/screens/guest/profil/widget/profile_widget.dart';
+import 'package:bis/screens/guest/Home_button.dart';
 
 class EditProfilePage extends StatefulWidget {
   @override
@@ -29,6 +30,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   @override
   Widget build(BuildContext context) => Builder(
           builder: (context) => Scaffold(
+            bottomNavigationBar: BottomButton(),
             appBar: AppBar(
             title: Text("Edit profil"),
             centerTitle: true,
