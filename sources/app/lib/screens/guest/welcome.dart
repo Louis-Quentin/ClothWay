@@ -223,14 +223,14 @@ void main() {
         final mockObserver = MockNavigatorObserver();
         await tester.pumpWidget(
           MaterialApp(
-            home: WelcomePage(),
+            home: WelcomePage(), // Page a tester
             navigatorObservers: [mockObserver],
           ),
         );
 
-        expect(find.byType(ButtonHome2), findsOneWidget);
-        await tester.tap(find.byType(ButtonHome2));
-        await tester.pumpAndSettle();
+        expect(find.byType(ButtonHome2), findsOneWidget); // Trouver le boutton
+        await tester.tap(find.byType(ButtonHome2)); // CLiquer dessus
+        await tester.pumpAndSettle(); // On laisse le temps à la page de charger
 
         expect(find.byType(connexionPage), findsOneWidget);
       });
