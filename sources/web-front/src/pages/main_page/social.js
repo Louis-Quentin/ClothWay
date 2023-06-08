@@ -63,6 +63,7 @@ export default function Social() {
           <IconButton
             aria-label="locker"
             sx={{ color: "#fff" }}
+            href="/privacy"
           >
             <LockIcon />
           </IconButton>

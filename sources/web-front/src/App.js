@@ -6,6 +6,7 @@ import GetTheNews from "./pages/main_page/news";
 import ProductSearch from "./pages/main_page/Clothes";
 import NoClothesYet from "./pages/main_page/Clothes";
 import FormRegistrationPartner from "./pages/RegisterPartner";
+import Privacy from "./pages/main_page/Privacy";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/news" element={<GetTheNews />} />
           <Route path="/clothes" element={<NoClothesYet />} />
           <Route path="/products" element={<ProductSearch></ProductSearch>} />
+          <Route path="/privacy" element={<Privacy></Privacy>} />
         </Routes>
       </Router>
     </div>
