@@ -1,30 +1,26 @@
 import React, { useState, useEffect } from "react";
 import "./GetTheNews.css";
-
-import {
-    AppBar,
-    Toolbar,
-    Typography,
-    Button,
-    Stack,
-} from '@mui/material'
+import { AppBar, Toolbar, Typography, Button, Stack } from '@mui/material'
 
 export default function GetTheNews() {
   const [news, setNews] = useState([]);
-  const randomNews = Math.floor(Math.random() * news.length);
+  const [randomNews, setRandomNews] = useState(null);
 
   useEffect(() => {
     fetch("https://newsapi.org/v2/top-headlines?country=fr&category=science&apiKey=39dba7bee8ee4f0ab6a4d81208177c81")
       .then((response) => response.json())
-      .then((data) => setNews(data.articles))
+      .then((data) => {
+        setNews(data.articles);
+        setRandomNews(Math.floor(Math.random() * data.articles.length));
+      })
       .catch((error) => console.log(error));
   }, []);
 
   return (
     <div className="news-banner">
-    <Button href="/" sx={{color: "inherit"}}>
+      <Button href="/" sx={{ color: "inherit" }}>
         Nouvelle Actu
-    </Button>
+      </Button>
       {news.length > 0 ? (
         <>
           <h1 className="news-title">{news[randomNews].title}</h1>
@@ -37,4 +33,3 @@ export default function GetTheNews() {
     </div>
   );
 }
-
