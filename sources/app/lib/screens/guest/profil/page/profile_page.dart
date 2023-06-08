@@ -8,6 +8,7 @@ import 'package:bis/screens/guest/profil/widget/appbar_widget.dart';
 import 'package:bis/screens/guest/profil/widget/button_widget.dart';
 import 'package:bis/screens/guest/profil/widget/numbers_widget.dart';
 import 'package:bis/screens/guest/profil/widget/profile_widget.dart';
+import 'package:bis/screens/guest/Home_button.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -21,6 +22,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
     return Builder(
         builder: (context) => Scaffold(
+          bottomNavigationBar: BottomButton(),
           appBar: AppBar(
             title: Text("Profil"),
             centerTitle: true,

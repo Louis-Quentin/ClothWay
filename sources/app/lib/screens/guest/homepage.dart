@@ -12,6 +12,7 @@ import 'package:bis/screens/guest/profil/utils/user_preferences.dart';
 import 'auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:bis/screens/guest/Home_button.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -339,6 +340,7 @@ class HomePageState extends State<HomePage> {
   );
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: BottomButton(),
       drawer: Drawer(
         child: SingleChildScrollView(
           child: Column(
