@@ -13,6 +13,7 @@ export default function ProPage() {
     Greenhouse_gaz_conso: "", Water_conso:"", Quality_product:"", Conditions_working:"", Workers_salary:"", Factory:"",
     Pre_wash:"", Packaging:"", Original_country:"", Means_of_transports:"", Score:"", Water_score:"", Materials_score:"", Gaz_score:""});
     const navigate = useNavigate();
+    console.log("in pro page ??");
     const handleChange  = (e) => {
         setInputs((prevState) => ({...prevState,
         [e.target.name] : e.target.value

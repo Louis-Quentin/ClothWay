@@ -1,6 +1,7 @@
 import {useState} from "react"
 import ToolBar from "./main_page/ToolBar"
 import validator from "validator"
+import { useNavigate } from 'react-router-dom';
 import {
     Box,
     Button,
@@ -15,7 +16,7 @@ export default function FormRegistration() {
     const [passwordMessage, setPasswordMessage] = useState('')
     const [canSubmit, setCanSubmit] = useState(false)
     const [errorMessage, setErrorMessage] = useState('')
-
+    const navigate = useNavigate();
     const handleChange  = (e) => {
         setInputs((prevState) => ({...prevState,
             [e.target.name] : e.target.value
@@ -70,7 +71,10 @@ export default function FormRegistration() {
                 .then(data => {
                     console.log("OK LE BACK A RENVOYER LA RÉPONSE: ", data)
                     if (!data.ok) {
-                        setErrorMessage(data.status)
+                        setPasswordMessage("failed");
+                    }
+                    else {
+                        setPasswordMessage("success");
                     }
                 })
                 .catch(error => {
@@ -82,12 +86,20 @@ export default function FormRegistration() {
                 .then(data => {
                     console.log("OK LE BACK A RENVOYER LA RÉPONSE: ", data)
                     if (!data.ok) {
-                        setErrorMessage(data.status)
+                        //setErrorMessage(data.status)
+                        setPasswordMessage("failed");
+                    }
+                    else {
+                        setPasswordMessage("success");
                     }
                 })
                 .catch(error => {
                     console.log(error.message)
                 });
+        }
+        if (passwordMessage === "success") {
+            //console.log("in check success");
+            navigate("/user_profile");
         }
         setIsSubmit(false)
     }
