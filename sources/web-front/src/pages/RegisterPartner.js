@@ -1,12 +1,14 @@
 import {useState} from "react"
 import ToolBar from "./main_page/ToolBar"
 import validator from "validator"
+import { useNavigate } from 'react-router-dom';
 import {
     Box,
     Button,
     TextField,
     Typography
 } from "@mui/material"
+import ProPage from "./main_page/ProPage";
 
 export default function FormRegistrationPartner() {
     const [isSignup, setIsSignup] = useState(false)
@@ -15,6 +17,7 @@ export default function FormRegistrationPartner() {
     const [passwordMessage, setPasswordMessage] = useState('')
     const [canSubmit, setCanSubmit] = useState(false)
     const [errorMessage, setErrorMessage] = useState('')
+    const navigate = useNavigate();
 
     const handleChange  = (e) => {
         setInputs((prevState) => ({...prevState,
@@ -70,25 +73,39 @@ export default function FormRegistrationPartner() {
                 .then(data => {
                     console.log("OK LE BACK A RENVOYER LA RÉPONSE: ", data)
                     if (!data.ok) {
-                        setErrorMessage(data.status)
+                        setPasswordMessage("failed");
+                    }
+                    else {
+                        setPasswordMessage("success");
                     }
                 })
                 .catch(error => {
                     console.log(error.message)
                 });
+            //console.log("fin du else");
+            //console.log(passwordMessage);
+            if (passwordMessage === "success") {
+                //console.log("in check success");
+                navigate("/pro");
+            }
         }
         else {
             fetch("http://localhost:8080/partner_signup", options)
                 .then(data => {
                     console.log("OK LE BACK A RENVOYER LA RÉPONSE: ", data)
                     if (!data.ok) {
-                        setErrorMessage(data.status)
+                        setPasswordMessage("failed");
+                    }
+                    else {
+                        setPasswordMessage("success");
                     }
                 })
                 .catch(error => {
                     console.log(error.message)
                 });
         }
+        //console.log("il passe la ?")
+        //console.log(passwordMessage);
         setIsSubmit(false)
     }
 
