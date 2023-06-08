@@ -10,6 +10,8 @@ import 'package:bis/screens/guest/socialnetworkspage.dart';
 import 'package:bis/screens/guest/parampage.dart';
 import 'package:bis/screens/guest/profil/utils/user_preferences.dart';
 import 'auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -457,4 +459,41 @@ class HomePageState extends State<HomePage> {
       ),
     );
   }
+}
+
+
+
+
+void main() {
+  testWidgets('Vérification du bon affichage du text des widgets',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(home: HomePage()));
+
+    expect(find.text('Catégories'), findsOneWidget);  // Vérifie si le texte 'Catégories' est présent à l'écran
+    expect(find.text('Tout voir'), findsOneWidget);  // Vérifie si le texte 'Tout voir' est présent à l'écran
+  });
+
+testWidgets('Vérification du bon affichage de la searchbar',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(home: HomePage()));
+
+    expect(find.text('Cherche ton produit'), findsOneWidget);  // Vérifie si le texte 'Cherche ton produit' est présent à l'écran
+    expect(find.byIcon(Icons.search), findsOneWidget);  // Vérifie si l'icône de recherche est présente à l'écran
+  });
+
+testWidgets('Vérification de la bonne disposition du texte dans la bannière',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(home: HomePage()));
+
+    expect(find.text('Jusqu\'à -50%'), findsOneWidget);  // Vérifie si le texte 'Jusqu'à -50%' est présent à l'écran
+    expect(find.text('Découvrez la nouvelle collection été !'), findsOneWidget);  // Vérifie si le texte 'Découvrez la nouvelle collection été !' est présent à l'écran
+    expect(find.text('Achetez'), findsOneWidget);  // Vérifie si le texte 'Achetez' est présent à l'écran
+  });
+
+testWidgets('Vérification des icons',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(home: HomePage()));
+
+    expect(find.byIcon(Icons.notifications_none), findsOneWidget);  // Vérifie si l'icône de notification est présente à l'écran
+  });
 }
