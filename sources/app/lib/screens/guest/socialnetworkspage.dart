@@ -3,7 +3,26 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'homepage.dart';
 import 'package:animate_do/animate_do.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
+
+Future<bool> getSocialNetwork(String socialNet) async {
+  String url = "http://127.0.0.1:8080/get_social_network";
+  final response = await http.post(
+    Uri.parse(url),
+    body: jsonEncode(<String, String>{"SocialNetwork" : socialNet}),
+  );
+  if (response.statusCode == 200) {
+    print("Bonne reception url");
+    return true;
+  } else {
+    if (response.statusCode == 400) {
+      print("Echec reception url");
+    }
+    return false;
+  }
+}
 
 launchURL(String url) async {
   final my_url = Uri.parse(url);

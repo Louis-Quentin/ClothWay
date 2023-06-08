@@ -13,7 +13,7 @@ class BottomButton extends StatelessWidget {
       width: double.infinity,
       height: 50.0,
       decoration: BoxDecoration(
-        color: Colors.blue,
+        color: Color.fromARGB(232, 30, 30, 30),
         borderRadius: BorderRadius.circular(30.0), // Ajoute le coin arrondi
       ),
       //Définition des actions du bouton

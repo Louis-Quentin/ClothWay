@@ -237,7 +237,7 @@ class HomePageState extends State<HomePage> {
 
   @override
   Widget buildHeader(BuildContext context) => Material(
-    color: Colors.black,
+    color: Color.fromARGB(220, 30, 30, 30),
     child: InkWell(
       onTap: (() async {
         await UserPreferences.init();
@@ -245,7 +245,7 @@ class HomePageState extends State<HomePage> {
         Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProfilePage()));
       }),
       child: Container(
-      color: Colors.black,
+      color: Color.fromARGB(30, 30, 30, 30),
 
       padding: EdgeInsets.only(
         top: 25 + MediaQuery.of(context).padding.top,
