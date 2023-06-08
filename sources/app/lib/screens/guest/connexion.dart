@@ -222,7 +222,7 @@ class _connexionPage extends State<connexionPage> {
                   ],
                 ),
                 child: const Text(
-                  "REGISTER",
+                  "CONNEXION",
                   style: TextStyle(
                     color: Colors.white,
                   ),

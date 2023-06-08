@@ -286,7 +286,7 @@ class _inscriptionPageState extends State<inscriptionPage> {
                   ],
                 ),
                 child: const Text(
-                  "REGISTER",
+                  "INSCRIPTION",
                   style: TextStyle(
                     color: Colors.white,
                   ),
